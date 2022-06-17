@@ -9,7 +9,11 @@ describe User, type: :model do
     end
 
     # it "returns true when name does not contains numbers" do
-    #   expect(User.new(name: "Andrew1").valid?).to be true
+    #   expect(User.new(name: "Andrew").valid?).to be true
     # end
+
+    it "returns false when name is empty" do
+      expect(User.new(surname: nil).valid?).to be false
+    end
   end
 end
