@@ -7,7 +7,8 @@ describe User, type: :model do
       email: "andrew@cw.com",
       phone_number: 123131313,
       nickname: "drewan",
-      age: 21
+      age: 21,
+      birthday: "2001-03-20"
     )}
 
     let(:rep_user) {
@@ -17,7 +18,8 @@ describe User, type: :model do
         email: "paco@cw.com",
         phone_number: 123123123,
         nickname: "paquito",
-        age: 100
+        age: 100,
+        birthday: "1922-02-14"
       }
     }
 
@@ -131,6 +133,13 @@ describe User, type: :model do
     it "returns true if age is in range" do
       new_user.age = 50
       expect(new_user.valid?).to be true
+    end
+
+    it "returns true if user is an adult" do
+      currentDate = Time.zone.now
+      bornDate = Date.parse(new_user.birthday).to_time
+      age = ((currentDate - bornDate) / 1.year.seconds).floor
+      expect(age).to be >= 18
     end
   end
 end

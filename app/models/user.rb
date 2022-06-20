@@ -5,4 +5,5 @@ class User < ApplicationRecord
   validates :phone_number, presence: true, numericality: { only_integer: true }, length: { minimum: 2, maximum: 20 }, uniqueness: true
   validates :nickname, presence: true, length: { minimum: 2,  maximum: 10 }, uniqueness: true
   validates :age, presence: true, :inclusion => 18..100
+  validates :birthday, presence: true
 end

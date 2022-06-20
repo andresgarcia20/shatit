@@ -18,6 +18,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_16_130439) do
     t.integer "phone_number"
     t.date "age"
     t.string "email"
+    t.string "birthday"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
