@@ -7,7 +7,7 @@ describe User, type: :model do
       email: "andrew@cw.com",
       phone_number: 123131313,
       nickname: "drewan",
-      birthday: "21"
+      age: 21
     )}
 
     it "returns false when name is empty" do
@@ -53,10 +53,14 @@ describe User, type: :model do
       expect(newUser.valid?).to be false
     end
 
-    # it "returns false if it's not digits" do
-    #   newUser.phone_number = "asd"
-    #   expect(newUser.valid?).to be false
-    # end # RegEx not working
+    it "returns false if it's not digits" do
+      newUser.phone_number = "asd"
+      expect(newUser.valid?).to be false
+    end
+
+    it "returns true if it's only digits" do
+      expect(newUser.valid?).to be true
+    end
 
     it "returns false if when nickname is empty" do
       newUser.nickname = nil
@@ -65,6 +69,21 @@ describe User, type: :model do
 
     it "returns true if nickname size is >= 2 and <= 10" do
       expect(newUser.valid?).to be true
+    end
+
+    it "returns false when age is empty" do
+      newUser.age = nil
+      expect(newUser.valid?).to be false
+    end
+
+    it "returns false if user is underage" do
+      newUser.age = 17
+      expect(newUser.valid?).to be false
+    end
+
+    it "returns false if user age is over 100" do
+      newUser.age = 101
+      expect(newUser.valid?).to be false
     end
   end
 end
