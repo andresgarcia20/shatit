@@ -45,6 +45,11 @@ describe User, type: :model do
       expect(newUser.valid?).to be true
     end
 
+    it "returns false when surname contains numbers" do
+      newUser.name = "Cheng20"
+      expect(newUser.valid?).to be false
+    end
+
     it "returns false when email is empty" do
       newUser.email = nil
       expect(newUser.valid?).to be false
