@@ -57,5 +57,14 @@ describe User, type: :model do
     #   newUser.phone_number = "asd"
     #   expect(newUser.valid?).to be false
     # end # RegEx not working
+
+    it "returns false if when nickname is empty" do
+      newUser.nickname = nil
+      expect(newUser.valid?).to be false
+    end
+
+    it "returns true if nickname size is >= 2 and <= 10" do
+      expect(newUser.valid?).to be true
+    end
   end
 end
