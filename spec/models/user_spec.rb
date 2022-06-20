@@ -5,7 +5,7 @@ describe User, type: :model do
       name: "Andrew",
       surname: "Cheng",
       email: "andrew@cw.com",
-      phoneNumber: 123131313,
+      phone_number: 123131313,
       nickname: "drewan",
       birthday: "21"
     )}
@@ -16,7 +16,7 @@ describe User, type: :model do
     end
 
     it "returns false when name has less than 3 chars" do
-      newUser.name = "And"
+      newUser.name = "An"
       expect(newUser.valid?).to be false
     end
 
@@ -47,5 +47,15 @@ describe User, type: :model do
       newUser.email = "andre s@cw.com"
       expect(newUser.valid?).to be false
     end
+
+    it "returns false when phone number is empty" do
+      newUser.phone_number = nil
+      expect(newUser.valid?).to be false
+    end
+
+    # it "returns false if it's not digits" do
+    #   newUser.phone_number = "asd"
+    #   expect(newUser.valid?).to be false
+    # end # RegEx not working
   end
 end
