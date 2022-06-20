@@ -19,9 +19,5 @@ describe User, type: :model do
     it "returns true when name and surname are not empty" do
       expect(User.new(name: "Andrew", surname: "La").valid?).to be true
     end
-
-    # xit "returns false when email is empty" do
-    #   expect(User.new(email: nil).valid?).to be false
-    # end
   end
 end
