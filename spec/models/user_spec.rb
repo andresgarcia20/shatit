@@ -9,7 +9,6 @@ describe User, type: :model do
       email: "andrew@cw.com",
       phone_number: 123131313,
       nickname: "drewan",
-      age: 21,
       birthday: "2001-03-20"
     )}
 
@@ -20,7 +19,6 @@ describe User, type: :model do
         email: "paco@cw.com",
         phone_number: 123123123,
         nickname: "paquito",
-        age: 100,
         birthday: "1922-02-14"
       }
     }
@@ -117,39 +115,22 @@ describe User, type: :model do
       it { expect(new_user).to be_invalid }
     end
 
-    it "returns false when age is empty" do
-      new_user.age = nil
-      expect(new_user.valid?).to be false
-    end
+    context "verifying if user is adult" do
+      before do
+        travel_to Time.zone.local(2022, 06, 21)
+        new_user.birthday = Time.zone.parse(born_date).to_date
+      end
 
-    it "returns false if user is underage" do
-      new_user.age = 17
-      expect(new_user.valid?).to be false
-    end
+      context "when the user is born 17 years ago" do
+        let(:born_date) {'2004-06-30'}
+        it { expect(new_user.adult?).to be false }
+      end
 
-    it "returns false if user age is over 100" do
-      new_user.age = 101
-      expect(new_user.valid?).to be false
-    end
-
-    it "returns true if age is in range" do
-      new_user.age = 50
-      expect(new_user.valid?).to be true
-    end
-
-    it "returns true if user is an adult" do
-      currentDate = Time.zone.now
-      bornDate = Time.zone.parse(new_user.birthday)
-      calc = ((currentDate - bornDate) / 1.year.seconds).floor
-      expect(calc).to be >= 18
-    end
-
-    it "returns true if user is not yet an adult" do
-      travel_to Time.zone.local(2022, 06, 21) do
-        currentDate = Time.zone.now
-        bornDate = Time.zone.local(2004, 06, 20)
-        calc = ((bornDate.to_date...currentDate.to_date).count - 1) / 365.0
-        expect(calc).to be < 18
+      context "when the user is born 18 years ago" do
+        let(:born_date) {'2004-06-21'}
+        it "returns true" do
+          expect(new_user.adult?).to be true
+        end
       end
     end
   end

@@ -4,6 +4,17 @@ class User < ApplicationRecord
   validates :email, presence: true, format: { with: /\A\S+@\S+\.\S+\z/ }, uniqueness: true
   validates :phone_number, presence: true, numericality: { only_integer: true }, length: { minimum: 2, maximum: 20 }, uniqueness: true
   validates :nickname, presence: true, length: { minimum: 2,  maximum: 10 }, uniqueness: true
-  validates :age, presence: true, :inclusion => 18..100
   validates :birthday, presence: true
+
+  def adult?
+    age >= 18
+  end
+
+  private
+  def age
+    currentDate = Time.zone.now
+    bornDate = Time.zone.parse(birthday).to_date
+    ((bornDate.to_date...currentDate.to_date).count - 1) / 365.0
+  end
+
 end
