@@ -117,26 +117,6 @@ describe User, type: :model do
       it { expect(new_user).to be_invalid }
     end
 
-    it "returns false when age is empty" do
-      new_user.age = nil
-      expect(new_user.valid?).to be false
-    end
-
-    it "returns false if user is underage" do
-      new_user.age = 17
-      expect(new_user.valid?).to be false
-    end
-
-    it "returns false if user age is over 100" do
-      new_user.age = 101
-      expect(new_user.valid?).to be false
-    end
-
-    it "returns true if age is in range" do
-      new_user.age = 50
-      expect(new_user.valid?).to be true
-    end
-
     context "verifying if user is adult" do
       before do
         travel_to Time.zone.local(2022, 06, 21)
