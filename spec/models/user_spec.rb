@@ -1,5 +1,7 @@
 describe User, type: :model do
   describe "validation" do
+    include ActiveSupport::Testing::TimeHelpers
+
     let(:new_user) {
       User.new(
       name: "Andrew",
@@ -138,16 +140,17 @@ describe User, type: :model do
     it "returns true if user is an adult" do
       currentDate = Time.zone.now
       bornDate = Time.zone.parse(new_user.birthday)
-      age = ((currentDate - bornDate) / 1.year.seconds).floor
-      expect(age).to be >= 18
+      calc = ((currentDate - bornDate) / 1.year.seconds).floor
+      expect(calc).to be >= 18
     end
 
-    it "returns true if user is an adult with new date" do
-      new_user.birthday = "2004-06-21"
-      currentDate = Time.zone.now
-      bornDate = Time.zone.parse(new_user.birthday)
-      age = ((currentDate - bornDate) / 1.year.seconds).floor
-      expect(age).to be >= 18
+    it "returns true if user is not yet an adult" do
+      travel_to Time.zone.local(2022, 06, 21) do
+        currentDate = Time.zone.now
+        bornDate = Time.zone.local(2004, 06, 20)
+        calc = ((bornDate.to_date...currentDate.to_date).count - 1) / 365.0
+        expect(calc).to be < 18
+      end
     end
   end
 end
