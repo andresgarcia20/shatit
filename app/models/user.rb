@@ -5,6 +5,7 @@ class User < ApplicationRecord
   validates :phone_number, presence: true, numericality: { only_integer: true }, length: { minimum: 2, maximum: 20 }, uniqueness: true
   validates :nickname, presence: true, length: { minimum: 2,  maximum: 10 }, uniqueness: true
   validates :birthday, presence: true
+  enum role: [:admin, :driver, :passenger, :banned], default: :passenger
 
   def adult?
     age >= 18
