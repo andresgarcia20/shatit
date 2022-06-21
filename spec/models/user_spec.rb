@@ -137,19 +137,22 @@ describe User, type: :model do
       expect(new_user.valid?).to be true
     end
 
-    it "returns true if user is an adult" do
-      currentDate = Time.zone.now
-      bornDate = Time.zone.parse(new_user.birthday)
-      calc = ((currentDate - bornDate) / 1.year.seconds).floor
-      expect(calc).to be >= 18
-    end
+    context "verifying if user is adult" do
+      before do
+        travel_to Time.zone.local(2022, 06, 21)
+        new_user.birthday = Time.zone.parse(born_date).to_date
+      end
 
-    it "returns true if user is not yet an adult" do
-      travel_to Time.zone.local(2022, 06, 21) do
-        currentDate = Time.zone.now
-        bornDate = Time.zone.local(2004, 06, 20)
-        calc = ((bornDate.to_date...currentDate.to_date).count - 1) / 365.0
-        expect(calc).to be < 18
+      context "when the user is born 17 years ago" do
+        let(:born_date) {'2004-06-30'}
+        it { expect(new_user.adult?).to be false }
+      end
+
+      context "when the user is born 18 years ago" do
+        let(:born_date) {'2004-06-21'}
+        it "returns true" do
+          expect(new_user.adult?).to be true
+        end
       end
     end
   end
