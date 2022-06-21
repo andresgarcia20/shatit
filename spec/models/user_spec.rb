@@ -9,7 +9,6 @@ describe User, type: :model do
       email: "andrew@cw.com",
       phone_number: 123131313,
       nickname: "drewan",
-      age: 21,
       birthday: "2001-03-20"
     )}
 
@@ -20,7 +19,6 @@ describe User, type: :model do
         email: "paco@cw.com",
         phone_number: 123123123,
         nickname: "paquito",
-        age: 100,
         birthday: "1922-02-14"
       }
     }
