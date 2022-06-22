@@ -19,5 +19,15 @@ describe Vehicle, type: :model do
       @new_vehicle.model = "BM"
       expect(@new_vehicle).to be_invalid
     end
+
+    it "returns false if air_conditioning is empty" do
+      @new_vehicle.air_conditioning = nil
+      expect(@new_vehicle).to be_invalid
+    end
+
+    # it "returns true if air_conditioning receives a boolean" do
+    #   @new_vehicle.air_conditioning = "hola"
+    #   expect(@new_vehicle).to be_invalid
+    # end # Fix: check if value receive is boolean, not truthy of falsy
   end
 end
