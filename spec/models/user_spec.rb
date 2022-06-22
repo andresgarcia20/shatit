@@ -4,17 +4,6 @@ describe User, type: :model do
 
     before { @new_user = create(:user) }
 
-    let(:rep_user) {
-      {
-        name: "Paco",
-        surname: "Li",
-        email: "paco@cw.com",
-        phone_number: 123123123,
-        nickname: "paquito",
-        birthday: "1922-02-14"
-      }
-    }
-
     it "returns false when name is empty" do
       @new_user.name = nil
       expect(@new_user.valid?).to be false
