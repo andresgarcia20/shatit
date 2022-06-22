@@ -29,5 +29,20 @@ describe Vehicle, type: :model do
     #   @new_vehicle.air_conditioning = "hola"
     #   expect(@new_vehicle).to be_invalid
     # end # Fix: check if value receive is boolean, not truthy of falsy
+
+    it "returns false if consumption is empty" do
+      @new_vehicle.consumption = nil
+      expect(@new_vehicle).to be_invalid
+    end
+
+    it "returns false if consumption does not receive a float" do
+      @new_vehicle.consumption = "1a"
+      expect(@new_vehicle).to be_invalid
+    end
+
+    it "returns false if consumption is not greater than 0" do
+      @new_vehicle.consumption = -5.2
+      expect(@new_vehicle).to be_invalid
+    end
   end
 end
