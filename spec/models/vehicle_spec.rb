@@ -44,5 +44,20 @@ describe Vehicle, type: :model do
       @new_vehicle.consumption = -5.2
       expect(@new_vehicle).to be_invalid
     end
+
+    it "returns false when nickname is empty" do
+      @new_vehicle.nickname = nil
+      expect(@new_vehicle).to be_invalid
+    end
+
+    it "returns false if nickname length is < 2" do
+      @new_vehicle.nickname = "a"
+      expect(@new_vehicle).to be_invalid
+    end
+
+    it "returns false if nickname length is > 10" do
+      @new_vehicle.nickname = "asdasdasd22"
+      expect(@new_vehicle).to be_invalid
+    end
   end
 end
