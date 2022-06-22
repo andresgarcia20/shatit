@@ -53,8 +53,6 @@ group :development, :test do
   gem "rspec-rails", "~> 5.1"
   gem 'pry-rails'
   gem 'pry-byebug'
-  gem 'factory_bot'
-  gem 'factory_bot_rails'
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
 end
 
