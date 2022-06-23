@@ -2,9 +2,12 @@ require 'rails_helper'
 
 describe Vehicle, type: :model do
   describe "validation" do
-    before {
-      @new_vehicle = create(:vehicle)
-    }
+    before { @new_vehicle = create(:vehicle) }
+
+    it "returns true if Vehicle belongs to User" do
+      t = Vehicle.reflect_on_association(:user)
+      expect(t.macro).to eq(:belongs_to)
+    end
 
     it "returns true when vehicle is valid" do
       expect(@new_vehicle).to be_valid
