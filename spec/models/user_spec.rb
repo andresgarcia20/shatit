@@ -4,6 +4,11 @@ describe User, type: :model do
 
     before { @new_user = create(:user) }
 
+    it "returns true if user has many vehicles" do
+      t = User.reflect_on_association(:vehicles)
+      expect(t.macro).to eq(:has_many)
+    end
+
     it "returns false when name is empty" do
       @new_user.name = nil
       expect(@new_user.valid?).to be false
