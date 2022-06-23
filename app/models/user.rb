@@ -16,7 +16,7 @@ class User < ApplicationRecord
   private
   def age
     currentDate = Time.zone.now
-    bornDate = Time.zone.parse(birthday).to_date
+    bornDate = Time.zone.parse(birthday.to_s)
     ((bornDate.to_date...currentDate.to_date).count - 1) / 365.0
   end
 
