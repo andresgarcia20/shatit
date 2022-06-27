@@ -13,11 +13,6 @@ describe Vehicle, type: :model do
       expect(@new_vehicle).to be_valid
     end
 
-    it "returns false if model is empty" do
-      @new_vehicle.model = nil
-      expect(@new_vehicle).to be_invalid
-    end
-
     it "returns false if model length is < 3" do
       @new_vehicle.model = "BM"
       expect(@new_vehicle).to be_invalid
