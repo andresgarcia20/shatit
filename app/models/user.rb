@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_many :vehicles
+  has_many :trips
 
   validates :name, presence: true, length: { minimum: 3, too_short: "%{count} characters minimum" }, format: { with: /\A[^0-9]+\z/ }
   validates :surname, presence: true, format: { with: /\A[^0-9]+\z/ }
