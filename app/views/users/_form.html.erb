@@ -37,6 +37,11 @@
   </div>
 
   <div>
+    <%= form.label :birthday, style: "display: block" %>
+    <%= form.date_field :birthday %>
+  </div>
+
+  <div>
     <%= form.submit %>
   </div>
 <% end %>
