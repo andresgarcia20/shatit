@@ -8,6 +8,7 @@ class VehiclesController < ApplicationController
 
   # GET /vehicles/1 or /vehicles/1.json
   def show
+    @vehicle = Vehicle.find(params[:id])
   end
 
   # GET /vehicles/new
@@ -17,15 +18,17 @@ class VehiclesController < ApplicationController
 
   # GET /vehicles/1/edit
   def edit
+    @vehicle = Vehicle.find(params[:id])
   end
 
   # POST /vehicles or /vehicles.json
   def create
-    @vehicle = Vehicle.new(vehicle_params)
-
+    @user = User.find(params[:user_id])
+    @vehicle = @user.vehicles.create(vehicle_params)
+    
     respond_to do |format|
       if @vehicle.save
-        format.html { redirect_to vehicle_url(@vehicle), notice: "Vehicle was successfully created." }
+        format.html { redirect_to user_vehicle_url(id: @vehicle.id), notice: "Vehicle was successfully created." }
         format.json { render :show, status: :created, location: @vehicle }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +41,7 @@ class VehiclesController < ApplicationController
   def update
     respond_to do |format|
       if @vehicle.update(vehicle_params)
-        format.html { redirect_to vehicle_url(@vehicle), notice: "Vehicle was successfully updated." }
+        format.html { redirect_to user_vehicle_url(@vehicle.user, @vehicle), notice: "Vehicle was successfully updated." }
         format.json { render :show, status: :ok, location: @vehicle }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -49,10 +52,12 @@ class VehiclesController < ApplicationController
 
   # DELETE /vehicles/1 or /vehicles/1.json
   def destroy
+    @user = User.find(params[:user_id])
+    # binding.pry
     @vehicle.destroy
 
     respond_to do |format|
-      format.html { redirect_to vehicles_url, notice: "Vehicle was successfully destroyed." }
+      format.html { redirect_to user_vehicles_url(@user), notice: "Vehicle was successfully destroyed." }
       format.json { head :no_content }
     end
   end

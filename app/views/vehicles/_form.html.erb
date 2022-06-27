@@ -1,4 +1,4 @@
-<%= form_with(model: vehicle) do |form| %>
+<%= form_with(model: [:user, vehicle]) do |form| %>
   <% if vehicle.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(vehicle.errors.count, "error") %> prohibited this vehicle from being saved:</h2>
@@ -12,11 +12,6 @@
   <% end %>
 
   <div>
-    <%= form.label :user_id, style: "display: block" %>
-    <%= form.text_field :user_id %>
-  </div>
-
-  <div>
     <%= form.label :model, style: "display: block" %>
     <%= form.text_field :model %>
   </div>
@@ -28,7 +23,7 @@
 
   <div>
     <%= form.label :vehicle_type, style: "display: block" %>
-    <%= form.number_field :vehicle_type %>
+    <%= form.select(:vehicle_type, options_for_select(Vehicle.vehicle_types.map {|k, v| [k.titleize, Vehicle.vehicle_types.key(v)]}, @vehicle.vehicle_type)) %>
   </div>
 
   <div>

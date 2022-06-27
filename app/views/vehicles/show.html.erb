@@ -3,8 +3,8 @@
 <%= render @vehicle %>
 
 <div>
-  <%= link_to "Edit this vehicle", edit_vehicle_path(@vehicle) %> |
-  <%= link_to "Back to vehicles", vehicles_path %>
+  <%= link_to "Edit this vehicle", edit_user_vehicle_path(@vehicle) %> |
+  <%= link_to "Back to vehicles", user_vehicles_path %>
 
-  <%= button_to "Destroy this vehicle", @vehicle, method: :delete %>
+  <%= button_to "Destroy this vehicle", user_vehicle_path(@vehicle.id, @vehicle.user.id), method: :delete %>
 </div>
