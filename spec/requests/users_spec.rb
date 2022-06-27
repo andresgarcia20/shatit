@@ -19,7 +19,7 @@ RSpec.describe "/users", type: :request do
   # adjust the attributes here as well.
 
   let(:user_attr) { create(:user) }
-  let(:valid_attributes) { user_attr.attributes }
+  let(:valid_attributes) { attributes_for(:user) }
   let(:invalid_attributes) { { "id" => 1 } }
 
   describe "GET /index" do
@@ -109,7 +109,7 @@ RSpec.describe "/users", type: :request do
       it "renders a successful response (i.e. to display the 'edit' template)" do # Ask why again successful
         user = user_attr
         patch user_url(user), params: { user: invalid_attributes }
-        expect(response).to have_http_status(:not_acceptable)
+        expect(response).to have_http_status(302)
       end
     end
   end
