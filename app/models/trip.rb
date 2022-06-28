@@ -8,15 +8,14 @@ class Trip < ApplicationRecord
   validates :available_seats, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :departure_date, presence: true
 
-  def correct_date?
-    checkDaysAlreadyPast == true
+  def expired?
+    check_if_date_valid == true
   end
 
   private
 
-  def checkDaysAlreadyPast
-    currentDate = Time.zone.now.to_date
-    departureDate = Time.zone.parse(departure_date.to_s).to_date
-    currentDate < departureDate
+  def check_if_date_valid
+    current_date = Time.zone.now
+    current_date > departure_date
   end
 end

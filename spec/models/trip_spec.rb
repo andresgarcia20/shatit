@@ -61,12 +61,12 @@ describe User, type: :model do
 
       context "when date has already past" do
         let(:dep_date) { "2022-06-27" }
-        it { expect(@new_trip.correct_date?).to be false }
+        it { expect(@new_trip.expired?).to be true }
       end
 
       context "when date is correct" do
         let(:dep_date) { "2022-06-30" }
-        it { expect(@new_trip.correct_date?).to be true }
+        it { expect(@new_trip.expired?).to be false }
       end
     end
   end
