@@ -20,6 +20,6 @@ class Trip < ApplicationRecord
 
   def number_of_stops
     # Number of stops without counting the final destination
-    destination.size - 1
+    destinations.size - 1
   end
 end
