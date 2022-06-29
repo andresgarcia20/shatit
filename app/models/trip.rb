@@ -22,4 +22,12 @@ class Trip < ApplicationRecord
     # Number of stops without counting the final destination
     destinations.size - 1
   end
+
+  def all_destinations
+    destinations
+  end
+
+  scope :by_origin, ->(origin) { where("origin: ?", origin) }
+  # scope :trips_by_destination, ->(destination) { where("destinations: [?]", destination) }
+  # scope :by_number_of_stops, ->(num) { where() }
 end
