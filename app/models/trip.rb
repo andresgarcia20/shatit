@@ -23,6 +23,9 @@ class Trip < ApplicationRecord
   end
 
   scope :by_origin, ->(origin) { where("origin: ?", origin) }
-  scope :trips_by_destination, ->(destination) { where("? = ANY (destinations)", destination) }
+  scope :by_destination, ->(destination) { where("? = ANY (destinations)", destination) }
   scope :by_number_of_stops, ->(num) { where("ARRAY_LENGTH(destinations, 1) = ?", (num + 1)) }
+  # scope :filter_by_vehicle, ->(type) { joins(:vehicle).where(vehicle: { vehicle_type: type }) }
+  scope :filter_by_free_seats, ->(num) { where(available_seats: num) }
+  scope :filter_by_user, ->(user_id) { where(user_id: user_id) }
 end
