@@ -24,5 +24,5 @@ class Trip < ApplicationRecord
 
   scope :by_origin, ->(origin) { where("origin: ?", origin) }
   scope :trips_by_destination, ->(destination) { where("? = ANY (destinations)", destination) }
-  scope :by_number_of_stops, ->(num) { where() }
+  scope :by_number_of_stops, ->(num) { where("ARRAY_LENGTH(destinations, 1) = ?", num) }
 end
