@@ -1,7 +1,6 @@
 class Trip < ApplicationRecord
   belongs_to :user
   has_one :vehicle
-  serialize :destinations, Array
 
   validates :origin, presence: true
   validates :destinations, presence: true, length: { minimum: 1, maximum: 9 }
@@ -28,6 +27,6 @@ class Trip < ApplicationRecord
   end
 
   scope :by_origin, ->(origin) { where("origin: ?", origin) }
-  # scope :trips_by_destination, ->(destination) { where("destinations: [?]", destination) }
+  scope :trips_by_destination, ->(destination) { where("? = ANY (destinations)", destination) }
   # scope :by_number_of_stops, ->(num) { where() }
 end
