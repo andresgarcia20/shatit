@@ -25,7 +25,7 @@ class VehiclesController < ApplicationController
   def create
     @user = User.find(params[:user_id])
     @vehicle = @user.vehicles.create(vehicle_params)
-    
+
     respond_to do |format|
       if @vehicle.save
         format.html { redirect_to user_vehicle_url(id: @vehicle.id), notice: "Vehicle was successfully created." }
@@ -63,13 +63,14 @@ class VehiclesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_vehicle
-      @vehicle = Vehicle.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def vehicle_params
-      params.require(:vehicle).permit(:user_id, :model, :air_conditioning, :vehicle_type, :consumption, :nickname)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_vehicle
+    @vehicle = Vehicle.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def vehicle_params
+    params.require(:vehicle).permit(:user_id, :model, :air_conditioning, :vehicle_type, :consumption, :nickname)
+  end
 end
