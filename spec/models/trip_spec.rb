@@ -2,7 +2,10 @@ describe User, type: :model do
   describe "validation" do
     include ActiveSupport::Testing::TimeHelpers
 
-    before { @new_trip = create(:trip) }
+    before do
+      travel_to Time.zone.local(2022, 06, 28)
+      @new_trip = create(:trip)
+    end
 
     it "returns true when trip is valid" do
       expect(@new_trip.valid?).to be true
@@ -54,10 +57,7 @@ describe User, type: :model do
     end
 
     context "verifying correct departure date" do
-      before do
-        travel_to Time.zone.local(2022, 06, 28)
-        @new_trip.departure_date = Time.zone.parse(dep_date).to_date
-      end
+      before { @new_trip.departure_date = Time.zone.parse(dep_date).to_date }
 
       context "when date has already past" do
         let(:dep_date) { "2022-06-27" }
