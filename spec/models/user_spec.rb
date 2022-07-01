@@ -108,12 +108,12 @@ describe User, type: :model do
       end
 
       context "when the user is born 17 years ago" do
-        let(:born_date) {'2004-06-30'}
+        let(:born_date) { "2004-06-30" }
         it { expect(@new_user.adult?).to be false }
       end
 
       context "when the user is born 18 years ago" do
-        let(:born_date) {'2004-06-21'}
+        let(:born_date) { "2004-06-21" }
         it "returns true" do
           expect(@new_user.adult?).to be true
         end

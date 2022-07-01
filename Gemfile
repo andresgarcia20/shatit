@@ -12,6 +12,8 @@ gem "sprockets-rails"
 # Use sqlite3 as the database for Active Record
 gem "sqlite3", "~> 1.4"
 
+gem "pg"
+
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"
 
@@ -51,10 +53,10 @@ gem "bootsnap", require: false
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "rspec-rails", "~> 5.1"
-  gem 'pry-rails'
-  gem 'pry-byebug'
-  gem 'factory_bot'
-  gem 'factory_bot_rails'
+  gem "pry-rails"
+  gem "pry-byebug"
+  gem "factory_bot"
+  gem "factory_bot_rails"
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
 end
 
@@ -75,4 +77,3 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
-
