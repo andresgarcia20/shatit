@@ -8,6 +8,7 @@ class TripsController < ApplicationController
 
   # GET /trips/1 or /trips/1.json
   def show
+    @trip = Trip.find(params[:id])
   end
 
   # GET /trips/new
@@ -17,6 +18,7 @@ class TripsController < ApplicationController
 
   # GET /trips/1/edit
   def edit
+    @trip = Trip.find(params[:id])
   end
 
   # POST /trips or /trips.json
@@ -58,13 +60,14 @@ class TripsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_trip
-      @trip = Trip.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def trip_params
-      params.require(:trip).permit(:user_id, :origin, :destinations, :available_seats, :departure_date)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_trip
+    @trip = Trip.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def trip_params
+    params.require(:trip).permit(:user_id, :vehicle_id, :origin, :available_seats, :departure_date, destinations: [])
+  end
 end
