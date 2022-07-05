@@ -21,11 +21,66 @@
 
 # ------------- Vehicles ---------------
 
-# # Vehicle for user_id = 1
 # Vehicle.create(user_id: 1, model: "Yamaha R6", air_conditioning: false, vehicle_type: "motorbike", consumption: 4.0, nickname: "running")
 
-# # Vehicle for user_id = 2
 # Vehicle.create(user_id: 2, model: "Ford Fiesta", air_conditioning: true, vehicle_type: "car", consumption: 4.0, nickname: "partyy")
 
-# # Vehicle for user_id = 4
-# Vehicle.create(user_id: 4, model: "Volkswagen Polo", air_conditioning: true, vehicle_type: "car", consumption: 6.4, nickname: "polito")
+# Vehicle.create(user_id: 3, model: "Volkswagen Polo", air_conditioning: true, vehicle_type: "car", consumption: 6.4, nickname: "polito")
+
+# Vehicle.create(user_id: 5, model: "Volkswagen Bus", air_conditioning: false, vehicle_type: "car", consumption: 8, nickname: "hippie")
+
+#--------------- Trips ------------------
+
+# Trip.create(
+#   user_id: 1,
+#   origin: "MADRID",
+#   destinations: ["BARCELONA", "CORDOBA"],
+#   available_seats: 1,
+#   departure_date: "2022-07-20 12:00:00",
+#   vehicle_id: 1,
+# )
+
+# Trip.create(
+#   user_id: 1,
+#   origin: "VALENCIA",
+#   destinations: ["GRANADA", "SEVILLA"],
+#   available_seats: 1,
+#   departure_date: "2022-07-20 12:00:00",
+#   vehicle_id: 1,
+# )
+
+# Trip.create(
+#   user_id: 2,
+#   origin: "MALAGA",
+#   destinations: ["CADIZ", "BILBAO"],
+#   available_seats: 3,
+#   departure_date: "2022-07-20 12:00:00",
+#   vehicle_id: 2,
+# )
+
+# Trip.create(
+#   user_id: 2,
+#   origin: "MADRID",
+#   destinations: ["SALAMANCA", "BILBAO", "BARCELONA"],
+#   available_seats: 2,
+#   departure_date: "2022-07-20 12:00:00",
+#   vehicle_id: 3,
+# )
+
+# Trip.create(
+#   user_id: 5,
+#   origin: "CORDOBA",
+#   destinations: ["VALENCIA", "GRANADA"],
+#   available_seats: 6,
+#   departure_date: "2022-07-20 12:00:00",
+#   vehicle_id: 4,
+# )
+
+# Trip.create(
+#   user_id: 5,
+#   origin: "SEVILLE",
+#   destinations: ["MALAGA", "CADIZ", "MADRID", "SALAMANCA"],
+#   available_seats: 4,
+#   departure_date: "2022-07-20 12:00:00",
+#   vehicle_id: 4,
+# )
