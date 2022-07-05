@@ -1,5 +1,6 @@
 <% if user_signed_in? %>
- <h2>Welcome! <%=  %></h2>
+ <h2>Welcome! <%= current_user.name %></h2>
+ <p>Your role is <span style="text-transform: uppercase;"><%= current_user.role %></span></p>
 <% else %>
 <h3>New user?</h3>
 <%= link_to "Sign up", new_user_registration_path %>
@@ -7,3 +8,5 @@
 <h3>Already registered?</h3>
 <%= link_to "Sign in", new_user_session_path %>
 <% end %>
+
+
