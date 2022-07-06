@@ -6,6 +6,10 @@ class Trip < ApplicationRecord
   validates :destinations, presence: true, length: { minimum: 1, maximum: 9 }
   validates :available_seats, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :departure_date, presence: true
+  validates :pets, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+  enum kids: { no: 0, indiferent: 1, "0 to 4": 2, "5 to 12": 3, "13 to 16": 4 }, _default: 0
+  validates :luggage, presence: true, numericality: { only_integer: true, greater_than: 0 }
+  validates :gasoline_comission, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validate :date_valid?
   before_save :downcase_fields
 
