@@ -1,5 +1,27 @@
 <p style="color: green"><%= notice %></p>
 
+<%= form_with url: "/trips", method: :get do |f| %>
+  <%= f.label :origin, "Origin:", style: "display: block" %>
+  <%= f.text_field :origin %>
+
+  <%= f.label :destination, "Destination:", style: "display: block" %>
+  <%= f.text_field :destination %>
+
+  <%= f.label :stops, "Stops:", style: "display: block" %>
+  <%= f.number_field :stops %>
+
+  <%= f.label :type, "Type", style: "display: block" %>
+  <%= f.select(:type, options_for_select(Vehicle.vehicle_types.map { |k, v| [k.titleize, v] })) %>
+
+  <%= f.label :seats, "Seats:", style: "display: block" %>
+  <%= f.number_field :seats %>
+
+  <%= f.label :user_id, "User:", style: "display: block" %>
+  <%= f.number_field :user_id %>
+
+  <%= f.submit %>
+<% end %>
+
 <h1>Trips</h1>
 
 <div id="trips">

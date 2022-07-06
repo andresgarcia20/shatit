@@ -11,6 +11,9 @@
   </head>
 
   <body>
+    <% if controller_name != "home" %>
+    <%= link_to "Home", root_path %><br />
+    <% end %>
     <% if notice %>
       <p class="alert alert-success"><%= notice %></p>
     <% end %>
