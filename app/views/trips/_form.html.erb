@@ -37,6 +37,26 @@
   </div>
 
   <div>
+    <%= form.label :pets, style: "display: block" %>
+    <%= form.number_field :pets %>
+  </div>
+
+  <div>
+    <%= form.label :kids, style: "display: block" %>
+    <%= form.select(:kids, options_for_select(Trip.kids.map { |k, v| [k] })) %>
+  </div>
+
+  <div>
+    <%= form.label :luggage, style: "display: block" %>
+    <%= form.number_field :luggage %>
+  </div>
+
+  <div>
+    <%= form.label :gasoline_comission, style: "display: block" %>
+    <%= form.number_field :gasoline_comission %>
+  </div>
+
+  <div>
     <%= form.submit %>
   </div>
 <% end %>
