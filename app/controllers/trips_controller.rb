@@ -7,12 +7,12 @@ class TripsController < ApplicationController
   # GET /trips or /trips.json
   def index
     query = Trip
-    query = query.by_origin(params[:origin]) if params[:origin].present? && !params[:origin].nil?
-    query = query.by_destination(params[:destination]) if params[:destination].present? && !params[:destination].nil?
-    query = query.by_number_of_stops(params[:stops]) if params[:stops].present? && !params[:stops].nil?
-    query = query.by_vehicle(params[:type]) if params[:type].present? && !params[:type].nil?
-    query = query.by_free_seats(params[:seats]) if params[:seats].present? && !params[:seats].nil?
-    query = query.by_user(params[:user_id]) if params[:user_id].present? && !params[:user_id].nil?
+    query = query.by_origin(params[:origin]) if params[:origin].present?
+    query = query.by_destination(params[:destination]) if params[:destination].present?
+    query = query.by_number_of_stops(params[:stops]) if params[:stops].present?
+    query = query.by_vehicle(params[:type]) if params[:type].present?
+    query = query.by_free_seats(params[:seats]) if params[:seats].present?
+    query = query.by_user(params[:user_id]) if params[:user_id].present?
     @trips = query.all
   end
 
