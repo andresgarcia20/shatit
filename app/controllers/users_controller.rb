@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[ show edit update destroy ]
   before_action :only => [:index] do
-    redirect_to new_user_session_path unless current_user && current_user.role == "admin"
+    redirect_to new_user_session_path unless current_user && current_user.admin?
   end
 
   def index
@@ -62,6 +62,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :surname, :nickname, :phone_number, :email, :birthday, :role)
+    params.require(:user).permit(:name, :surname, :nickname, :phone_number, :email, :birthday)
   end
 end
