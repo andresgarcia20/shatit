@@ -7,8 +7,11 @@ FactoryBot.define do
     name { "Andrew" }
     surname { "Cheng" }
     email
+    password { 123456 }
     phone_number
     nickname
     birthday { "2001-03-20" }
+    confirmed_at { Time.now }
+    role { "admin" }
   end
 end
