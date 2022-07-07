@@ -4,7 +4,7 @@
  <p>Your role is <span style="text-transform: uppercase;"><%= current_user.role %></span></p>
 
  <%= link_to "List of trips", trips_path %>
- <% if current_user.role == "admin" %>
+ <% if current_user.admin? %>
  <%= link_to "List of users", users_path %>
  <% end %>
 <% else %>
