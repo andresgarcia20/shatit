@@ -43,7 +43,7 @@
 
   <div>
     <%= form.label :kids_age_range, style: "display: block" %>
-    <%= form.select(:kids_age_range, options_for_select(Trip.kids_age_range.map { |k, v| [k] })) %>
+    <%= form.select(:kids_age_range, options_for_select(Trip.kids_age_ranges.map { |k, v| k })) %>
   </div>
 
   <div>
