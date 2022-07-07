@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_06_141333) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_07_100847) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -25,7 +25,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_06_141333) do
     t.bigint "vehicle_id", null: false
     t.integer "pets"
     t.integer "luggage"
-    t.integer "kids"
+    t.integer "kids_age_range"
     t.integer "gasoline_comission"
     t.index ["user_id"], name: "index_trips_on_user_id"
     t.index ["vehicle_id"], name: "index_trips_on_vehicle_id"
