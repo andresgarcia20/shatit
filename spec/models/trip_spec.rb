@@ -77,27 +77,27 @@ describe User, type: :model do
     end
 
     it "by_origin returns info by given origin" do
-      expect(Trip.by_origin("Madrid")).to eq([@trip])
+      expect(Trip.by_origin("madrid")).to eq([@trip])
     end
 
     it "by_destination returns info by given destination" do
-      expect(Trip.by_destination("Valencia")).to eq([@trip])
+      expect(Trip.by_destination("valencia")).to eq([@trip])
     end
 
     it "by_number_of_stops returns info by given stops" do
       expect(Trip.by_number_of_stops(1).count).to eq(@trip.number_of_stops)
     end
 
-    # it "by_vehicle returns info by given type of vehicle" do
-    #   expect(Trip.by_vehicle(4)).to include(@trip.vehicle)
-    # end
+    xit "by_vehicle returns info by given type of vehicle" do
+      expect(Trip.by_vehicle(4)).to include(@trip.vehicle)
+    end
 
     it "by_free_seats returns info by given number of free seats" do
       expect(Trip.by_free_seats(1)).to eq([@trip])
     end
 
-    # it "by_user returns info by given user" do
-    #   expect(Trip.by_user()).to eq([@trip])
-    # end
+    xit "by_user returns info by given user" do
+      expect(Trip.by_user()).to eq([@trip])
+    end
   end
 end
