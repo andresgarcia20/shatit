@@ -59,6 +59,7 @@ group :development, :test do
   gem "pry-byebug"
   gem "factory_bot"
   gem "factory_bot_rails"
+  gem "simplecov"
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
 end
 
