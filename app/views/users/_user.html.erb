@@ -29,7 +29,7 @@
     <%= user.birthday %>
   </p>
 
-  <% if current_user.role == "admin" %>
+  <% if current_user.admin? %>
     <p>
       <strong>Role:</strong>
       <%= user.role %>

@@ -1,7 +1,7 @@
 class TripsController < ApplicationController
   before_action :set_trip, only: %i[ show edit update destroy ]
   before_action :only => [:edit] do
-    redirect_to new_user_session_path unless current_user && current_user.role == "admin"
+    redirect_to new_user_session_path unless current_user && current_user.admin?
   end
 
   # GET /trips or /trips.json
@@ -78,6 +78,6 @@ class TripsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def trip_params
-    params.require(:trip).permit(:user_id, :vehicle_id, :origin, :available_seats, :departure_date, destinations: [])
+    params.require(:trip).permit(:user_id, :vehicle_id, :origin, :available_seats, :departure_date, :kids_age_range, :pets, :luggage, :gasoline_comission, destinations: [])
   end
 end

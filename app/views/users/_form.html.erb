@@ -41,7 +41,7 @@
     <%= form.date_field :birthday %>
   </div>
 
-  <% if current_user.role == "admin" %>
+  <% if current_user.admin? %>
   <div>
     <%= form.label :role, style: "display: block" %>
     <%= form.select(:role, options_for_select(User.roles.map { |k, v| k })) %>
