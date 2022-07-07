@@ -42,11 +42,11 @@
   </div>
 
   <% if current_user.admin? %>
-  <% end %>
   <div>
     <%= form.label :role, style: "display: block" %>
     <%= form.select(:role, options_for_select(User.roles.map { |k, v| k })) %>
   </div>
+  <% end %>
 
   <div>
     <%= form.submit %>
