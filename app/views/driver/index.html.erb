@@ -1,6 +1,14 @@
+<%= form_with url: "/driver", method: :get do |f| %>
+  <%= f.select("filter", options_for_select([["All", ""], ["To Do", "todo"], ["Done", "done"]])) %>
+  <%= f.submit "Search" %>
+<% end %>
+
 <% @trips.each do |trip| %>
   <%= render trip %>
   <p>
     <%= link_to "Show this trip", trip %>
   </p>
 <% end %>
+
+<%= link_to "New trip", new_trip_path %>
+

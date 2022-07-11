@@ -13,6 +13,7 @@
   <body>
     <% if controller_name != "home" %>
     <%= link_to "Home", root_path %><br />
+    <%= link_to "My trips", driver_path %>
     <% end %>
     <% if notice %>
       <p class="alert alert-success"><%= notice %></p>
