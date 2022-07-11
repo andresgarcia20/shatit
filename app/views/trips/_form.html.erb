@@ -12,8 +12,7 @@
   <% end %>
 
   <div>
-    <%= form.label :user_id, style: "display: block" %>
-    <%= form.text_field :user_id %>
+    <%= form.hidden_field(:user_id, :value => current_user.id) %>
   </div>
 
   <div>
@@ -23,7 +22,7 @@
 
   <div>
     <%= form.label :destinations, style: "display: block" %>
-    <%= form.text_field :destinations %>
+    <%= form.text_field :destinations, multiple: true %>
   </div>
 
   <div>
@@ -39,6 +38,11 @@
   <div>
     <%= form.label :pets, style: "display: block" %>
     <%= form.number_field :pets %>
+  </div>
+
+  <div>
+    <%= form.label :vehicle_id, style: "display: block" %>
+    <%= form.select(:vehicle_id, options_for_select(Vehicle.where(user_id: current_user.id).map { |elm| [elm.nickname, elm.id] })) %>
   </div>
 
   <div>

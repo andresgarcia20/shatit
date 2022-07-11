@@ -1,7 +1,7 @@
 <div id="<%= dom_id trip %>">
   <p>
     <strong>User:</strong>
-    <%= trip.user_id %>
+    <%= User.where(id: trip.user).map { |elm| "#{elm.name} #{elm.surname}" } %>
   </p>
 
   <p>
@@ -37,6 +37,11 @@
   <p>
     <strong>Lugagge:</strong>
     <%= trip.luggage %>
+  </p>
+
+  <p>
+    <strong>Vehicle type:</strong>
+    <%= Vehicle.where(id: trip.vehicle_id).map { |elm| elm.vehicle_type } %>
   </p>
 
   <p>
