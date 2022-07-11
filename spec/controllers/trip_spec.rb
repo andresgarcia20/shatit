@@ -3,6 +3,7 @@ RSpec.describe TripsController, type: :controller do
   include Devise::Test::ControllerHelpers
   describe "GET 'index'" do
     let(:user) { create(:user) }
+    let(:second_user) { create(:user) }
     let(:vehicle) { create(:vehicle, user: user) }
     let(:second_vehicle) { create(:vehicle, vehicle_type: "van", user: user) }
     let!(:first_trip) { create(:trip, user: user, vehicle: vehicle) }
@@ -11,7 +12,7 @@ RSpec.describe TripsController, type: :controller do
     let!(:trip_three_destinations) { create(:trip, user: user, vehicle: vehicle, destinations: ["Cuenca", "Valencia", "Barcelona"]) }
     let!(:trip_vehicle_type) { create(:trip, user: user, vehicle: second_vehicle) }
     let!(:trip_three_available_seats) { create(:trip, user: user, vehicle: vehicle, available_seats: 3) }
-    let!(:trip_user) { create(:trip, user: user, vehicle: vehicle) }
+    let!(:trip_user) { create(:trip, user: second_user, vehicle: vehicle) }
     before { sign_in user }
 
     context "when there are no filters" do
@@ -23,27 +24,27 @@ RSpec.describe TripsController, type: :controller do
 
       it "assigns all @trips" do
         expect(assigns(:trips).map(&:id)).to eq([
-          first_trip.id,
-          trip_origin_valencia.id, 
-          trip_origin_barcelona.id,
-          trip_three_destinations.id,
-          trip_vehicle_type.id,
-          trip_three_available_seats.id,
-          trip_user.id
-          ])
+                                               first_trip.id,
+                                               trip_origin_valencia.id,
+                                               trip_origin_barcelona.id,
+                                               trip_three_destinations.id,
+                                               trip_vehicle_type.id,
+                                               trip_three_available_seats.id,
+                                               trip_user.id,
+                                             ])
       end
     end
 
     context "filters by origin = madrid" do
-      before { get :index, params: { origin: "madrid" } } 
+      before { get :index, params: { origin: "madrid" } }
 
       it "assigns @trips" do
         expect(assigns(:trips).map(&:id)).to eq([
-        first_trip.id,
-        trip_three_destinations.id,
-        trip_vehicle_type.id,
-        trip_three_available_seats.id,
-        trip_user.id
+          first_trip.id,
+          trip_three_destinations.id,
+          trip_vehicle_type.id,
+          trip_three_available_seats.id,
+          trip_user.id,
         ])
       end
     end
@@ -67,9 +68,7 @@ RSpec.describe TripsController, type: :controller do
 
     context "filters by number of stops = 2" do
       before { get :index, params: { stops: 2 } }
-      xit {
-        binding.pry
-         expect(assigns(:trips).map(&:id)).to eq([trip_three_destinations.id]) }
+      it { expect(assigns(:trips).map(&:id)).to eq([trip_three_destinations.id]) }
     end
 
     context "filters by available vehicle type = van" do
@@ -80,6 +79,11 @@ RSpec.describe TripsController, type: :controller do
     context "filters by available seats = 3" do
       before { get :index, params: { seats: 3 } }
       it { expect(assigns(:trips).map(&:id)).to eq([trip_three_available_seats.id]) }
+    end
+
+    context "filters by user" do
+      before { get :index, params: { user_id: second_user.id } }
+      it { expect(assigns(:trips).map(&:id)).to eq([trip_user.id]) }
     end
   end
 end
