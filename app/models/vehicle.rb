@@ -8,4 +8,6 @@ class Vehicle < ApplicationRecord
   validates :nickname, presence: true, length: { minimum: 2, maximum: 10 }
 
   enum vehicle_type: { car: 0, van: 1, boat: 2, yatch: 3, motorbike: 4, bike: 5, caravan: 6 }
+
+  scope :user_vehicles, ->(user_id) { select(:nickname).where("user_id = ?", user_id) }
 end

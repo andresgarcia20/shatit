@@ -42,7 +42,7 @@
 
   <div>
     <%= form.label :vehicle_id, style: "display: block" %>
-    <%= form.select(:vehicle_id, options_for_select(Vehicle.where(user_id: current_user.id).map { |elm| [elm.nickname, elm.id] })) %>
+    <%= form.select(:vehicle_id, options_for_select(Vehicle.user_vehicles(current_user).map { |elm| [elm.nickname, elm.id] })) %>
   </div>
 
   <div>

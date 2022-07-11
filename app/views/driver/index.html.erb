@@ -4,10 +4,12 @@
 <% end %>
 
 <% @trips.each do |trip| %>
-  <%= render trip %>
-  <p>
-    <%= link_to "Show this trip", trip %>
-  </p>
+  <div style="border: 1px solid red;">
+    <%= render trip %>
+    <p>
+      <%= link_to "Show this trip", trip %>
+    </p>
+  </div>
 <% end %>
 
 <%= link_to "New trip", new_trip_path %>
