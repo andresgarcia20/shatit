@@ -6,7 +6,7 @@ class TripsController < ApplicationController
 
   # GET /trips or /trips.json
   def index
-    query = Trip
+    query = Trip.order("id")
     query = query.by_origin(params[:origin]) if params[:origin].present?
     query = query.by_destination(params[:destination]) if params[:destination].present?
     query = query.by_number_of_stops(params[:stops]) if params[:stops].present?

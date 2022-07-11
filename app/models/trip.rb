@@ -12,6 +12,13 @@ class Trip < ApplicationRecord
   validate :date_valid?
   before_save :downcase_fields
 
+  scope :by_origin, ->(origin) { where("origin = ?", origin) }
+  scope :by_destination, ->(destination) { where("? = ANY (destinations)", destination) }
+  scope :by_number_of_stops, ->(stops) { where("ARRAY_LENGTH(destinations, 1) = ?", (stops.to_i + 1)) }
+  scope :by_vehicle, ->(type) { joins(:vehicle).where("Vehicles.vehicle_type = ?", type) }
+  scope :by_free_seats, ->(seats) { where("available_seats = ?", seats) }
+  scope :by_user, ->(user_id) { where("user_id = ?", user_id) }
+
   enum kids_age_range: { no: 0, indifferent: 1, "0 to 4": 2, "5 to 12": 3, "13 to 16": 4 }, _default: 0
 
   def date_valid?
@@ -32,11 +39,4 @@ class Trip < ApplicationRecord
     origin.downcase!
     destinations.map { |el| el.downcase! }
   end
-
-  scope :by_origin, ->(origin) { where("origin = ?", origin) }
-  scope :by_destination, ->(destination) { where("? = ANY (destinations)", destination) }
-  scope :by_number_of_stops, ->(stops) { where("ARRAY_LENGTH(destinations, 1) = ?", (stops + 1)) }
-  scope :by_vehicle, ->(type) { joins(:vehicle).where("Vehicles.vehicle_type = ?", type) }
-  scope :by_free_seats, ->(seats) { where("available_seats = ?", seats) }
-  scope :by_user, ->(user_id) { where("user_id = ?", user_id) }
 end

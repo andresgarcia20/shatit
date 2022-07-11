@@ -21,7 +21,10 @@ RSpec.describe "/trips", type: :request do
   before { travel_to Time.zone.local(2022, 06, 28) }
   let(:user) { create(:user) }
   let(:vehicle) { create(:vehicle, user: user) }
-  let(:trip) { create(:trip, user: user, vehicle: vehicle) }
+  let(:trip) {
+    sign_in user
+    create(:trip, user: user, vehicle: vehicle)
+  }
   let(:valid_attributes) { attributes_for(:trip, user_id: user.id, vehicle_id: vehicle.id) }
   let(:invalid_attributes) { { "id" => 2 } }
 
@@ -42,6 +45,7 @@ RSpec.describe "/trips", type: :request do
 
   describe "GET /new" do
     it "renders a successful response" do
+      sign_in user
       get new_trip_url
       expect(response).to be_successful
     end
@@ -58,11 +62,13 @@ RSpec.describe "/trips", type: :request do
     context "with valid parameters" do
       it "creates a new Trip" do
         expect {
+          sign_in user
           post trips_url, params: { trip: valid_attributes }
         }.to change(Trip, :count).by(1)
       end
 
       it "redirects to the created trip" do
+        sign_in user
         post trips_url, params: { trip: valid_attributes }
         expect(response).to redirect_to(trip_url(Trip.last))
       end
@@ -70,12 +76,14 @@ RSpec.describe "/trips", type: :request do
 
     context "with invalid parameters" do
       it "does not create a new Trip" do
+        sign_in user
         expect {
           post trips_url, params: { trip: invalid_attributes }
         }.to change(Trip, :count).by(0)
       end
 
       it "renders a successful response (i.e. to display the 'new' template)" do
+        sign_in user
         post trips_url, params: { trip: invalid_attributes }
         expect(response).to have_http_status(422)
       end
@@ -85,19 +93,21 @@ RSpec.describe "/trips", type: :request do
   describe "PATCH /update" do
     context "with valid parameters" do
       let(:new_attributes) {
-        { origin: "Salamanca",
+        { origin: "salamanca",
           destinations: ["Cuenca", "Valencia"],
           available_seats: 1,
           departure_date: "2022-06-29 12:00:00" }
       }
 
       it "updates the requested trip" do
+        sign_in user
         patch trip_url(trip), params: { trip: new_attributes }
         trip.reload
-        expect(trip.origin).to eq("Salamanca")
+        expect(trip.origin).to eq("salamanca")
       end
 
       it "redirects to the trip" do
+        sign_in user
         patch trip_url(trip), params: { trip: new_attributes }
         trip.reload
         expect(response).to redirect_to(trip_url(trip))

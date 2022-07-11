@@ -11,7 +11,7 @@
   <%= f.number_field :stops %>
 
   <%= f.label :type, "Type", style: "display: block" %>
-  <%= f.select(:type, options_for_select(Vehicle.vehicle_types.map { |k, v| [k.titleize, v] })) %>
+  <%= f.select(:type, options_for_select(Vehicle.vehicle_types.map { |k, v| [k.titleize, v] }), { :include_blank => "All" }) %>
 
   <%= f.label :seats, "Seats:", style: "display: block" %>
   <%= f.number_field :seats %>
