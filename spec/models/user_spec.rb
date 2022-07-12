@@ -122,25 +122,13 @@ describe User, type: :model do
 
     context "self.fullname method shows user's fullname" do
       before {
-        @second_user = create(:user, name: "Pablo", surname: "Pérez")
-        @third_user = create(:user, name: "Gonzalo", surname: "García")
-        @fourth_user = create(:user, name: "Eliana", surname: "Muñoz")
+        @second_user = build(:user, name: "Pablo", surname: "Pérez")
+        @third_user = build(:user, name: "Gonzalo", surname: "García")
+        @fourth_user = build(:user, name: "Eliana", surname: "Muñoz")
       }
 
       it "returns Andres Garcia" do
         expect(@new_user.fullname).to eq("Andrew Cheng")
-      end
-
-      it "returns Pablo Pérez" do
-        expect(@second_user.fullname).to eq("Pablo Pérez")
-      end
-
-      it "returns Gonzalo García" do
-        expect(@third_user.fullname).to eq("Gonzalo García")
-      end
-
-      it "returns Eliana Muñoz" do
-        expect(@fourth_user.fullname).to eq("Eliana Muñoz")
       end
     end
   end
