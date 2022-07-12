@@ -15,8 +15,6 @@ class User < ApplicationRecord
 
   enum role: { admin: 20, driver: 10, coordinator: 5, passenger: 0, banned: 30 }, _default: 0
 
-  scope :fullname, ->(user_id) { select(:name, :surname).where("id = ?", user_id) }
-
   def adult?
     age >= 18
   end
