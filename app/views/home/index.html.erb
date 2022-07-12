@@ -5,7 +5,7 @@
 
  <%= link_to "List of trips", trips_path %>
  <% if current_user.driver? || current_user.admin? %>
- <%= link_to "My trips", driver_path %>
+ <%= link_to "My trips", driver_user_path(current_user) %>
  <% end %>
  <% if current_user.admin? %>
  <%= link_to "List of users", users_path %>
