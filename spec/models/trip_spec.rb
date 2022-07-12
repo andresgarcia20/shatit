@@ -73,31 +73,50 @@ describe User, type: :model do
   describe "scope" do
     before do
       travel_to Time.zone.local(2022, 06, 28)
-      @trip = create(:trip)
+      @trip = create(:trip, departure_date: "2022-06-29")
+      @second_trip = create(:trip, departure_date: "2022-07-10")
+      @third_trip = create(:trip, departure_date: "2022-07-20")
+      @fourth_trip = create(:trip, departure_date: "2022-07-29")
     end
 
     it "by_origin returns info by given origin" do
-      expect(Trip.by_origin("madrid")).to eq([@trip])
+      expect(Trip.by_origin("madrid")).to eq([@trip, @second_trip, @third_trip, @fourth_trip])
     end
 
     it "by_destination returns info by given destination" do
-      expect(Trip.by_destination("valencia")).to eq([@trip])
+      expect(Trip.by_destination("valencia")).to eq([@trip, @second_trip, @third_trip, @fourth_trip])
     end
 
     it "by_number_of_stops returns info by given stops" do
-      expect(Trip.by_number_of_stops(1).count).to eq(@trip.number_of_stops)
+      expect(Trip.by_number_of_stops(1).count).to eq(4)
     end
 
     it "by_vehicle returns info by given type of vehicle" do
-      expect(Trip.by_vehicle(0).map(&:vehicle_id)).to eq([@trip.vehicle_id])
+      expect(Trip.by_vehicle(0).map(&:vehicle_id)).to eq([@trip.vehicle_id, @second_trip.vehicle_id, @third_trip.vehicle_id, @fourth_trip.vehicle_id])
     end
 
     it "by_free_seats returns info by given number of free seats" do
-      expect(Trip.by_free_seats(1)).to eq([@trip])
+      expect(Trip.by_free_seats(1)).to eq([@trip, @second_trip, @third_trip, @fourth_trip])
     end
 
     it "by_user returns info by given user" do
       expect(Trip.by_user(@trip.user_id)).to eq([@trip])
+    end
+
+    it "trips_date_range returns info in a date range between 2022-06-29 and 2022-07-20" do
+      expect(Trip.trips_date_range("2022-06-28", "2022-07-20")).to eq([@trip, @second_trip, @third_trip])
+    end
+
+    it "trips_date_range returns trips with only start_date" do
+      expect(Trip.trips_date_range("2022-07-01", "")).to eq([@second_trip, @third_trip, @fourth_trip])
+    end
+
+    it "trips_date_range returns trips with only end_date" do
+      expect(Trip.trips_date_range("", "2022-07-01")).to eq([@trip])
+    end
+
+    it "trips_todo returns trips yet to come" do
+      expect(Trip.trips_todo).to eq([@trip, @second_trip, @third_trip, @fourth_trip])
     end
   end
 end

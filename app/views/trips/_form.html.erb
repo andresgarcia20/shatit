@@ -12,18 +12,13 @@
   <% end %>
 
   <div>
-    <%= form.label :user_id, style: "display: block" %>
-    <%= form.text_field :user_id %>
-  </div>
-
-  <div>
     <%= form.label :origin, style: "display: block" %>
     <%= form.text_field :origin %>
   </div>
 
   <div>
     <%= form.label :destinations, style: "display: block" %>
-    <%= form.text_field :destinations %>
+    <%= form.text_field :destinations, multiple: true %>
   </div>
 
   <div>
@@ -39,6 +34,11 @@
   <div>
     <%= form.label :pets, style: "display: block" %>
     <%= form.number_field :pets %>
+  </div>
+
+  <div>
+    <%= form.label :vehicle_id, style: "display: block" %>
+    <%= form.select(:vehicle_id, options_for_select(current_user.vehicles.map { |e| [e.nickname, e.id] })) %>
   </div>
 
   <div>

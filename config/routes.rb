@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   resources :trips
 
   resources :users do
+    member do
+      get "driver", to: "driver#index"
+    end
     resources :vehicles
   end
 end
