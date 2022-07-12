@@ -128,19 +128,19 @@ describe User, type: :model do
       }
 
       it "returns Andres Garcia" do
-        expect(@new_user.fullname).to eq("Andres Garcia")
+        expect(@new_user.fullname).to eq("Andrew Cheng")
       end
 
       it "returns Pablo Pérez" do
-        expect(@new_user.fullname).to eq("Pablo Pérez")
+        expect(@second_user.fullname).to eq("Pablo Pérez")
       end
 
       it "returns Gonzalo García" do
-        expect(@new_user.fullname).to eq("Gonzalo García")
+        expect(@third_user.fullname).to eq("Gonzalo García")
       end
 
       it "returns Eliana Muñoz" do
-        expect(@new_user.fullname).to eq("Eliana Muñoz")
+        expect(@fourth_user.fullname).to eq("Eliana Muñoz")
       end
     end
   end
