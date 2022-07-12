@@ -107,6 +107,14 @@ describe User, type: :model do
       expect(Trip.trips_date_range("2022-06-28", "2022-07-20")).to eq([@trip, @second_trip, @third_trip])
     end
 
+    it "trips_date_range returns trips with only start_date" do
+      expect(Trip.trips_date_range("2022-07-01", "")).to eq([@second_trip, @third_trip, @fourth_trip])
+    end
+
+    it "trips_date_range returns trips with only end_date" do
+      expect(Trip.trips_date_range("", "2022-07-01")).to eq([@trip])
+    end
+
     it "trips_todo returns trips yet to come" do
       expect(Trip.trips_todo).to eq([@trip, @second_trip, @third_trip, @fourth_trip])
     end
