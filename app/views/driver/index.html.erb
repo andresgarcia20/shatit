@@ -1,5 +1,8 @@
 <%= form_with url: "/driver", method: :get do |f| %>
-  <%= f.select("filter", options_for_select([["All", ""], ["To Do", "todo"], ["Done", "done"]])) %>
+  <%= f.label :start_date, style: "display: block" %>
+  <%= f.date_field :start_date %>
+  <%= f.label :end_date, style: "display: block" %>
+  <%= f.date_field :end_date %>
   <%= f.submit "Search" %>
 <% end %>
 
