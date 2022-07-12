@@ -13,6 +13,7 @@ class TripsController < ApplicationController
     query = query.by_vehicle(params[:type]) if params[:type].present?
     query = query.by_free_seats(params[:seats]) if params[:seats].present?
     query = query.by_user(params[:user_id]) if params[:user_id].present?
+    query = query.trips_date_range(params[:start_date], params[:end_date]) if params[:start_date].present? || params[:end_date].present?
     @trips = query.all
   end
 
@@ -33,7 +34,7 @@ class TripsController < ApplicationController
 
   # POST /trips or /trips.json
   def create
-    @trip = Trip.new(trip_params)
+    @trip = Trip.new({ **trip_params, user_id: current_user.id })
 
     respond_to do |format|
       if @trip.save
