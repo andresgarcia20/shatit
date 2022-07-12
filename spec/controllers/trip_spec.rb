@@ -23,15 +23,15 @@ RSpec.describe TripsController, type: :controller do
       end
 
       it "assigns all @trips" do
-        expect(assigns(:trips).map(&:id)).to eq([
-                                               first_trip.id,
-                                               trip_origin_valencia.id,
-                                               trip_origin_barcelona.id,
-                                               trip_three_destinations.id,
-                                               trip_vehicle_type.id,
-                                               trip_three_available_seats.id,
-                                               trip_user.id,
-                                             ])
+        expect(assigns(:trips).map(&:id).sort).to eq([
+          trip_origin_valencia.id,
+          trip_three_available_seats.id,
+          trip_user.id,
+          first_trip.id,
+          trip_vehicle_type.id,
+          trip_three_destinations.id,
+          trip_origin_barcelona.id,
+        ].sort)
       end
     end
 
@@ -39,13 +39,13 @@ RSpec.describe TripsController, type: :controller do
       before { get :index, params: { origin: "madrid" } }
 
       it "assigns @trips" do
-        expect(assigns(:trips).map(&:id)).to eq([
+        expect(assigns(:trips).map(&:id).sort).to eq([
           first_trip.id,
           trip_three_destinations.id,
           trip_vehicle_type.id,
           trip_three_available_seats.id,
           trip_user.id,
-        ])
+        ].sort)
       end
     end
 
