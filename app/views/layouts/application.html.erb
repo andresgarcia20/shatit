@@ -13,7 +13,9 @@
   <body>
     <% if controller_name != "home" %>
     <%= link_to "Home", root_path %><br />
+    <% if user_signed_in? %>
     <%= link_to "My trips", driver_user_path(current_user) %>
+    <% end %>
     <% end %>
     <% if notice %>
       <p class="alert alert-success"><%= notice %></p>
