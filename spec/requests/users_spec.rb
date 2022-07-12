@@ -56,17 +56,15 @@ RSpec.describe "/users", type: :request do
 
   describe "POST /create" do
     context "with valid parameters" do
-      xit "creates a new user" do
-        sign_in user_attr
+      it "creates a new user" do
         expect {
-          post users_url, params: { user: valid_attributes }
+          post users_url, params: { user: { **valid_attributes, name: "Fer" } }
         }.to change(User, :count).by(1)
       end
 
-      xit "redirects to the created user" do
-        sign_in user_attr
+      it "redirects to the created user" do
         post users_url, params: { user: valid_attributes }
-        expect(response).to redirect_to(user_url(User.last))
+        expect(response).to redirect_to(root_path)
       end
     end
 
