@@ -18,8 +18,7 @@ class Trip < ApplicationRecord
   scope :by_vehicle, ->(type) { joins(:vehicle).where("Vehicles.vehicle_type = ?", type) }
   scope :by_free_seats, ->(seats) { where("available_seats = ?", seats) }
   scope :by_user, ->(user_id) { where("user_id = ?", user_id) }
-  scope :trips_done, ->(date = Date.today) { where("departure_date < ?", date) }
-  scope :trips_todo, ->(date = Date.today) { where("departure_date >= ?", date) }
+  scope :trips_date_range, ->(start_date, end_date) { where("departure_date >= ? AND departure_date <= ?", start_date, end_date) }
 
   enum kids_age_range: { no: 0, indifferent: 1, "0 to 4": 2, "5 to 12": 3, "13 to 16": 4 }, _default: 0
 
