@@ -5,7 +5,11 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.all
+    query = User.all
+    query = query.by_email(params[:email]) if params[:email].present?
+    query = query.by_age(params[:age]) if params[:age].present?
+    query = query.by_status(params[:status]) if params[:status].present?
+    @users = query.all
   end
 
   def show
