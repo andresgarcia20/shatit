@@ -1,5 +1,18 @@
 <p style="color: green"><%= notice %></p>
 
+<%= form_with url: "/users", method: :get do |f| %>
+  <%= f.label :email, "Email:", style: "display: block" %>
+  <%= f.text_field :email %>
+
+  <%= f.label :age, "Age:", style: "display: block" %>
+  <%= f.number_field :age %>
+
+  <%= f.label :status, "Type:", style: "display: block" %>
+  <%= f.select(:status, options_for_select(@users.roles.map { |k, v| [k.titleize, v] }), { :include_blank => "All" }) %>
+
+  <%= f.submit %>
+<% end %>
+
 <h1>Users</h1>
 
 <div id="users">
