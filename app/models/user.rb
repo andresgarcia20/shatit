@@ -16,7 +16,15 @@ class User < ApplicationRecord
   enum role: { admin: 20, driver: 10, coordinator: 5, passenger: 0, banned: 30 }, _default: 0
 
   def fullname
-    "#{name} #{surname}" if name.present? && surname.present?
+    if name.present? && surname.present?
+      "#{name} #{surname}"
+    elsif name.present?
+      "#{name}"
+    elsif surname.present?
+      "#{surname}"
+    else
+      ""
+    end
   end
 
   def adult?

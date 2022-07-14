@@ -13,5 +13,13 @@ FactoryBot.define do
     birthday { "2001-03-20" }
     confirmed_at { Time.now }
     role { "admin" }
+
+    trait :without_name do
+      name { "" }
+    end
+
+    trait :without_surname do
+      surname { "" }
+    end
   end
 end
