@@ -1,0 +1,8 @@
+<h1>Stats Page</h1>
+
+<p>Number of trips: <strong><%= Trip.all.count %></p></strong>
+<p>Number of vehicles: <strong><%= Vehicle.all.count %></p></strong>
+<p>Number of users: <strong><%= User.all.count %></p></strong>
+<p>Number of passengers: <strong><%= User.by_status(0).count %></p></strong>
+<p>Number of drivers: <strong><%= User.by_status(10).count %></p></strong>
+<p>Number of banned: <strong><%= User.by_status(30).count %></p></strong>

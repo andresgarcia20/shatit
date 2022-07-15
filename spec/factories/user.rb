@@ -21,5 +21,9 @@ FactoryBot.define do
     trait :without_surname do
       surname { "" }
     end
+
+    trait :custom_email do
+      email { "email@test.com" }
+    end
   end
 end

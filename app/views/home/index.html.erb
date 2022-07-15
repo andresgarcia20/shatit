@@ -9,6 +9,7 @@
  <% end %>
  <% if current_user.admin? %>
  <%= link_to "List of users", users_path %>
+ <%= link_to "Stats page", stats_path %>
  <% end %>
 <% else %>
 <h3>New user?</h3>

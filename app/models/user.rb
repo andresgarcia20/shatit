@@ -15,23 +15,17 @@ class User < ApplicationRecord
 
   enum role: { admin: 20, driver: 10, coordinator: 5, passenger: 0, banned: 30 }, _default: 0
 
+  scope :by_email, ->(email) { where("email = ?", email) }
+  scope :by_age, ->(age) { where("DATE_PART('year', AGE(birthday)) = ?", age) }
+  scope :by_status, ->(status) { where("role = ?", status) }
+
   def fullname
-    if name.present? && surname.present?
-      "#{name} #{surname}"
-    elsif name.present?
-      "#{name}"
-    elsif surname.present?
-      "#{surname}"
-    else
-      ""
-    end
+    "#{name} #{surname}".strip
   end
 
   def adult?
     age >= 18
   end
-
-  private
 
   def age
     currentDate = Time.zone.now
