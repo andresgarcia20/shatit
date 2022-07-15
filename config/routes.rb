@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   root "home#index"
   resources :trips
 
+  get "stats", to: "stats#index"
+
   resources :users do
     member do
       get "driver", to: "driver#index"
