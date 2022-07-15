@@ -101,6 +101,21 @@ describe User, type: :model do
       expect(user2).to be_invalid
     end
 
+    context "scopes retrieves expected values" do
+      context "by_email search by user email" do
+        let(:new_user) { create(:user, :custom_email) }
+        it { expect(User.by_email("email@test.com")).to eq([new_user]) }
+      end
+      context "by_age search by user age" do
+        let(:new_user) { create(:user, :custom_email) }
+        it { expect(User.by_age(21)).to eq([new_user]) }
+      end
+      context "by_status search by user role" do
+        let(:new_user) { create(:user, :custom_email) }
+        it { expect(User.by_status(20)).to eq([new_user]) }
+      end
+    end
+
     context "verifying if user is adult" do
       before do
         travel_to Time.zone.local(2022, 06, 21)
