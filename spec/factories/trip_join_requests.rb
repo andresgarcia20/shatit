@@ -19,8 +19,8 @@ FactoryBot.define do
       pets { 2 }
     end
 
-    trait :two_luggage do
-      luggage { 2 }
+    trait :three_luggage do
+      luggage { 3 }
     end
 
     trait :one_kid do
