@@ -18,7 +18,8 @@ class TripJoinRequestsController < ApplicationController
   end
 
   def create
-    @trip_join_request = TripJoinRequest.new(trip_join_request_params)
+    @trip = Trip.find(params[:trip_id])
+    @trip_join_request = @trip.trip_join_requests.create(trip_join_request_params)
 
     respond_to do |format|
       if @trip_join_request.save
