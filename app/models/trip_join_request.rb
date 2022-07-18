@@ -6,7 +6,7 @@ class TripJoinRequest < ApplicationRecord
   validates :companions, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :pets, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :luggage, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 1 }
-  validates :kids, presence: true, length: { minimum: 1 }
+  validates :kids, presence: true
 
   enum stage: { requested: 0, accepted: 1, payment_in_progress: 2, paid: 3, booked: 4, rejected: 5, cancelled: 6 }, _default: 0
 
