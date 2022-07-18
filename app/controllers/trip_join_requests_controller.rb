@@ -47,7 +47,7 @@ class TripJoinRequestsController < ApplicationController
     @trip_join_request.destroy
 
     respond_to do |format|
-      format.html { redirect_to trip_join_requests_url, notice: "Trip join request was successfully destroyed." }
+      format.html { redirect_to trip_trip_join_requests_url, notice: "Trip join request was successfully destroyed." }
       format.json { head :no_content }
     end
   end
