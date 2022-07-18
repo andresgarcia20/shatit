@@ -17,7 +17,7 @@
 
 # 20.times do
 #   vehicle = Vehicle.new(
-#     user_id: Faker::Number.between(from: 8, to: 84),
+#     user_id: User.all.sample.id,
 #     model: Faker::Vehicle.make_and_model,
 #     air_conditioning: Faker::Boolean.boolean,
 #     vehicle_type: Vehicle.vehicle_types.keys.sample,
@@ -28,18 +28,6 @@
 # end
 
 # #--------------- Trips ------------------
-
-# Trip.create(
-#   user_id: 5,
-#   origin: "SEVILLE",
-#   destinations: ["MALAGA", "CADIZ", "MADRID", "SALAMANCA"],
-#   available_seats: 4,
-#   departure_date: "2022-07-20 12:00:00",
-#   vehicle_id: 4,
-#   pets: 0,
-#   luggage: 3,
-#   gasoline_comission: 120,
-# )
 
 # 30.times do
 #   trip = Trip.new(
