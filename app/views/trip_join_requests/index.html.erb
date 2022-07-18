@@ -6,9 +6,10 @@
   <% @trip_join_requests.each do |trip_join_request| %>
     <%= render trip_join_request %>
     <p>
-      <%= link_to "Show this trip join request", trip_join_request %>
+      <%= link_to "Show this trip join request", trip_trip_join_request_path(trip_join_request.trip, trip_join_request) %>å
     </p>
   <% end %>
 </div>
 
 <%= link_to "New trip join request", new_trip_trip_join_request_path %>
+<%= link_to "Back to trip", trip_path(params[:trip_id]) %>

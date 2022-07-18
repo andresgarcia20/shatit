@@ -3,8 +3,8 @@
 <%= render @trip_join_request %>
 
 <div>
-  <%= link_to "Edit this trip join request", edit_trip_join_request_path(@trip_join_request) %> |
-  <%= link_to "Back to trip join requests", trip_join_requests_path %>
+  <%= link_to "Edit this trip join request", edit_trip_trip_join_request_path(@trip_join_request) %> |
+  <%= link_to "Back to trip join requests", trip_trip_join_requests_path %>
 
-  <%= button_to "Destroy this trip join request", @trip_join_request, method: :delete %>
+  <%= button_to "Destroy this trip join request", trip_trip_join_request_path(id: @trip_join_request), method: :delete %>
 </div>
