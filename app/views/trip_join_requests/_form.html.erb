@@ -1,4 +1,4 @@
-<%= form_with(model: trip_join_request) do |form| %>
+<%= form_with(model: [:trip, trip_join_request]) do |form| %>
   <% if trip_join_request.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(trip_join_request.errors.count, "error") %> prohibited this trip_join_request from being saved:</h2>
