@@ -36,10 +36,12 @@ RSpec.describe TripJoinRequest, type: :model do
         end
 
         context "returns true if the number of available seats decreases depending of number of companions" do
-          let(:trip) { build(:trip, :four_available_seats) }
-          let(:trip_request) { build(:trip_join_request, :three_companion) }
+          before do
+            @trip = create(:trip, :four_available_seats)
+            @trip_request = create(:trip_join_request, :three_companion, trip: trip)
+          end
 
-          it { expect(trip.available_seats).to eq(trip.available_seats - (trip_request.companions + 1)) }
+          it { expect(@trip_request.trip.available_seats - 1).to eq(0) }
         end
       end
 
