@@ -1,0 +1,2 @@
+class TripJoinRequest < ApplicationRecord
+end

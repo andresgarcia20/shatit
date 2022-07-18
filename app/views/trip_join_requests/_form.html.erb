@@ -1,0 +1,42 @@
+<%= form_with(model: trip_join_request) do |form| %>
+  <% if trip_join_request.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(trip_join_request.errors.count, "error") %> prohibited this trip_join_request from being saved:</h2>
+
+      <ul>
+        <% trip_join_request.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :companions, style: "display: block" %>
+    <%= form.number_field :companions %>
+  </div>
+
+  <div>
+    <%= form.label :pets, style: "display: block" %>
+    <%= form.number_field :pets %>
+  </div>
+
+  <div>
+    <%= form.label :luggage, style: "display: block" %>
+    <%= form.number_field :luggage %>
+  </div>
+
+  <div>
+    <%= form.label :kids, style: "display: block" %>
+    <%= form.text_field :kids %>
+  </div>
+
+  <div>
+    <%= form.label :stage, style: "display: block" %>
+    <%= form.number_field :stage %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
