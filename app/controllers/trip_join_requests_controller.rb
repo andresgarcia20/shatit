@@ -18,8 +18,7 @@ class TripJoinRequestsController < ApplicationController
   end
 
   def create
-    @trip = Trip.find(params[:trip_id])
-    @trip_join_request = @trip.trip_join_requests.create(trip_join_request_params)
+    @trip_join_request = TripJoinRequest.new(trip_join_request_params)
 
     respond_to do |format|
       if @trip_join_request.save
@@ -60,6 +59,6 @@ class TripJoinRequestsController < ApplicationController
   end
 
   def trip_join_request_params
-    params.require(:trip_join_request).permit(:companions, :pets, :luggage, :kids, :stage)
+    params.require(:trip_join_request).permit(:companions, :pets, :luggage, :stage, trip_id: params[:trip_id], kids: [])
   end
 end
