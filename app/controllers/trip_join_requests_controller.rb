@@ -1,25 +1,22 @@
 class TripJoinRequestsController < ApplicationController
   before_action :set_trip_join_request, only: %i[ show edit update destroy ]
 
-  # GET /trip_join_requests or /trip_join_requests.json
   def index
     @trip_join_requests = TripJoinRequest.all
   end
 
-  # GET /trip_join_requests/1 or /trip_join_requests/1.json
   def show
+    @trip_join_request = TripJoinRequest.find(params[:id])
   end
 
-  # GET /trip_join_requests/new
   def new
     @trip_join_request = TripJoinRequest.new
   end
 
-  # GET /trip_join_requests/1/edit
   def edit
+    @trip_join_request = TripJoinRequest.find(params[:id])
   end
 
-  # POST /trip_join_requests or /trip_join_requests.json
   def create
     @trip_join_request = TripJoinRequest.new(trip_join_request_params)
 
@@ -34,7 +31,6 @@ class TripJoinRequestsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /trip_join_requests/1 or /trip_join_requests/1.json
   def update
     respond_to do |format|
       if @trip_join_request.update(trip_join_request_params)
@@ -47,7 +43,6 @@ class TripJoinRequestsController < ApplicationController
     end
   end
 
-  # DELETE /trip_join_requests/1 or /trip_join_requests/1.json
   def destroy
     @trip_join_request.destroy
 
@@ -58,13 +53,12 @@ class TripJoinRequestsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_trip_join_request
-      @trip_join_request = TripJoinRequest.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def trip_join_request_params
-      params.require(:trip_join_request).permit(:companions, :pets, :luggage, :kids, :stage)
-    end
+  def set_trip_join_request
+    @trip_join_request = TripJoinRequest.find(params[:id])
+  end
+
+  def trip_join_request_params
+    params.require(:trip_join_request).permit(:companions, :pets, :luggage, :kids, :stage)
+  end
 end
