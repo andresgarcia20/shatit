@@ -53,7 +53,6 @@ class VehiclesController < ApplicationController
   # DELETE /vehicles/1 or /vehicles/1.json
   def destroy
     @user = User.find(params[:user_id])
-    # binding.pry
     @vehicle.destroy
 
     respond_to do |format|

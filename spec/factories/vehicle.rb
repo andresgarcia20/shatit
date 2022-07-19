@@ -4,7 +4,7 @@ FactoryBot.define do
     air_conditioning { true }
     vehicle_type { "car" }
     consumption { 4.50 }
-    nickname
+    nickname { "partyy" }
     user { association :user }
   end
 end

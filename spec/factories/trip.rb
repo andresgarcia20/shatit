@@ -12,5 +12,13 @@ FactoryBot.define do
     luggage { 2 }
     kids_age_range { "indifferent" }
     gasoline_comission { 120 }
+
+    trait :three_available_seats do
+      available_seats { 3 }
+    end
+
+    trait :four_available_seats do
+      available_seats { 4 }
+    end
   end
 end

@@ -10,9 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_07_100847) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_18_110352) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "trip_join_requests", force: :cascade do |t|
+    t.integer "companions"
+    t.integer "pets"
+    t.integer "luggage"
+    t.string "kids", default: [], array: true
+    t.integer "stage"
+    t.bigint "trip_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["trip_id"], name: "index_trip_join_requests_on_trip_id"
+  end
 
   create_table "trips", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -66,6 +78,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_07_100847) do
     t.index ["user_id"], name: "index_vehicles_on_user_id"
   end
 
+  add_foreign_key "trip_join_requests", "trips"
   add_foreign_key "trips", "users"
   add_foreign_key "trips", "vehicles"
   add_foreign_key "vehicles", "users"

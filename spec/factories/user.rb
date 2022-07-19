@@ -1,15 +1,13 @@
-FactoryBot.define do
-  sequence(:email) { |n| "email#{n}@cw.com" }
-  sequence(:phone_number) { |n| 1231 + n + 23123 }
-  sequence(:nickname) { |n| "user#{n}" }
+require "faker"
 
+FactoryBot.define do
   factory :user do
     name { "Andrew" }
     surname { "Cheng" }
-    email
+    email { Faker::Internet.email }
     password { 123456 }
-    phone_number
-    nickname
+    phone_number { Faker::Number.number(digits: 9) }
+    nickname { Faker::Internet.username(specifier: 3..10) }
     birthday { "2001-03-20" }
     confirmed_at { Time.now }
     role { "admin" }
