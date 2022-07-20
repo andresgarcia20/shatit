@@ -11,11 +11,11 @@ class TripJoinRequest < ApplicationRecord
   enum kids_ranges: ["no", "0 to 4", "5 to 12", "13 to 16"]
   enum stage: { requested: 0, accepted: 1, payment_in_progress: 2, paid: 3, booked: 4, rejected: 5, cancelled: 6 }, _default: 0
 
-  COORDINATOR = 1
+  REQUESTER = 1
 
   def decrease_available_seats
     trip = Trip.find(trip_id)
-    seats = trip.available_seats - (companions + COORDINATOR)
+    seats = trip.available_seats - (companions + REQUESTER)
     trip.update_column(:available_seats, seats)
   end
 end
