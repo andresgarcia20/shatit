@@ -10,16 +10,19 @@
       </ul>
     </div>
   <% end %>
-
+    
   <div>
     <%= form.label :origin, style: "display: block" %>
     <%= form.text_field :origin %>
   </div>
 
-  <div>
-    <%= form.label :destinations, style: "display: block" %>
-    <%= form.text_field :destinations, multiple: true %>
-  </div>
+  <% trip.destinations.each do |dest| %>
+    <div>
+      <%= form.label :destinations, style: "display: block" %>
+      <%= form.text_field :destinations, multiple: true, value: dest %>
+    </div>
+  <% end %>
+
 
   <div>
     <%= form.label :available_seats, style: "display: block" %>
