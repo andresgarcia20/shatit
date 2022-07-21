@@ -101,5 +101,66 @@ RSpec.describe TripJoinRequest, type: :model do
         end
       end
     end
+
+    context "stage cycle" do
+      let(:user) { create(:user) }
+      it "returns true if 'requested' is the default stage" do
+        expect(TripJoinRequest.new.stage).to eq(trip_request.stage)
+      end
+
+      context "requested" do
+        it "if driver accepts request, stage change to 'accepted'" do
+          expect(trip_request.stage).to eq("accepted")
+        end
+
+        it "if driver cancels request, stage change to 'canceled'" do
+          expect(trip_request.stage).to eq("canceled")
+        end
+
+        it "if driver rejects request, stage change to 'rejected'" do
+          expect(trip_request.stage).to eq("rejected")
+        end
+      end
+
+      context "accepted" do
+        let(:trip_request) { build(:trip_join_request, stage: 10) }
+
+        it "if user continue to payment, stage change to 'payment_in_progress'" do
+          expect(trip_request.stage).to eq("payment_in_progress")
+        end
+
+        it "if user cancels request, stage change to 'canceled'" do
+          expect(trip_request.stage).to eq("canceled")
+        end
+      end
+
+      context "payment_in_progress" do
+        let(:trip_request) { build(:trip_join_request, stage: 20) }
+
+        it "if payment success, stage change to 'paid'" do
+          expect(trip_request.stage).to eq("paid")
+        end
+
+        it "if payment fails, stage change to 'accepted'" do
+          expect(trip_request.stage).to eq("accepted")
+        end
+      end
+
+      context "paid" do
+        let(:trip_request) { build(:trip_join_request, stage: 30) }
+
+        it "if stage is 'paid', user has to be in trip users list" do
+          expect(trip.users_list.map(&:email)).to include(user.email)
+        end
+      end
+
+      context "rejected" do
+        let(:trip_request) { build(:trip_join_request, stage: 0) }
+
+        it "if driver rejects request, stage change to 'rejected'" do
+          expect(trip_request.stage).to eq("rejected")
+        end
+      end
+    end
   end
 end
