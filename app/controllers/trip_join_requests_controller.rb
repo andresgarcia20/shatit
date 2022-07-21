@@ -18,11 +18,11 @@ class TripJoinRequestsController < ApplicationController
   end
 
   def create
-    @trip_join_request = TripJoinRequest.new(trip_join_request_params)
+    @trip_join_request = TripJoinRequest.new({ **trip_join_request_params, trip_id: params[:trip_id], user_id: current_user.id })
 
     respond_to do |format|
       if @trip_join_request.save
-        format.html { redirect_to trip_join_request_url(@trip_join_request), notice: "Trip join request was successfully created." }
+        format.html { redirect_to trip_trip_join_request_url(id: @trip_join_request), notice: "Trip join request was successfully created." }
         format.json { render :show, status: :created, location: @trip_join_request }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -34,7 +34,7 @@ class TripJoinRequestsController < ApplicationController
   def update
     respond_to do |format|
       if @trip_join_request.update(trip_join_request_params)
-        format.html { redirect_to trip_join_request_url(@trip_join_request), notice: "Trip join request was successfully updated." }
+        format.html { redirect_to trip_trip_join_request_url(id: @trip_join_request), notice: "Trip join request was successfully updated." }
         format.json { render :show, status: :ok, location: @trip_join_request }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -59,6 +59,6 @@ class TripJoinRequestsController < ApplicationController
   end
 
   def trip_join_request_params
-    params.require(:trip_join_request).permit(:companions, :pets, :luggage, :stage, trip_id: params[:trip_id], kids: [])
+    params.require(:trip_join_request).permit(:companions, :pets, :luggage, :stage, :trip_id, :user_id, kids: [])
   end
 end

@@ -28,12 +28,7 @@
 
   <div>
     <%= form.label :kids, style: "display: block" %>
-    <%= form.text_field :kids %>
-  </div>
-
-  <div>
-    <%= form.label :stage, style: "display: block" %>
-    <%= form.number_field :stage %>
+    <%= form.select :kids, TripJoinRequest.kids_ranges.map { |k, v| k }, { include_hidden: false }, multiple: true %>
   </div>
 
   <div>

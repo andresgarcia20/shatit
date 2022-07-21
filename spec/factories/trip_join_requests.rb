@@ -5,7 +5,8 @@ FactoryBot.define do
     luggage { 1 }
     kids { ["no"] }
     stage { 0 }
-    trip { association :trip }
+    trip_id { create(:trip).id }
+    user_id { create(:user).id }
 
     trait :one_companion do
       companions { 1 }
