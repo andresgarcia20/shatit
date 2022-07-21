@@ -110,14 +110,12 @@ RSpec.describe TripJoinRequest, type: :model do
 
       context "requested" do
         it "if driver accepts request, stage change to 'accepted'" do
+          trip_request.accepted!
           expect(trip_request.stage).to eq("accepted")
         end
 
-        it "if driver cancels request, stage change to 'canceled'" do
-          expect(trip_request.stage).to eq("canceled")
-        end
-
         it "if driver rejects request, stage change to 'rejected'" do
+          trip_request.rejected!
           expect(trip_request.stage).to eq("rejected")
         end
       end
@@ -126,10 +124,12 @@ RSpec.describe TripJoinRequest, type: :model do
         let(:trip_request) { build(:trip_join_request, stage: 10) }
 
         it "if user continue to payment, stage change to 'payment_in_progress'" do
+          trip_request.payment_in_progress!
           expect(trip_request.stage).to eq("payment_in_progress")
         end
 
         it "if user cancels request, stage change to 'canceled'" do
+          trip_request.canceled!
           expect(trip_request.stage).to eq("canceled")
         end
       end
@@ -138,10 +138,12 @@ RSpec.describe TripJoinRequest, type: :model do
         let(:trip_request) { build(:trip_join_request, stage: 20) }
 
         it "if payment success, stage change to 'paid'" do
+          trip_request.paid!
           expect(trip_request.stage).to eq("paid")
         end
 
         it "if payment fails, stage change to 'accepted'" do
+          trip_request.accepted!
           expect(trip_request.stage).to eq("accepted")
         end
       end
@@ -158,6 +160,7 @@ RSpec.describe TripJoinRequest, type: :model do
         let(:trip_request) { build(:trip_join_request, stage: 0) }
 
         it "if driver rejects request, stage change to 'rejected'" do
+          trip_request.rejected!
           expect(trip_request.stage).to eq("rejected")
         end
       end
