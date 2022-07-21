@@ -8,11 +8,16 @@ class TripJoinRequest < ApplicationRecord
   validates :luggage, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 1 }
   validates :kids, presence: true
 
-  enum stage: { requested: 0, accepted: 1, payment_in_progress: 2, paid: 3, booked: 4, rejected: 5, canceled: 6 }, _default: 0
+  enum stage: { requested: 0, accepted: 10, payment_in_progress: 20, paid: 30, booked: 40, rejected: 50, canceled: 60 }, _default: 0
 
   def decrease_available_seats
     trip = Trip.find(trip_id)
     seats = trip.available_seats - (companions + 1)
     trip.update_column(:available_seats, seats)
   end
+
+  # private
+
+  # def stage_management # Conditionals? no escalable
+  # end
 end
