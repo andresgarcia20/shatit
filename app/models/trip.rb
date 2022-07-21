@@ -1,6 +1,7 @@
 class Trip < ApplicationRecord
-  belongs_to :user
-  belongs_to :vehicle
+  belongs_to :user, required: true
+  belongs_to :vehicle, required: true
+  has_many :trip_join_requests
 
   validates :origin, presence: true
   validates :destinations, presence: true, length: { minimum: 1, maximum: 9 }

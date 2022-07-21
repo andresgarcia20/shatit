@@ -4,7 +4,6 @@ class TripsController < ApplicationController
     redirect_to new_user_session_path unless current_user && current_user.admin?
   end
 
-  # GET /trips or /trips.json
   def index
     query = Trip.order("departure_date").trips_todo
     query = query.by_origin(params[:origin]) if params[:origin].present?
@@ -17,22 +16,18 @@ class TripsController < ApplicationController
     @trips = query.all
   end
 
-  # GET /trips/1 or /trips/1.json
   def show
     @trip = Trip.find(params[:id])
   end
 
-  # GET /trips/new
   def new
     @trip = Trip.new
   end
 
-  # GET /trips/1/edit
   def edit
     @trip = Trip.find(params[:id])
   end
 
-  # POST /trips or /trips.json
   def create
     @trip = Trip.new({ **trip_params, user_id: current_user.id })
 
@@ -47,7 +42,6 @@ class TripsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /trips/1 or /trips/1.json
   def update
     respond_to do |format|
       if @trip.update(trip_params)
@@ -60,7 +54,6 @@ class TripsController < ApplicationController
     end
   end
 
-  # DELETE /trips/1 or /trips/1.json
   def destroy
     @trip.destroy
 
@@ -72,12 +65,10 @@ class TripsController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_trip
     @trip = Trip.find(params[:id])
   end
 
-  # Only allow a list of trusted parameters through.
   def trip_params
     params.require(:trip).permit(:user_id, :vehicle_id, :origin, :available_seats, :departure_date, :kids_age_range, :pets, :luggage, :gasoline_comission, destinations: [])
   end

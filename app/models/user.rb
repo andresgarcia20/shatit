@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :confirmable
   has_many :vehicles
   has_many :trips
+  has_many :trip_join_requests
 
   validates :name, presence: true, length: { minimum: 3, too_short: "%{count} characters minimum" }, format: { with: /\A[^0-9]+\z/ }
   validates :surname, presence: true, format: { with: /\A[^0-9]+\z/ }
