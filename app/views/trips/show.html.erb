@@ -11,6 +11,7 @@
   
   <% if current_user.id == @trip.user.id || current_user.admin? %>
     <%= link_to "Edit this trip", edit_trip_path(@trip) %>
+    <%= link_to "See trip join requests", trip_trip_join_requests_path(@trip) %>
     <%= button_to "Destroy this trip", @trip, method: :delete %>
   <% end %>
 
