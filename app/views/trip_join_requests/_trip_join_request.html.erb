@@ -1,5 +1,11 @@
 <div id="<%= dom_id trip_join_request %>">
   <p>
+    <strong>Requester:</strong>
+    <%= trip_join_request.user.name %>
+    <%= trip_join_request.user.surname %>
+  </p>
+
+  <p>
     <strong>Companions:</strong>
     <%= trip_join_request.companions %>
   </p>

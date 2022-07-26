@@ -2,7 +2,7 @@ class TripJoinRequestsController < ApplicationController
   before_action :set_trip_join_request, only: %i[ show edit update destroy ]
 
   def index
-    @trip_join_requests = TripJoinRequest.all
+    @trip_join_requests = TripJoinRequest.where(trip_id: params[:trip_id])
   end
 
   def show
