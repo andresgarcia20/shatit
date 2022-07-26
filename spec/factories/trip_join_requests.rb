@@ -33,27 +33,27 @@ FactoryBot.define do
     end
 
     trait :stage_accepted do
-      stage { 1 }
+      stage { 10 }
     end
 
     trait :stage_payment_in_progress do
-      stage { 2 }
+      stage { 20 }
     end
 
     trait :stage_paid do
-      stage { 3 }
+      stage { 30 }
     end
 
     trait :stage_booked do
-      stage { 4 }
+      stage { 40 }
     end
 
     trait :stage_rejected do
-      stage { 5 }
+      stage { 50 }
     end
 
-    trait :stage_cancelled do
-      stage { 6 }
+    trait :stage_canceled do
+      stage { 60 }
     end
   end
 end
