@@ -4,7 +4,11 @@
 
 <div>
   <% if current_user.passenger? || current_user.admin? && current_user.id != @trip.user.id %>
-    <%= link_to "Join this trip", new_trip_trip_join_request_path(@trip) %>
+    <% if (@trip.trip_join_request_ids & current_user.trip_join_request_ids).any? %>
+      <%= link_to "See your join request", my_requests_path %>
+    <% else %>
+      <%= link_to "Join this trip", new_trip_trip_join_request_path(@trip) %>
+    <% end %>
   <% end %>
 
   <%= link_to "Back to trips", trips_path %>

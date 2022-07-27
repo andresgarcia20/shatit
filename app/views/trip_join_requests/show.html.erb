@@ -2,8 +2,17 @@
 
 <%= render @trip_join_request %>
 
+<% if current_user.id == @trip_join_request.trip.user.id && @trip_join_request.stage.requested? %>
+  <form action=<%= "/trips/#{params[:trip_id]}/trip_join_requests/#{params[:id]}/accepted" %> method="put">
+    <button type="submit">Aceptar</button>
+  </form>
+  <form action=<%= "/trips/#{params[:trip_id]}/trip_join_requests/#{params[:id]}/rejected" %> method="put">
+    <button type="submit">Rechazar</button>
+  </form>
+<% end %>
+
 <div>
-  <%= link_to "Edit this trip join request", edit_trip_trip_join_request_path(@trip_join_request) %> |
+  <%= link_to "Edit this trip join request", edit_trip_trip_join_request_path(trip_id: params[:trip_id], id: @trip_join_request) %> |
   <%= link_to "Back to trip join requests", trip_trip_join_requests_path %>
   <%= link_to "Back to trip", trip_path(id: params[:trip_id]) %>
 

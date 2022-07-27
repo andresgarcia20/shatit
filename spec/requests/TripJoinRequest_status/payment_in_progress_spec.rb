@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "/trip_join_requests/:id/accepted", type: :request do
+RSpec.describe "/trip_join_requests/:id/payment_in_progress", type: :request do
   before { sign_in user }
   let(:user) { create(:user) }
   let(:vehicle) { create(:vehicle, user: user) }
@@ -17,18 +17,18 @@ RSpec.describe "/trip_join_requests/:id/accepted", type: :request do
           pets: 1,
           luggage: 1,
           kids: ["no"],
-          stage: 20,
+          stage: "payment_in_progress",
         }
       }
 
       it "updates the requested payment_in_progress_trip_trip_join_request" do
-        patch payment_in_progress_trip_trip_join_request_url(trip_request, :trip_id => trip.id, :id => trip_request.id), params: { trip_join_request: new_attributes }
+        patch payment_in_progress_trip_trip_join_request_url(trip_request, :trip_id => trip.id), params: { trip_join_request: new_attributes }
         trip_request.reload
-        expect(trip_request.stage).to eq(20)
+        expect(trip_request.stage).to eq("payment_in_progress")
       end
 
       it "redirects to the trip with the stage updated" do
-        patch payment_in_progress_trip_trip_join_request_url(trip_request, :trip_id => trip.id, :id => trip_request.id), params: { trip_join_request: new_attributes }
+        patch payment_in_progress_trip_trip_join_request_url(trip_request, :trip_id => trip.id), params: { trip_join_request: new_attributes }
         trip_request.reload
         expect(response).to redirect_to(trip_trip_join_request_url(id: trip_request.id))
       end
@@ -36,7 +36,7 @@ RSpec.describe "/trip_join_requests/:id/accepted", type: :request do
 
     context "with invalid parameters" do
       it "renders a successful response (i.e. to display the 'edit' template)" do
-        patch payment_in_progress_trip_trip_join_request_url(trip_request, :trip_id => trip.id, :id => trip_request.id), params: { trip_join_request: invalid_attributes }
+        patch payment_in_progress_trip_trip_join_request_url(trip_request, :trip_id => trip.id), params: { trip_join_request: invalid_attributes }
         expect(response).to have_http_status(302)
       end
     end

@@ -151,7 +151,7 @@ RSpec.describe TripJoinRequest, type: :model do
       context "paid" do
         let(:trip_request) { build(:trip_join_request, stage: 30) }
 
-        it "if stage is 'paid', user has to be in trip users list" do
+        xit "if stage is 'paid', user has to be in trip users list" do
           expect(trip.users_list.map(&:email)).to include(user.email)
         end
       end

@@ -4,15 +4,16 @@ Rails.application.routes.draw do
   root "home#index"
 
   get "stats", to: "stats#index"
+  get "my_requests", to: "trip_join_requests#show_my_requests"
 
   resources :trips do
     resources :trip_join_requests do
       member do
-        patch "accepted", to: "accepted#update"
-        patch "payment_in_progress", to: "payment_in_progress#update"
-        patch "paid", to: "paid#update"
-        patch "canceled", to: "canceled#update"
-        patch "rejected", to: "rejected#update"
+        resource :accepted, only: :update
+        resource :payment_in_progress, only: :update
+        resource :paid, only: :update
+        resource :canceled, only: :update
+        resource :rejected, only: :update
       end
     end
   end
