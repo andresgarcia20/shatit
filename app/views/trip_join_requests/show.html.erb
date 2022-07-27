@@ -2,7 +2,7 @@
 
 <%= render @trip_join_request %>
 
-<% if current_user.id == @trip_join_request.trip.user.id && @trip_join_request.stage.requested? %>
+<% if current_user.id == @trip_join_request.trip.user.id && @trip_join_request.stage == "requested" %>
   <form action=<%= "/trips/#{params[:trip_id]}/trip_join_requests/#{params[:id]}/accepted" %> method="put">
     <button type="submit">Aceptar</button>
   </form>

@@ -14,7 +14,7 @@
     <% if controller_name != "home" %>
       <%= link_to "Home", root_path %><br />
       <% if user_signed_in? %>
-        <% if current_user.driver? %>
+        <% if current_user.driver? || current_user.admin? %>
           <%= link_to "My trips", driver_user_path(current_user) %> |
         <% end %>
         <%= link_to "My trip join requests", my_requests_path %>
