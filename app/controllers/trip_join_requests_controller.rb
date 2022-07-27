@@ -9,6 +9,10 @@ class TripJoinRequestsController < ApplicationController
     @trip_join_request = TripJoinRequest.find(params[:id])
   end
 
+  def show_my_requests
+    @trip_join_requests = TripJoinRequest.where(user_id: current_user.id)
+  end
+
   def new
     @trip_join_request = TripJoinRequest.new
   end

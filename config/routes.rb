@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   root "home#index"
 
   get "stats", to: "stats#index"
+  get "my_requests", to: "trip_join_requests#show_my_requests"
 
   resources :trips do
     resources :trip_join_requests do
