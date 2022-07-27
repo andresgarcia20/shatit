@@ -1,9 +1,11 @@
-class RejectedController < ApplicationController
+require "./app/services/TripJoinRequestStageManager"
+
+class RejectedsController < ApplicationController
   before_action :set_rejected_trip_join_request, only: %i[ update ]
 
   def update
     respond_to do |format|
-      if @trip_join_request.update(trip_join_request_params)
+      if TripJoinRequestStageManager.reject!(@trip_join_request)
         format.html { redirect_to trip_trip_join_request_url(id: params[:id]), notice: "Trip join request stage was successfully updated." }
         format.json { render trip_trip_join_request_url(id: params[:id]), status: :created, location: @trip_join_request.trip_id }
       else
