@@ -2,11 +2,9 @@ class TripJoinRequestStageManager
   REQUESTER = 1
   def self.accept!(req)
     if req.requested?
-      def decrease_available_seats
-        trip = req
-        seats = req.trip.available_seats - (companions + REQUESTER)
-        req.trip.update_column(:available_seats, seats)
-      end
+      trip = req.trip
+      seats = trip.available_seats - (req.companions + REQUESTER)
+      trip.update_column(:available_seats, seats)
 
       req.accepted!
     else
