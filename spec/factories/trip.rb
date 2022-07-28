@@ -20,5 +20,9 @@ FactoryBot.define do
     trait :four_available_seats do
       available_seats { 4 }
     end
+
+    trait :two_pets do
+      pets { 2 }
+    end
   end
 end
