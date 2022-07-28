@@ -144,7 +144,6 @@ RSpec.describe TripJoinRequest, type: :model do
           let!(:second_trip_request) { create(:trip_join_request, trip_id: second_trip.id, user_id: first_user.id) }
           let!(:third_trip_request) { create(:trip_join_request, trip_id: first_trip.id, user_id: second_user.id) }
           let!(:fourth_trip_request) { create(:trip_join_request, :two_pets, trip_id: first_trip.id, user_id: second_user.id) }
-          let!(:fifth_trip_request) { create(:trip_join_request, :three_luggage, trip_id: first_trip.id, user_id: second_user.id) }
 
           it "when user has two requests with same date: if one gets accepted, the other gets rejected" do
             TripJoinRequestStageManager.accept!(first_trip_request)
@@ -163,12 +162,6 @@ RSpec.describe TripJoinRequest, type: :model do
               TripJoinRequestStageManager.accept!(first_trip_request)
               fourth_trip_request.reload
               expect(fourth_trip_request.rejected?).to be true
-            end
-
-            it "rejected for luggage" do
-              TripJoinRequestStageManager.accept!(first_trip_request)
-              fifth_trip_request.reload
-              expect(fifth_trip_request.rejected?).to be true
             end
           end
         end

@@ -13,17 +13,17 @@
 
   <div>
     <%= form.label :companions, style: "display: block" %>
-    <%= form.number_field :companions %>
+    <%= form.number_field :companions, min: 0, max: Trip.find(params[:trip_id]).available_seats - 1 %>
   </div>
 
   <div>
     <%= form.label :pets, style: "display: block" %>
-    <%= form.number_field :pets %>
+    <%= form.number_field :pets, min: 0, max: Trip.find(params[:trip_id]).pets %>
   </div>
 
   <div>
     <%= form.label :luggage, style: "display: block" %>
-    <%= form.number_field :luggage %>
+    <%= form.number_field :luggage, min: 0, max: Trip.find(params[:trip_id]).luggage %>
   </div>
 
   <div>

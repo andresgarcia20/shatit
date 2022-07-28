@@ -17,7 +17,7 @@ class TripJoinRequestStageManager
       all_trip_requests.map do |each_request|
         total_seats = new_seats - (each_request.companions + REQUESTER)
         total_pets = new_pets - each_request.pets
-        if total_seats < 0 || total_pets < 0 || trip.luggage > trip_request.luggage
+        if total_seats < 0 || total_pets < 0
           each_request.rejected!
         end
       end
