@@ -1,6 +1,7 @@
 require "rails_helper"
 
 RSpec.describe TripJoinRequest, type: :model do
+  include ActiveSupport::Testing::TimeHelpers
   describe "model" do
     let(:trip_request) { create(:trip_join_request) }
     let(:trip) { create(:trip) }
@@ -110,12 +111,12 @@ RSpec.describe TripJoinRequest, type: :model do
 
       context "requested" do
         it "if driver accepts request, stage change to 'accepted'" do
-          trip_request.accepted!
+          TripJoinRequestStageManager.accept!(trip_request)
           expect(trip_request.stage).to eq("accepted")
         end
 
         it "if driver rejects request, stage change to 'rejected'" do
-          trip_request.rejected!
+          TripJoinRequestStageManager.reject!(trip_request)
           expect(trip_request.stage).to eq("rejected")
         end
       end
@@ -124,13 +125,28 @@ RSpec.describe TripJoinRequest, type: :model do
         let(:trip_request) { build(:trip_join_request, stage: 10) }
 
         it "if user continue to payment, stage change to 'payment_in_progress'" do
-          trip_request.payment_in_progress!
+          TripJoinRequestStageManager.payment_in_progress!(trip_request)
           expect(trip_request.stage).to eq("payment_in_progress")
         end
 
         it "if user cancels request, stage change to 'canceled'" do
-          trip_request.canceled!
+          TripJoinRequestStageManager.canceled!(trip_request)
           expect(trip_request.stage).to eq("canceled")
+        end
+
+        context "when user has two requests with same date" do
+          before { travel_to Time.zone.local(2022, 07, 28) }
+          let(:user) { create(:user) }
+          let(:first_trip) { create(:trip, departure_date: "2022-08-20".to_date) }
+          let(:second_trip) { create(:trip, departure_date: "2022-08-20".to_date) }
+          let!(:first_trip_request) { create(:trip_join_request, trip_id: first_trip.id, user_id: user.id) }
+          let!(:second_trip_request) { create(:trip_join_request, trip_id: second_trip.id, user_id: user.id) }
+
+          it "if one gets accepted, the other gets rejected" do
+            TripJoinRequestStageManager.accept!(first_trip_request)
+            second_trip_request.reload
+            expect(second_trip_request.rejected?).to be true
+          end
         end
       end
 
@@ -138,12 +154,12 @@ RSpec.describe TripJoinRequest, type: :model do
         let(:trip_request) { build(:trip_join_request, stage: 20) }
 
         it "if payment success, stage change to 'paid'" do
-          trip_request.paid!
+          TripJoinRequestStageManager.paid!(trip_request)
           expect(trip_request.stage).to eq("paid")
         end
 
-        it "if payment fails, stage change to 'accepted'" do
-          trip_request.accepted!
+        xit "if payment fails, stage change to 'accepted'" do
+          TripJoinRequestStageManager.accept!(trip_request)
           expect(trip_request.stage).to eq("accepted")
         end
       end
@@ -160,7 +176,7 @@ RSpec.describe TripJoinRequest, type: :model do
         let(:trip_request) { build(:trip_join_request, stage: 0) }
 
         it "if driver rejects request, stage change to 'rejected'" do
-          trip_request.rejected!
+          TripJoinRequestStageManager.reject!(trip_request)
           expect(trip_request.stage).to eq("rejected")
         end
       end
