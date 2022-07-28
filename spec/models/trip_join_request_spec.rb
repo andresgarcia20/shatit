@@ -134,18 +134,42 @@ RSpec.describe TripJoinRequest, type: :model do
           expect(trip_request.stage).to eq("canceled")
         end
 
-        context "when user has two requests with same date" do
+        context "accept! validation" do
           before { travel_to Time.zone.local(2022, 07, 28) }
-          let(:user) { create(:user) }
-          let(:first_trip) { create(:trip, departure_date: "2022-08-20".to_date) }
+          let(:first_user) { create(:user) }
+          let(:second_user) { create(:user) }
+          let(:first_trip) { create(:trip, :two_pets, departure_date: "2022-08-20".to_date) }
           let(:second_trip) { create(:trip, departure_date: "2022-08-20".to_date) }
-          let!(:first_trip_request) { create(:trip_join_request, trip_id: first_trip.id, user_id: user.id) }
-          let!(:second_trip_request) { create(:trip_join_request, trip_id: second_trip.id, user_id: user.id) }
+          let!(:first_trip_request) { create(:trip_join_request, :two_pets, trip_id: first_trip.id, user_id: first_user.id) }
+          let!(:second_trip_request) { create(:trip_join_request, trip_id: second_trip.id, user_id: first_user.id) }
+          let!(:third_trip_request) { create(:trip_join_request, trip_id: first_trip.id, user_id: second_user.id) }
+          let!(:fourth_trip_request) { create(:trip_join_request, :two_pets, trip_id: first_trip.id, user_id: second_user.id) }
+          let!(:fifth_trip_request) { create(:trip_join_request, :three_luggage, trip_id: first_trip.id, user_id: second_user.id) }
 
-          it "if one gets accepted, the other gets rejected" do
+          it "when user has two requests with same date: if one gets accepted, the other gets rejected" do
             TripJoinRequestStageManager.accept!(first_trip_request)
             second_trip_request.reload
             expect(second_trip_request.rejected?).to be true
+          end
+
+          context "if one request gets accepted, others incompatible get rejected" do
+            it "rejected for avaible_seats" do
+              TripJoinRequestStageManager.accept!(first_trip_request)
+              third_trip_request.reload
+              expect(third_trip_request.rejected?).to be true
+            end
+
+            it "rejected for pets" do
+              TripJoinRequestStageManager.accept!(first_trip_request)
+              fourth_trip_request.reload
+              expect(fourth_trip_request.rejected?).to be true
+            end
+
+            it "rejected for luggage" do
+              TripJoinRequestStageManager.accept!(first_trip_request)
+              fifth_trip_request.reload
+              expect(fifth_trip_request.rejected?).to be true
+            end
           end
         end
       end
