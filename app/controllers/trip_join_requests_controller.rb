@@ -1,5 +1,6 @@
 class TripJoinRequestsController < ApplicationController
   before_action :set_trip_join_request, only: %i[ show edit update destroy ]
+  before_action :set_trip, only: %i[edit new]
 
   def index
     @trip_join_requests = TripJoinRequest.where(trip_id: params[:trip_id])
@@ -60,6 +61,10 @@ class TripJoinRequestsController < ApplicationController
 
   def set_trip_join_request
     @trip_join_request = TripJoinRequest.find(params[:id])
+  end
+
+  def set_trip
+    @trip = Trip.find(params[:trip_id])
   end
 
   def trip_join_request_params
