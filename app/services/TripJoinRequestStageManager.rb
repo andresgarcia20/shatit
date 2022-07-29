@@ -3,53 +3,45 @@ require "./app/services/InvalidStageChange"
 class TripJoinRequestStageManager
   REQUESTER = 1
   def self.accept!(trip_request)
-    if trip_request.requested?
-      trip = trip_request.trip
-      new_seats = trip.available_seats - (trip_request.companions + REQUESTER)
-      trip.update_column(:available_seats, new_seats)
-      new_pets = trip.pets - trip_request.pets
-      trip.update_column(:pets, new_pets)
+    raise InvalidStageChange unless trip_request.requested?
 
-      user_overlapping_requests = trip_request.user.trip_join_requests.by_stage_requested.where("trip_join_requests.id != #{trip_request.id}").by_trip_date(trip.departure_date)
-      user_overlapping_requests.map(&:rejected!)
+    trip = trip_request.trip
+    new_seats = trip.available_seats - (trip_request.companions + REQUESTER)
+    trip.update_column(:available_seats, new_seats)
+    new_pets = trip.pets - trip_request.pets
+    trip.update_column(:pets, new_pets)
 
-      all_trip_requests = trip.trip_join_requests.by_stage_requested.where("trip_join_requests.id != #{trip_request.id}")
-      all_trip_requests.map do |each_request|
-        total_seats = new_seats - (each_request.companions + REQUESTER)
-        total_pets = new_pets - each_request.pets
-        if total_seats < 0 || total_pets < 0
-          each_request.rejected!
-        end
+    user_overlapping_requests = trip_request.user.trip_join_requests.by_stage_requested.where("trip_join_requests.id != #{trip_request.id}").by_trip_date(trip.departure_date)
+    user_overlapping_requests.map(&:rejected!)
+
+    all_trip_requests = trip.trip_join_requests.by_stage_requested.where("trip_join_requests.id != #{trip_request.id}")
+    all_trip_requests.map do |each_request|
+      total_seats = new_seats - (each_request.companions + REQUESTER)
+      total_pets = new_pets - each_request.pets
+      if total_seats < 0 || total_pets < 0
+        each_request.rejected!
       end
-
-      trip_request.accepted!
-    else
-      raise InvalidStageChange
     end
+
+    trip_request.accepted!
   end
 
   def self.payment_in_progress!(trip_request)
-    if trip_request.accepted?
-      trip_request.payment_in_progress!
-    else
-      raise InvalidStageChange
-    end
+    raise InvalidStageChange unless trip_request.accepted?
+
+    trip_request.payment_in_progress!
   end
 
   def self.paid!(trip_request)
-    if trip_request.payment_in_progress?
-      trip_request.paid!
-    else
-      raise InvalidStageChange
-    end
+    raise InvalidStageChange unless trip_request.payment_in_progress?
+
+    trip_request.paid!
   end
 
   def self.reject!(trip_request)
-    if trip_request.requested?
-      trip_request.rejected!
-    else
-      raise InvalidStageChange
-    end
+    raise InvalidStageChange unless trip_request.requested?
+
+    trip_request.rejected!
   end
 
   def self.canceled!(trip_request)
