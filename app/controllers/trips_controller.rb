@@ -17,7 +17,6 @@ class TripsController < ApplicationController
   end
 
   def show
-    @trip = Trip.find(params[:id])
   end
 
   def new
@@ -25,7 +24,6 @@ class TripsController < ApplicationController
   end
 
   def edit
-    @trip = Trip.find(params[:id])
   end
 
   def create

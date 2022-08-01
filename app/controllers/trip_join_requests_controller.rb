@@ -7,7 +7,6 @@ class TripJoinRequestsController < ApplicationController
   end
 
   def show
-    @trip_join_request = TripJoinRequest.find(params[:id])
   end
 
   def show_my_requests
@@ -19,7 +18,6 @@ class TripJoinRequestsController < ApplicationController
   end
 
   def edit
-    @trip_join_request = TripJoinRequest.find(params[:id])
   end
 
   def create

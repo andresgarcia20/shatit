@@ -6,7 +6,6 @@ class CompanionsController < ApplicationController
   end
 
   def show
-    @companion = Companion.find(params[:id])
   end
 
   def new
@@ -14,7 +13,6 @@ class CompanionsController < ApplicationController
   end
 
   def edit
-    @companion = Companion.find(params[:id])
   end
 
   def create
