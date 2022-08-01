@@ -21,14 +21,14 @@ RSpec.describe "/trip_join_requests/:id/rejected", type: :request do
         }
       }
 
-      it "updates the requested rejected_trip_trip_join_request" do
-        patch rejected_trip_trip_join_request_url(trip_request, :trip_id => trip.id), params: { trip_join_request: new_attributes }
+      it "updates the requested trip_rejected" do
+        patch trip_rejected_url(trip_request, :trip_id => trip.id), params: { trip_join_request: new_attributes }
         trip_request.reload
         expect(trip_request.stage).to eq("rejected")
       end
 
       it "redirects to the trip with the stage updated" do
-        patch rejected_trip_trip_join_request_url(trip_request, :trip_id => trip.id), params: { trip_join_request: new_attributes }
+        patch trip_rejected_url(trip_request, :trip_id => trip.id), params: { trip_join_request: new_attributes }
         trip_request.reload
         expect(response).to redirect_to(trip_trip_join_request_url(id: trip_request.id))
       end
@@ -36,7 +36,7 @@ RSpec.describe "/trip_join_requests/:id/rejected", type: :request do
 
     context "with invalid parameters" do
       it "renders a successful response (i.e. to display the 'edit' template)" do
-        patch rejected_trip_trip_join_request_url(trip_request, :trip_id => trip.id), params: { trip_join_request: invalid_attributes }
+        patch trip_rejected_url(trip_request, :trip_id => trip.id), params: { trip_join_request: invalid_attributes }
         expect(response).to have_http_status(302)
       end
     end

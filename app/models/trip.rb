@@ -51,4 +51,12 @@ class Trip < ApplicationRecord
     origin.downcase!
     destinations.map { |el| el.downcase! }
   end
+
+  def update_availability(incoming_values)
+    remaining_seats = available_seats - incoming_values[:seats]
+    remaining_pets = pets - incoming_values[:pets]
+
+    self.update_column(:available_seats, remaining_seats)
+    self.update_column(:pets, remaining_pets)
+  end
 end
