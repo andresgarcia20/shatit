@@ -68,6 +68,6 @@ class TripJoinRequestsController < ApplicationController
   end
 
   def trip_join_request_params
-    params.require(:trip_join_request).permit(:companions, :pets, :luggage, :stage, :trip_id, :user_id, kids: [])
+    params.require(:trip_join_request).permit(:companions, :pets, :luggage, :stage, :trip_id, :user_id, kids: [], requesters_list: [])
   end
 end

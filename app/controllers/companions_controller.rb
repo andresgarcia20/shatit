@@ -58,6 +58,6 @@ class CompanionsController < ApplicationController
     end
 
     def companion_params
-      params.fetch(:companion, {})
+      params.require(:companion).permit(:name, :surname, :phone_number)
     end
 end
