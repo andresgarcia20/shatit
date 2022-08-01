@@ -1,11 +1,13 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { sessions: "users/sessions" }
-
+  
   root "home#index"
-
+  
   get "stats", to: "stats#index"
   get "my_requests", to: "trip_join_requests#show_my_requests"
-
+  
+  resources :companions
+  
   resources :trips do
     resources :trip_join_requests do
       member do

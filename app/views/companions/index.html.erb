@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Companions</h1>
+
+<div id="companions">
+  <% @companions.each do |companion| %>
+    <%= render companion %>
+    <p>
+      <%= link_to "Show this companion", companion %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New companion", new_companion_path %>
