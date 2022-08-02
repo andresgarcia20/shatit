@@ -29,3 +29,14 @@ input {
 a {
   text-decoration: none;
 }
+
+.d-none {
+  display: none;
+}
+
+#btn_destinations {
+  border: 1px soid black;
+  background-color: #d5d5d5;
+  cursor: pointer;
+  padding: 2px 3px;
+}
