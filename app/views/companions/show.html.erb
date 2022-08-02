@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @companion %>
+
+<div>
+  <%= link_to "Edit this companion", edit_companion_path(@companion) %> |
+  <%= link_to "Back to companions", companions_path %>
+
+  <%= button_to "Destroy this companion", @companion, method: :delete %>
+</div>

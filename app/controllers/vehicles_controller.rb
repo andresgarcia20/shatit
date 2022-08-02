@@ -6,7 +6,6 @@ class VehiclesController < ApplicationController
   end
 
   def show
-    @vehicle = Vehicle.find(params[:id])
   end
 
   def new
@@ -14,7 +13,6 @@ class VehiclesController < ApplicationController
   end
 
   def edit
-    @vehicle = Vehicle.find(params[:id])
   end
 
   def create

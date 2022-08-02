@@ -7,7 +7,6 @@ class TripJoinRequestsController < ApplicationController
   end
 
   def show
-    @trip_join_request = TripJoinRequest.find(params[:id])
   end
 
   def show_my_requests
@@ -19,7 +18,6 @@ class TripJoinRequestsController < ApplicationController
   end
 
   def edit
-    @trip_join_request = TripJoinRequest.find(params[:id])
   end
 
   def create
@@ -68,6 +66,6 @@ class TripJoinRequestsController < ApplicationController
   end
 
   def trip_join_request_params
-    params.require(:trip_join_request).permit(:companions, :pets, :luggage, :stage, :trip_id, :user_id, kids: [])
+    params.require(:trip_join_request).permit(:companions, :pets, :luggage, :stage, :trip_id, :user_id, kids: [], requesters_list: [])
   end
 end
