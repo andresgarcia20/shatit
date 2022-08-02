@@ -6,7 +6,6 @@ Rails.application.routes.draw do
   get "stats", to: "stats#index"
   get "my_requests", to: "trip_join_requests#show_my_requests"
   
-  resources :companions
   
   resources :trips do
     resources :trip_join_requests do
@@ -19,11 +18,12 @@ Rails.application.routes.draw do
       end
     end
   end
-
+  
   resources :users do
     member do
       get "driver", to: "driver#index"
     end
+    resources :companions
     resources :vehicles
   end
 end
