@@ -16,9 +16,19 @@
     <%= form.text_field :origin %>
   </div>
 
-  <div>
+  <% if current_page?(:controller => 'trips', :action => 'new') %>
+    <div id="destinations" style="margin: 10px 0;">
+      <a id="btn_destinations">Añadir destino</a>
+      <%= form.label :destinations, style: "display: block" %>
+      <%= form.text_field :destinations, multiple: true %>
+    </div>
+  <% end %>
+
+  <div id="destinations_edit" style="margin: 10px 0;">
     <%= form.label :destinations, style: "display: block" %>
-    <%= form.text_field :destinations, multiple: true %>
+    <% trip.destinations.each do |dest| %>
+      <%= form.text_field :destinations, multiple: true, value: dest %><br>
+    <%end%>
   </div>
 
   <div>
