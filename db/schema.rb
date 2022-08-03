@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_02_093300) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_03_151933) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -52,6 +52,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_02_093300) do
     t.integer "luggage"
     t.integer "kids_age_range"
     t.integer "gasoline_comission"
+    t.jsonb "passengers_list", default: [], array: true
     t.index ["user_id"], name: "index_trips_on_user_id"
     t.index ["vehicle_id"], name: "index_trips_on_vehicle_id"
   end
