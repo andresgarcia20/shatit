@@ -1,3 +1,5 @@
+require "faker"
+
 FactoryBot.define do
   factory :trip_join_request do
     companions { 0 }
@@ -5,11 +7,13 @@ FactoryBot.define do
     luggage { 1 }
     kids { ["no"] }
     stage { 0 }
+    requesters_list { {} }
     trip_id { create(:trip).id }
     user_id { create(:user).id }
 
     trait :one_companion do
       companions { 1 }
+      requesters_list { [{ name: Faker::Name.first_name, surname: Faker::Name.last_name, phone_number: Faker::Number.number(digits: 9) }] }
     end
 
     trait :three_companion do

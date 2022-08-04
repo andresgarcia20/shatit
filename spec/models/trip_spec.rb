@@ -68,6 +68,10 @@ describe User, type: :model do
         it { expect(@new_trip.date_valid?).to be true }
       end
     end
+
+    it "when a trip is created, its initial status is not_finalized" do
+      expect(@new_trip.trip_status).to eq("not_finalized")
+    end
   end
 
   describe "scope" do
@@ -117,6 +121,28 @@ describe User, type: :model do
 
     it "trips_todo returns trips yet to come" do
       expect(Trip.trips_todo).to eq([@trip, @second_trip, @third_trip, @fourth_trip])
+    end
+  end
+
+  context "when a trip finalize" do
+    let(:new_trip) { build(:trip) }
+    let(:trip_request) { build(:trip_join_request, :one_companion, trip_id: new_trip) }
+
+    it "the status change to finalized" do
+      new_trip.finalized!
+      expect(new_trip.trip_status).to eq("finalized")
+    end
+
+    it "if there is no companions, only copy the requester" do
+      new_trip.finalized!
+      requester = trip_request.user
+      expect(new_trip.passengers_list).to eq([{ name: requester.name, surname: requester.surname, phone_number: requester.phone_number }])
+    end
+
+    it "it denormalize and copy the information into the trip" do
+      new_trip.finalized!
+      coordinator = trip_request.user
+      expect(new_trip.passengers_list).to eq([{ name: coordinator.name, surname: coordinator.surname, phone_number: coordinator.phone_number }, *trip_request.requesters_list])
     end
   end
 end
