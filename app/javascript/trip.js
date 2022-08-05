@@ -2,11 +2,11 @@ const destDiv = document.getElementById('destinations')
 const destEditDiv = document.getElementById('destinations_edit')
 const destBtn = document.getElementById('btn_destinations')
 
-if (window.location.href.includes("/trips") && window.location.href.includes("edit")) {
-  destDiv.classList.add("d-none")
-} else {
-  destEditDiv.classList.add("d-none")
-}
+// if (window.location.href.includes("/trips") && window.location.href.includes("edit")) {
+//   destDiv.classList.add("d-none")
+// } else {
+//   destEditDiv.classList.add("d-none")
+// }
 let count = 1
 destBtn.onclick = () => {
   if (count < 9) {
