@@ -22,7 +22,7 @@ class Trip < ApplicationRecord
   scope :trips_todo, ->(date = Date.today) { where("departure_date >= ?", date) }
 
   enum kids_age_range: { no: 0, indifferent: 1, "0 to 4": 2, "5 to 12": 3, "13 to 16": 4 }, _default: 0
-  enum trip_status: { "no finalized": 0, finalized: 10 }, _default: 0
+  enum trip_status: { in_preparation: 0, started: 5, finalized: 10 }, _default: 0
 
   def self.trips_date_range(start_date, end_date)
     if start_date == ""
