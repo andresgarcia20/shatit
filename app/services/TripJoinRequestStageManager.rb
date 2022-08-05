@@ -11,10 +11,10 @@ class TripJoinRequestStageManager
 
     trip.update_availability({ seats: (trip_request.companions + REQUESTER), pets: trip_request.pets })
 
-    user_overlapping_requests = trip_request.user.trip_join_requests.by_stage_requested.where("trip_join_requests.id != #{trip_request.id}").by_trip_date(trip.departure_date)
+    user_overlapping_requests = trip_request.user.trip_join_requests.by_stage.where("trip_join_requests.id != #{trip_request.id}").by_trip_date(trip.departure_date)
     user_overlapping_requests.map(&:rejected!)
 
-    all_trip_requests = trip.trip_join_requests.by_stage_requested.where("trip_join_requests.id != #{trip_request.id}")
+    all_trip_requests = trip.trip_join_requests.by_stage.where("trip_join_requests.id != #{trip_request.id}")
     all_trip_requests.map do |each_request|
       total_seats = new_seats - (each_request.companions + REQUESTER)
       total_pets = new_pets - each_request.pets
