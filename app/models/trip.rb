@@ -22,6 +22,7 @@ class Trip < ApplicationRecord
   scope :trips_todo, ->(date = Date.today) { where("departure_date >= ?", date) }
 
   enum kids_age_range: { no: 0, indifferent: 1, "0 to 4": 2, "5 to 12": 3, "13 to 16": 4 }, _default: 0
+  enum trip_status: { in_preparation: 0, started: 5, finalized: 10 }, _default: 0
 
   def self.trips_date_range(start_date, end_date)
     if start_date == ""
@@ -43,7 +44,6 @@ class Trip < ApplicationRecord
   end
 
   def number_of_stops
-    # Number of stops without counting the final destination
     destinations.size - 1
   end
 
@@ -58,5 +58,12 @@ class Trip < ApplicationRecord
 
     self.update_column(:available_seats, remaining_seats)
     self.update_column(:pets, remaining_pets)
+  end
+
+  def finalized!
+    raise "Trip already finalized" if finalized?
+    passengers = TripJoinRequest.paid_trip_companions_by(id)
+
+    self.update(passengers_list: passengers, trip_status: Trip.trip_statuses["finalized"])
   end
 end

@@ -11,5 +11,12 @@ class TripJoinRequest < ApplicationRecord
   enum stage: { requested: 0, accepted: 10, payment_in_progress: 20, paid: 30, booked: 40, rejected: 50, canceled: 60 }, _default: 0
 
   scope :by_trip_date, ->(date) { joins(:trip).where("DATE(trips.departure_date) = ?", date) }
-  scope :by_stage_requested, ->(stage = 0) { where("stage = ?", stage) }
+  scope :by_stage, ->(stage = 0) { where("stage = ?", stage) }
+  scope :by_trip, ->(trip_id) { where("trip_id = ?", trip_id) }
+
+  def self.paid_trip_companions_by(trip_id)
+    request = TripJoinRequest.by_trip(trip_id).first
+    list = [{ "name" => request.user.name, "surname" => request.user.surname, "phone_number" => request.user.phone_number }]
+    list + TripJoinRequest.by_trip(trip_id).by_stage(30).map(&:requesters_list).flatten
+  end
 end
