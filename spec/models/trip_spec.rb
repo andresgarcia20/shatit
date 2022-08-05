@@ -70,7 +70,7 @@ describe User, type: :model do
     end
 
     it "when a trip is created, its initial status is not_finalized" do
-      expect(@new_trip.trip_status).to eq("not_finalized")
+      expect(@new_trip.trip_status).to eq("no finalized")
     end
   end
 
@@ -125,24 +125,27 @@ describe User, type: :model do
   end
 
   context "when a trip finalize" do
-    let(:new_trip) { build(:trip) }
-    let(:trip_request) { build(:trip_join_request, :one_companion, trip_id: new_trip) }
+    let(:first_trip) { create(:trip) }
+    let(:second_trip) { create(:trip) }
+    let(:first_request) { create(:trip_join_request, :stage_paid, trip_id: first_trip.id) }
+    let(:second_request) { create(:trip_join_request, :one_companion, :stage_paid, trip_id: second_trip.id) }
 
     it "the status change to finalized" do
-      new_trip.finalized!
-      expect(new_trip.trip_status).to eq("finalized")
+      first_request
+      first_trip.finalized!
+      expect(first_trip.trip_status).to eq("finalized")
     end
 
     it "if there is no companions, only copy the requester" do
-      new_trip.finalized!
-      requester = trip_request.user
-      expect(new_trip.passengers_list).to eq([{ name: requester.name, surname: requester.surname, phone_number: requester.phone_number }])
+      requester = first_request.user
+      first_trip.finalized!
+      expect(first_trip.passengers_list).to eq([{ "name" => requester.name, "surname" => requester.surname, "phone_number" => requester.phone_number }])
     end
 
     it "it denormalize and copy the information into the trip" do
-      new_trip.finalized!
-      coordinator = trip_request.user
-      expect(new_trip.passengers_list).to eq([{ name: coordinator.name, surname: coordinator.surname, phone_number: coordinator.phone_number }, *trip_request.requesters_list])
+      coordinator = second_request.user
+      second_trip.finalized!
+      expect(second_trip.passengers_list).to eq([{ "name" => coordinator.name, "surname" => coordinator.surname, "phone_number" => coordinator.phone_number }, *second_request.requesters_list])
     end
   end
 end

@@ -9,7 +9,7 @@ RSpec.describe "/trip_join_requests", type: :request do
 
   let(:valid_attributes) { attributes_for(:trip_join_request, :two_kid, stage: "requested") }
 
-  let(:invalid_attributes) { { "id" => 1 } }
+  let(:invalid_attributes) { { "my-id" => 1 } }
 
   describe "GET /index" do
     it "renders a successful response" do
