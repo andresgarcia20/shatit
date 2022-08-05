@@ -6,8 +6,8 @@ FactoryBot.define do
     pets { 0 }
     luggage { 1 }
     kids { ["no"] }
-    stage { 0 }
-    requesters_list { {} }
+    stage { "requested" }
+    requesters_list { [] }
     trip_id { create(:trip).id }
     user_id { create(:user).id }
 
@@ -37,27 +37,27 @@ FactoryBot.define do
     end
 
     trait :stage_accepted do
-      stage { 10 }
+      stage { "accepted" }
     end
 
     trait :stage_payment_in_progress do
-      stage { 20 }
+      stage { "payment_in_progress" }
     end
 
     trait :stage_paid do
-      stage { 30 }
+      stage { "paid" }
     end
 
     trait :stage_booked do
-      stage { 40 }
+      stage { "booked" }
     end
 
     trait :stage_rejected do
-      stage { 50 }
+      stage { "rejected" }
     end
 
     trait :stage_canceled do
-      stage { 60 }
+      stage { "canceled" }
     end
   end
 end
