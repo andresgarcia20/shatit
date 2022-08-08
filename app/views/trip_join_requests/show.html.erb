@@ -3,18 +3,18 @@
 <%= render @trip_join_request %>
 
 <% if current_user.id == @trip_join_request.trip.user.id && @trip_join_request.stage == "requested" %>
-  <form action=<%= "/trips/#{params[:trip_id]}/trip_join_requests/#{params[:id]}/accepted" %> method="put">
-    <button type="submit">Aceptar</button>
-  </form>
-  <form action=<%= "/trips/#{params[:trip_id]}/trip_join_requests/#{params[:id]}/rejected" %> method="put">
-    <button type="submit">Rechazar</button>
-  </form>
+  <%= form_with url: trip_accepted_path(trip_id: params[:trip_id], id: params[:id]), method: :put do |f| %>
+    <%= f.submit "Aceptar"%>
+  <% end %>
+  <%= form_with url: trip_rejected_path(trip_id: params[:trip_id], id: params[:id]), method: :put do |f| %>
+    <%= f.submit "Rechazar"%>
+  <% end %>
 <% end %>
 
 <% if current_user.id == @trip_join_request.user.id && @trip_join_request.stage == "accepted" %>
-  <form action=<%= "/trips/#{params[:trip_id]}/trip_join_requests/#{params[:id]}/payment_in_progress" %> method="put">
-    <button type="submit">Pagar</button>
-  </form>
+  <%= form_with url: trip_payment_in_progress_path(trip_id: params[:trip_id], id: params[:id]), method: :put do |f| %>
+    <%= f.submit "Pagar"%>
+  <% end %>
 <% end %>
 
 <div>
