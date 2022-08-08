@@ -11,6 +11,12 @@
   </form>
 <% end %>
 
+<% if current_user.id == @trip_join_request.user.id && @trip_join_request.stage == "accepted" %>
+  <form action=<%= "/trips/#{params[:trip_id]}/trip_join_requests/#{params[:id]}/payment_in_progress" %> method="put">
+    <button type="submit">Pagar</button>
+  </form>
+<% end %>
+
 <div>
   <%= link_to "Edit this trip join request", edit_trip_trip_join_request_path(trip_id: params[:trip_id], id: @trip_join_request) %> |
   <%= link_to "Back to trip join requests", trip_trip_join_requests_path %>

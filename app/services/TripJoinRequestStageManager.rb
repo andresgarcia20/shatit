@@ -26,7 +26,7 @@ class TripJoinRequestStageManager
     trip_request.accepted!
   end
 
-  def self.payment_in_progress!(trip_request)
+  def self.pay!(trip_request)
     raise InvalidStageChange unless trip_request.accepted?
 
     trip_request.payment_in_progress!
