@@ -1,6 +1,10 @@
+require "./app/uploaders/transfer_receipt_uploader"
+
 class TripJoinRequest < ApplicationRecord
   belongs_to :trip, required: true
   belongs_to :user, required: true
+
+  mount_uploader :transfer_receipt, TransferReceiptUploader
 
   validates :companions, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :pets, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
