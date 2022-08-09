@@ -175,17 +175,27 @@ RSpec.describe TripJoinRequest, type: :model do
           expect(trip_request.stage).to eq("paid")
         end
 
-        xit "if payment fails, stage change to 'accepted'" do
+        it "if payment fails, stage change to 'accepted'" do
           TripJoinRequestStageManager.accept!(trip_request)
           expect(trip_request.stage).to eq("accepted")
         end
       end
 
       context "paid" do
-        let(:trip_request) { build(:trip_join_request, stage: 30) }
+        context "when the trip finalizes" do
+          let(:new_trip) { create(:trip) }
+          let!(:new_user) { create(:user) }
+          let!(:trip_request) { create(:trip_join_request, :one_companion, stage: 30, trip_id: new_trip.id, user_id: new_user.id) }
 
-        xit "if stage is 'paid', user has to be in trip users list" do
-          expect(trip.users_list.map(&:email)).to include(user.email)
+          it "coordinator has to be in trip users list" do
+            new_trip.finalized!
+            expect(new_trip.passengers_list.map { |h| h["phone_number"] }).to include(new_user.phone_number)
+          end
+
+          it "coordinator's companions have to be in trip users list" do
+            new_trip.finalized!
+            expect(new_trip.passengers_list.map { |h| h["phone_number"] }).to include(*trip_request.requesters_list.map { |h| h["phone_number"] })
+          end
         end
       end
 
