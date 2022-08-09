@@ -175,9 +175,16 @@ RSpec.describe TripJoinRequest, type: :model do
           expect(trip_request.stage).to eq("paid")
         end
 
-        it "if payment fails, stage change to 'accepted'" do
-          TripJoinRequestStageManager.accept!(trip_request)
-          expect(trip_request.stage).to eq("accepted")
+        context "when payment fails" do
+          it "stage change to 'accepted'" do
+            TripJoinRequestStageManager.accept!(trip_request)
+            expect(trip_request.stage).to eq("accepted")
+          end
+
+          it "the transfer receipt uploaded gets deleted" do
+            TripJoinRequestStageManager.accept!(trip_request)
+            expect(trip_request.transfer_receipt.filename).to be nil
+          end
         end
       end
 
