@@ -1,6 +1,6 @@
 describe Companion, type: :model do
   describe "validation" do
-    let(:new_companion) { create(:companion) }
+    let(:new_companion) { create(:companion, name: "Andrew") }
 
     it "returns false if name is empty" do
       new_companion.name = nil
