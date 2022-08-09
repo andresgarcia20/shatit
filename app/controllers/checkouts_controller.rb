@@ -12,8 +12,7 @@ class CheckoutsController < ApplicationController
   end
 
   def create
-    trip_join_request = TripJoinRequest.new
-    @checkout = trip_join_request.transfer_receipt(checkout_params)
+    @checkout = TripJoinRequest.new.transfer_receipt(checkout_params)
 
     respond_to do |format|
       if @checkout.save
