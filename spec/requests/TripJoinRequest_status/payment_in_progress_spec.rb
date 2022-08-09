@@ -27,10 +27,10 @@ RSpec.describe "/trip_join_requests/:id/payment_in_progress", type: :request do
         expect(trip_request.stage).to eq("payment_in_progress")
       end
 
-      it "redirects to the trip with the stage updated" do
+      it "redirects to the checkout methods" do
         patch trip_payment_in_progress_url(trip_request, :trip_id => trip.id), params: { trip_join_request: new_attributes }
         trip_request.reload
-        expect(response).to redirect_to(trip_trip_join_request_url(id: trip_request.id))
+        expect(response).to redirect_to(trip_trip_join_request_checkouts_url(trip_join_request_id: trip_request.id))
       end
     end
 
