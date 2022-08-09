@@ -1,0 +1,22 @@
+<%= form_with(model: [:trip, trip_join_request], url: trip_trip_join_request_path(trip_id: params[:trip_id], id: params[:trip_join_request_id]), method: :put) do |f| %>
+  <% if trip_join_request.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(trip_join_request.errors.count, "error") %> prohibited this trip_join_request from being saved:</h2>
+
+      <ul>
+        <% trip_join_request.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <label>Upload payment receipt</label><br>
+    <%= f.file_field :transfer_receipt %><br>
+  </div>
+
+  <div>
+    <%= f.submit "Submit" %>
+  </div>
+<% end %>
