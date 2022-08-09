@@ -69,8 +69,8 @@ describe User, type: :model do
       end
     end
 
-    it "when a trip is created, its initial status is not_finalized" do
-      expect(@new_trip.trip_status).to eq("no finalized")
+    it "when a trip is created, its initial status is in_preparation" do
+      expect(@new_trip.trip_status).to eq("in_preparation")
     end
   end
 

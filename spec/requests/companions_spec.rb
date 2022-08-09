@@ -1,7 +1,6 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe "/companions", type: :request do
-
   let(:new_user) { create(:user) }
   let(:new_companion) { create(:companion) }
   let(:valid_attributes) { attributes_for(:companion) }
@@ -10,7 +9,7 @@ RSpec.describe "/companions", type: :request do
   describe "GET /index" do
     it "renders a successful response" do
       sign_in new_user
-      get companions_url
+      get user_companions_url(user_id: new_user.id)
       expect(response).to be_successful
     end
   end
@@ -18,7 +17,7 @@ RSpec.describe "/companions", type: :request do
   describe "GET /show" do
     it "renders a successful response" do
       sign_in new_user
-      get companion_url(new_companion)
+      get user_companion_url(new_companion, user_id: new_user.id)
       expect(response).to be_successful
     end
   end
@@ -26,7 +25,7 @@ RSpec.describe "/companions", type: :request do
   describe "GET /new" do
     it "renders a successful response" do
       sign_in new_user
-      get new_companion_url
+      get new_user_companion_url(user_id: new_user.id)
       expect(response).to be_successful
     end
   end
@@ -34,7 +33,7 @@ RSpec.describe "/companions", type: :request do
   describe "GET /edit" do
     it "renders a successful response" do
       sign_in new_user
-      get edit_companion_url(new_companion)
+      get edit_user_companion_url(new_companion, id: new_companion.id)
       expect(response).to be_successful
     end
   end
@@ -44,14 +43,14 @@ RSpec.describe "/companions", type: :request do
       it "creates a new Companion" do
         sign_in new_user
         expect {
-          post companions_url, params: { companion: valid_attributes }
+          post user_companions_url(user_id: new_user.id), params: { companion: valid_attributes }
         }.to change(Companion, :count).by(1)
       end
 
       it "redirects to the created companion" do
         sign_in new_user
-        post companions_url, params: { companion: valid_attributes }
-        expect(response).to redirect_to(companion_url(Companion.last))
+        post user_companions_url(user_id: new_user.id), params: { companion: valid_attributes }
+        expect(response).to redirect_to(user_companion_url(id: Companion.last.id, user_id: Companion.last.user_id))
       end
     end
 
@@ -59,12 +58,12 @@ RSpec.describe "/companions", type: :request do
       it "does not create a new Companion" do
         sign_in new_user
         expect {
-          post companions_url, params: { companion: invalid_attributes }
+          post user_companions_url(user_id: new_user.id), params: { companion: invalid_attributes }
         }.to change(Companion, :count).by(0)
       end
 
       it "renders a successful response (i.e. to display the 'new' template)" do
-        post companions_url, params: { companion: invalid_attributes }
+        post user_companions_url(user_id: new_user.id), params: { companion: invalid_attributes }
         expect(response).to have_http_status(302)
       end
     end
@@ -72,27 +71,27 @@ RSpec.describe "/companions", type: :request do
 
   describe "PATCH /update" do
     context "with valid parameters" do
-      let(:new_attributes) { {"name" => "Fran"} }
+      let(:new_attributes) { { "name" => "Fran" } }
 
       it "updates the requested companion" do
         sign_in new_user
-        patch companion_url(new_companion), params: { companion: new_attributes }
+        patch user_companion_url(id: new_companion.id, user_id: new_user.id), params: { companion: new_attributes }
         new_companion.reload
         expect(new_companion.name).to eq("Fran")
       end
 
       it "redirects to the companion" do
         sign_in new_user
-        patch companion_url(new_companion), params: { companion: new_attributes }
+        patch user_companion_url(id: new_companion.id, user_id: new_user.id), params: { companion: new_attributes }
         new_companion.reload
-        expect(response).to redirect_to(companion_url(new_companion))
+        expect(response).to redirect_to(user_companion_url(id: new_companion, user_id: new_user.id))
       end
     end
 
     context "with invalid parameters" do
       it "renders a successful response (i.e. to display the 'edit' template)" do
         sign_in new_user
-        patch companion_url(new_companion), params: { companion: invalid_attributes }
+        patch user_companion_url(id: new_companion.id, user_id: new_user.id), params: { companion: invalid_attributes }
         expect(response).to have_http_status(302)
       end
     end
@@ -103,15 +102,14 @@ RSpec.describe "/companions", type: :request do
       sign_in new_user
       new_companion
       expect {
-        delete companion_url(new_companion)
+        delete user_companion_url(id: new_companion, user_id: new_user.id)
       }.to change(Companion, :count).by(-1)
     end
 
     it "redirects to the companions list" do
       sign_in new_user
-      new_companion
-      delete companion_url(new_companion)
-      expect(response).to redirect_to(companions_url)
+      delete user_companion_url(id: new_companion.id, user_id: new_user.id)
+      expect(response).to redirect_to(user_companions_url(new_companion))
     end
   end
 end

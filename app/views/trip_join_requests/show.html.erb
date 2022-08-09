@@ -3,13 +3,34 @@
 <%= render @trip_join_request %>
 
 <% if current_user.id == @trip_join_request.trip.user.id && @trip_join_request.stage == "requested" %>
-  <form action=<%= "/trips/#{params[:trip_id]}/trip_join_requests/#{params[:id]}/accepted" %> method="put">
-    <button type="submit">Aceptar</button>
-  </form>
-  <form action=<%= "/trips/#{params[:trip_id]}/trip_join_requests/#{params[:id]}/rejected" %> method="put">
-    <button type="submit">Rechazar</button>
-  </form>
+  <%= form_with url: trip_accepted_path(trip_id: params[:trip_id], id: params[:id]), method: :put do |f| %>
+    <%= f.submit "Accept" %>
+  <% end %>
+  <%= form_with url: trip_rejected_path(trip_id: params[:trip_id], id: params[:id]), method: :put do |f| %>
+    <%= f.submit "Reject" %>
+  <% end %>
 <% end %>
+
+<% if current_user.id == @trip_join_request.user.id && @trip_join_request.stage == "accepted" %>
+  <%= form_with url: trip_payment_in_progress_path(trip_id: params[:trip_id], id: params[:id]), method: :put do |f| %>
+    <%= f.submit "Make payment" %>
+  <% end %>
+<% end %>
+
+<% if @trip_join_request.stage == "payment_in_progress" %>
+  <% if @trip_join_request.transfer_receipt? %>
+    <% if current_user.id == @trip_join_request.trip.user.id %>
+      <%= link_to "See payment receipt", payment_receipt_trip_trip_join_request_checkouts_path(trip_join_request_id: @trip_join_request) %>
+    <% else %>
+      <p>The driver is checking the payment</p>
+    <% end %>
+  <% else %>
+    <% if current_user.id == @trip_join_request.user.id %>
+      <%= link_to "Go back to payment methods", trip_trip_join_request_checkouts_path(trip_join_request_id: @trip_join_request) %>
+    <% end %>
+  <% end %>
+<% end %>
+  
 
 <div>
   <%= link_to "Edit this trip join request", edit_trip_trip_join_request_path(trip_id: params[:trip_id], id: @trip_join_request) %> |

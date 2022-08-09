@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @checkout %>
+
+<div>
+  <%= link_to "Edit this checkout", edit_checkout_path(@checkout) %> |
+  <%= link_to "Back to checkouts", checkouts_path %>
+
+  <%= button_to "Destroy this checkout", @checkout, method: :delete %>
+</div>

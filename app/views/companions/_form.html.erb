@@ -1,4 +1,4 @@
-<%= form_with(model: companion) do |form| %>
+<%= form_with(model: [:user, companion]) do |form| %>
   <% if companion.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(companion.errors.count, "error") %> prohibited this companion from being saved:</h2>

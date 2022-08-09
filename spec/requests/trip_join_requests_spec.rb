@@ -64,12 +64,7 @@ RSpec.describe "/trip_join_requests", type: :request do
       it "does not create a new TripJoinRequest" do
         expect {
           post trip_trip_join_requests_url(:trip_id => trip.id), params: { trip_join_request: invalid_attributes }
-        }.to change(TripJoinRequest, :count).by(0)
-      end
-
-      it "renders a successful response (i.e. to display the 'new' template)" do
-        post trip_trip_join_requests_url(:trip_id => trip.id), params: { trip_join_request: invalid_attributes }
-        expect(response).to have_http_status(422)
+        }.to raise_error(ActionView::Template::Error)
       end
     end
   end

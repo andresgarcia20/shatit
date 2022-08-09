@@ -125,7 +125,7 @@ RSpec.describe TripJoinRequest, type: :model do
         let(:trip_request) { build(:trip_join_request, stage: 10) }
 
         it "if user continue to payment, stage change to 'payment_in_progress'" do
-          TripJoinRequestStageManager.payment_in_progress!(trip_request)
+          TripJoinRequestStageManager.pay!(trip_request)
           expect(trip_request.stage).to eq("payment_in_progress")
         end
 

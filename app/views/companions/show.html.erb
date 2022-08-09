@@ -3,8 +3,8 @@
 <%= render @companion %>
 
 <div>
-  <%= link_to "Edit this companion", edit_companion_path(@companion) %> |
-  <%= link_to "Back to companions", companions_path %>
+  <%= link_to "Edit this companion", edit_user_companion_path(@companion) %> |
+  <%= link_to "Back to companions", user_companions_path %>
 
-  <%= button_to "Destroy this companion", @companion, method: :delete %>
+  <%= button_to "Destroy this companion", user_companion_path(id: @companion), method: :delete %>
 </div>
