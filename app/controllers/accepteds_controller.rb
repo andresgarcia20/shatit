@@ -13,6 +13,10 @@ class AcceptedsController < ApplicationController
         format.json { render json: @trip_join_request.errors, status: :unprocessable_entity }
       end
     end
+    if @trip_join_request.transfer_receipt?
+      @trip_join_request.remove_transfer_receipt!
+      @trip_join_request.save
+    end
   end
 
   private
