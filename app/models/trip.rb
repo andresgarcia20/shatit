@@ -10,7 +10,7 @@ class Trip < ApplicationRecord
   validates :pets, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :luggage, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :gasoline_comission, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
-  validate :date_valid?
+  before_create :date_valid?
   before_save :downcase_fields
 
   scope :by_origin, ->(origin) { where("origin = ?", origin) }

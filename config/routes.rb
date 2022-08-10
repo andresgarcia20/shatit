@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get "my_requests", to: "trip_join_requests#show_my_requests"
 
   resources :trips do
+    resource "end_trip", only: :update
     resources :trip_join_requests do
       resources :checkouts, only: [:index, :update, :new] do
         get "payment_receipt", on: :collection
