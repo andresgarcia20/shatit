@@ -1,5 +1,3 @@
-require "./app/services/TripJoinRequestStageManager"
-
 class AcceptedsController < ApplicationController
   before_action :set_accepted_trip_join_request, only: %i[ update ]
 
@@ -12,10 +10,6 @@ class AcceptedsController < ApplicationController
         format.html { render trip_trip_join_request_url(id: params[:id]), status: :unprocessable_entity }
         format.json { render json: @trip_join_request.errors, status: :unprocessable_entity }
       end
-    end
-    if @trip_join_request.transfer_receipt?
-      @trip_join_request.remove_transfer_receipt!
-      @trip_join_request.save
     end
   end
 

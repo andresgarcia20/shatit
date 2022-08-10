@@ -1,5 +1,3 @@
-require "./app/services/TripJoinRequestStageManager"
-
 class RejectedsController < ApplicationController
   before_action :set_rejected_trip_join_request, only: %i[ update ]
 

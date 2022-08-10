@@ -1,5 +1,3 @@
-require "./app/services/TripJoinRequestStageManager"
-
 class CanceledsController < ApplicationController
   before_action :set_canceled_trip_join_request, only: %i[ update ]
 

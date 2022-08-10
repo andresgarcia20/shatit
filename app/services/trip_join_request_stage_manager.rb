@@ -1,10 +1,14 @@
-require "./app/services/InvalidStageChange"
-
 class TripJoinRequestStageManager
   REQUESTER = 1
   def self.accept!(trip_request)
     raise InvalidStageChange unless trip_request.requested? || trip_request.payment_in_progress?
-    trip_request.accepted! if trip_request.payment_in_progress?
+    if trip_request.payment_in_progress?
+      if trip_request.transfer_receipt?
+        trip_request.remove_transfer_receipt!
+        trip_request.save
+      end
+      trip_request.accepted!
+    end
 
     trip = trip_request.trip
     new_seats = trip.available_seats - (trip_request.companions + REQUESTER)

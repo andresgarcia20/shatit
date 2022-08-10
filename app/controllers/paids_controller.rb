@@ -1,5 +1,3 @@
-require "./app/services/TripJoinRequestStageManager"
-
 class PaidsController < ApplicationController
   before_action :set_paid_trip_join_request, only: %i[ update ]
 
