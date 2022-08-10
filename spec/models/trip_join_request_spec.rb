@@ -168,7 +168,7 @@ RSpec.describe TripJoinRequest, type: :model do
       end
 
       context "payment_failed" do
-        let(:trip_request) { build(:trip_join_request, stage: 15) }
+        let(:trip_request) { build(:trip_join_request, stage: 20) }
 
         it "stage change to 'payment_failed'" do
           TripJoinRequestStageManager.payment_failed!(trip_request)
@@ -181,6 +181,7 @@ RSpec.describe TripJoinRequest, type: :model do
         end
 
         it "if user retry, stage change to 'payment_in_progress'" do
+          trip_request.stage = 15
           TripJoinRequestStageManager.pay!(trip_request)
           expect(trip_request.stage).to eq("payment_in_progress")
         end
@@ -190,6 +191,7 @@ RSpec.describe TripJoinRequest, type: :model do
         let(:trip_request) { build(:trip_join_request, stage: 20) }
 
         it "stage change to 'payment_in_progress'" do
+          trip_request.stage = 10
           TripJoinRequestStageManager.pay!(trip_request)
           expect(trip_request.stage).to eq("payment_in_progress")
         end
