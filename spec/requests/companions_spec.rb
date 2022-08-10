@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "/companions", type: :request do
   let(:new_user) { create(:user) }
-  let(:new_companion) { create(:companion) }
+  let(:new_companion) { create(:companion, name: "Poldo") }
   let(:valid_attributes) { attributes_for(:companion) }
   let(:invalid_attributes) { { "id": 1 } }
 

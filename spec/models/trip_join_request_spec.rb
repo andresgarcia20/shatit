@@ -122,7 +122,7 @@ RSpec.describe TripJoinRequest, type: :model do
       end
 
       context "accepted" do
-        let(:trip_request) { build(:trip_join_request, stage: 10) }
+        let(:trip_request) { build(:trip_join_request, :stage_accepted) }
 
         it "if user continue to payment, stage change to 'payment_in_progress'" do
           TripJoinRequestStageManager.pay!(trip_request)
@@ -167,30 +167,66 @@ RSpec.describe TripJoinRequest, type: :model do
         end
       end
 
+      context "payment_failed" do
+        let(:trip_request) { build(:trip_join_request, :stage_payment_in_progress) }
+
+        it "stage change to 'payment_failed'" do
+          TripJoinRequestStageManager.payment_failed!(trip_request)
+          expect(trip_request.stage).to eq("payment_failed")
+        end
+
+        it "the transfer receipt uploaded gets deleted" do
+          TripJoinRequestStageManager.payment_failed!(trip_request)
+          expect(trip_request.transfer_receipt.filename).to be nil
+        end
+
+        it "if user retry, stage change to 'payment_in_progress'" do
+          trip_request.stage = 15
+          TripJoinRequestStageManager.pay!(trip_request)
+          expect(trip_request.stage).to eq("payment_in_progress")
+        end
+      end
+
       context "payment_in_progress" do
-        let(:trip_request) { build(:trip_join_request, stage: 20) }
+        let(:trip_request) { build(:trip_join_request, :stage_payment_in_progress) }
+
+        it "stage change to 'payment_in_progress'" do
+          trip_request.stage = 10
+          TripJoinRequestStageManager.pay!(trip_request)
+          expect(trip_request.stage).to eq("payment_in_progress")
+        end
 
         it "if payment success, stage change to 'paid'" do
           TripJoinRequestStageManager.paid!(trip_request)
           expect(trip_request.stage).to eq("paid")
         end
 
-        xit "if payment fails, stage change to 'accepted'" do
-          TripJoinRequestStageManager.accept!(trip_request)
-          expect(trip_request.stage).to eq("accepted")
+        it "if payment fails, stage change to 'payment_failed'" do
+          TripJoinRequestStageManager.payment_failed!(trip_request)
+          expect(trip_request.stage).to eq("payment_failed")
         end
       end
 
       context "paid" do
-        let(:trip_request) { build(:trip_join_request, stage: 30) }
+        context "when the trip finalizes" do
+          let(:new_trip) { create(:trip) }
+          let!(:new_user) { create(:user) }
+          let!(:trip_request) { create(:trip_join_request, :one_companion, :stage_paid, trip_id: new_trip.id, user_id: new_user.id) }
 
-        xit "if stage is 'paid', user has to be in trip users list" do
-          expect(trip.users_list.map(&:email)).to include(user.email)
+          it "coordinator has to be in trip users list" do
+            new_trip.finalized!
+            expect(new_trip.passengers_list.map { |h| h["phone_number"] }).to include(new_user.phone_number)
+          end
+
+          it "coordinator's companions have to be in trip users list" do
+            new_trip.finalized!
+            expect(new_trip.passengers_list.map { |h| h["phone_number"] }).to include(*trip_request.requesters_list.map { |h| h["phone_number"] })
+          end
         end
       end
 
       context "rejected" do
-        let(:trip_request) { build(:trip_join_request, stage: 0) }
+        let(:trip_request) { build(:trip_join_request) }
 
         it "if driver rejects request, stage change to 'rejected'" do
           TripJoinRequestStageManager.reject!(trip_request)

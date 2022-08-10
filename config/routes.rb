@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       end
       member do
         resource :accepted, only: :update
+        resource :payment_failed, only: :update
         resource :payment_in_progress, only: :update
         resource :paid, only: :update
         resource :canceled, only: :update

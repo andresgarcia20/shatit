@@ -30,6 +30,15 @@
     <% end %>
   <% end %>
 <% end %>
+
+<% if @trip_join_request.stage == "payment_failed" %>
+  <% if current_user.id == @trip_join_request.user.id %>
+    <p>The payment you provided has not been accepted.</p>
+    <%= form_with url: trip_payment_in_progress_path(trip_id: params[:trip_id], id: params[:id]), method: :put do |f| %>
+      <%= f.submit "Retry payment" %>
+    <% end %>
+  <% end %>
+<% end %>
   
 
 <div>

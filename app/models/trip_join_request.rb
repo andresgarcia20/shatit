@@ -12,7 +12,7 @@ class TripJoinRequest < ApplicationRecord
   validates :kids, presence: true
 
   enum kids_ranges: ["no", "0 to 4", "5 to 12", "13 to 16"]
-  enum stage: { requested: 0, accepted: 10, payment_in_progress: 20, paid: 30, booked: 40, rejected: 50, canceled: 60 }, _default: 0
+  enum stage: { requested: 0, accepted: 10, payment_failed: 15, payment_in_progress: 20, paid: 30, booked: 40, rejected: 50, canceled: 60 }, _default: 0
 
   scope :by_trip_date, ->(date) { joins(:trip).where("DATE(trips.departure_date) = ?", date) }
   scope :by_stage, ->(stage = 0) { where("stage = ?", stage) }

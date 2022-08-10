@@ -120,7 +120,7 @@ describe User, type: :model do
     end
 
     it "trips_todo returns trips yet to come" do
-      expect(Trip.trips_todo).to eq([@trip, @second_trip, @third_trip, @fourth_trip])
+      expect(Trip.trips_todo.map(&:id)).to eq([@trip.id, @second_trip.id, @third_trip.id, @fourth_trip.id])
     end
   end
 
