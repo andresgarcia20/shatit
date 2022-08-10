@@ -7,6 +7,6 @@
 <%= form_with url: trip_paid_path(trip_id: params[:trip_id], id: params[:trip_join_request_id]), method: :put do |f| %>
     <%= f.submit "Accept" %>
 <% end %>
-<%= form_with url: trip_accepted_path(trip_id: params[:trip_id], id: params[:trip_join_request_id]), method: :put do |f| %>
+<%= form_with url: trip_payment_failed_path(trip_id: params[:trip_id], id: params[:trip_join_request_id]), method: :put do |f| %>
   <%= f.submit "Reject" %>
 <% end %>
