@@ -50,4 +50,16 @@
     <%= trip.gasoline_comission %>
   </p>
 
+<% if trip.finalized? %>
+  <p>
+    <strong>List of passengers:</strong>
+    <%= trip.passengers_list %>
+  </p>
+<% end %>
+
+  <p>
+    <strong>Trip status:</strong>
+    <%= trip.trip_status %>
+  </p>
+
 </div>

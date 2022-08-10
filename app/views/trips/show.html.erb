@@ -11,12 +11,15 @@
     <% end %>
   <% end %>
 
-  <%= link_to "Back to trips", trips_path %>
-  
   <% if current_user.id == @trip.user.id || current_user.admin? %>
+    <%= form_with url: trip_end_trip_path(@trip), method: :put do |f| %>
+      <%= f.submit "Finalize trip" %>
+    <% end %>
     <%= link_to "Edit this trip", edit_trip_path(@trip) %>
     <%= link_to "See trip join requests", trip_trip_join_requests_path(@trip) %>
     <%= button_to "Destroy this trip", @trip, method: :delete %>
   <% end %>
+
+  <%= link_to "Back to trips", trips_path %>
 
 </div>
