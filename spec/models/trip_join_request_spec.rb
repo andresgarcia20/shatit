@@ -167,24 +167,41 @@ RSpec.describe TripJoinRequest, type: :model do
         end
       end
 
+      context "payment_failed" do
+        let(:trip_request) { build(:trip_join_request, stage: 15) }
+
+        it "stage change to 'payment_failed'" do
+          TripJoinRequestStageManager.payment_failed!(trip_request)
+          expect(trip_request.stage).to eq("payment_failed")
+        end
+
+        it "the transfer receipt uploaded gets deleted" do
+          TripJoinRequestStageManager.payment_failed!(trip_request)
+          expect(trip_request.transfer_receipt.filename).to be nil
+        end
+
+        it "if user retry, stage change to 'payment_in_progress'" do
+          TripJoinRequestStageManager.pay!(trip_request)
+          expect(trip_request.stage).to eq("payment_in_progress")
+        end
+      end
+
       context "payment_in_progress" do
         let(:trip_request) { build(:trip_join_request, stage: 20) }
+
+        it "stage change to 'payment_in_progress'" do
+          TripJoinRequestStageManager.pay!(trip_request)
+          expect(trip_request.stage).to eq("payment_in_progress")
+        end
 
         it "if payment success, stage change to 'paid'" do
           TripJoinRequestStageManager.paid!(trip_request)
           expect(trip_request.stage).to eq("paid")
         end
 
-        context "when payment fails" do
-          it "stage change to 'accepted'" do
-            TripJoinRequestStageManager.accept!(trip_request)
-            expect(trip_request.stage).to eq("accepted")
-          end
-
-          it "the transfer receipt uploaded gets deleted" do
-            TripJoinRequestStageManager.accept!(trip_request)
-            expect(trip_request.transfer_receipt.filename).to be nil
-          end
+        it "if payment fails, stage change to 'payment_failed'" do
+          TripJoinRequestStageManager.payment_failed!(trip_request)
+          expect(trip_request.stage).to eq("payment_failed")
         end
       end
 
