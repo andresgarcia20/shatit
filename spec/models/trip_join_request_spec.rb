@@ -122,7 +122,7 @@ RSpec.describe TripJoinRequest, type: :model do
       end
 
       context "accepted" do
-        let(:trip_request) { build(:trip_join_request, stage: 10) }
+        let(:trip_request) { build(:trip_join_request, :stage_accepted) }
 
         it "if user continue to payment, stage change to 'payment_in_progress'" do
           TripJoinRequestStageManager.pay!(trip_request)
@@ -168,7 +168,7 @@ RSpec.describe TripJoinRequest, type: :model do
       end
 
       context "payment_failed" do
-        let(:trip_request) { build(:trip_join_request, stage: 20) }
+        let(:trip_request) { build(:trip_join_request, :stage_payment_in_progress) }
 
         it "stage change to 'payment_failed'" do
           TripJoinRequestStageManager.payment_failed!(trip_request)
@@ -188,7 +188,7 @@ RSpec.describe TripJoinRequest, type: :model do
       end
 
       context "payment_in_progress" do
-        let(:trip_request) { build(:trip_join_request, stage: 20) }
+        let(:trip_request) { build(:trip_join_request, :stage_payment_in_progress) }
 
         it "stage change to 'payment_in_progress'" do
           trip_request.stage = 10
@@ -211,7 +211,7 @@ RSpec.describe TripJoinRequest, type: :model do
         context "when the trip finalizes" do
           let(:new_trip) { create(:trip) }
           let!(:new_user) { create(:user) }
-          let!(:trip_request) { create(:trip_join_request, :one_companion, stage: 30, trip_id: new_trip.id, user_id: new_user.id) }
+          let!(:trip_request) { create(:trip_join_request, :one_companion, :stage_paid, trip_id: new_trip.id, user_id: new_user.id) }
 
           it "coordinator has to be in trip users list" do
             new_trip.finalized!
@@ -226,7 +226,7 @@ RSpec.describe TripJoinRequest, type: :model do
       end
 
       context "rejected" do
-        let(:trip_request) { build(:trip_join_request, stage: 0) }
+        let(:trip_request) { build(:trip_join_request) }
 
         it "if driver rejects request, stage change to 'rejected'" do
           TripJoinRequestStageManager.reject!(trip_request)

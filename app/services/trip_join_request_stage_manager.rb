@@ -27,10 +27,8 @@ class TripJoinRequestStageManager
   def self.payment_failed!(trip_request)
     raise InvalidStageChange unless trip_request.payment_in_progress?
 
-    if trip_request.transfer_receipt?
-      trip_request.remove_transfer_receipt!
-      trip_request.save
-    end
+    trip_request.remove_transfer_receipt!
+    trip_request.save
 
     trip_request.payment_failed!
   end
