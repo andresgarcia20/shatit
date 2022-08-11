@@ -4,6 +4,7 @@ class PaymentInProgressesController < ApplicationController
   def update
     respond_to do |format|
       if TripJoinRequestStageManager.pay!(@trip_join_request)
+        NotifyRequesterJob.perform_later params.permit(:id)[:id]
         format.html { redirect_to trip_trip_join_request_checkouts_url(trip_join_request_id: params[:id]), notice: "Trip join request stage was successfully updated." }
         format.json { render trip_trip_join_request_checkouts_url(trip_join_request_id: params[:id]), status: :created, location: @trip_join_request.trip_id }
       else
