@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe UpdateDriverJob, type: :job do
+RSpec.describe NotifyDriverJob, type: :job do
   describe "send email to the driver" do
     before { ActiveJob::Base.queue_adapter = :test }
     let(:trip_request) { create(:trip_join_request) }

@@ -1,4 +1,4 @@
-class UpdateRequesterJob < ApplicationJob
+class NotifyRequesterJob < ApplicationJob
   queue_as :default
 
   def perform(id)

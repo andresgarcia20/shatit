@@ -1,4 +1,4 @@
-class UpdateDriverJob < ApplicationJob
+class NotifyDriverJob < ApplicationJob
   queue_as :default
 
   def perform(id)

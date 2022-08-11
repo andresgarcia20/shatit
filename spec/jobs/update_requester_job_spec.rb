@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe UpdateRequesterJob, type: :job do
+RSpec.describe NotifyRequesterJob, type: :job do
   describe "send email to the requester" do
     before { ActiveJob::Base.queue_adapter = :test }
     let(:trip_request) { create(:trip_join_request) }
