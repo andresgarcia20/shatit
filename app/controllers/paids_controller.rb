@@ -4,6 +4,8 @@ class PaidsController < ApplicationController
   def update
     respond_to do |format|
       if TripJoinRequestStageManager.paid!(@trip_join_request)
+        UpdateRequesterJob.perform_later params.permit(:id)[:id]
+        UpdateDriverJob.perform_later params.permit(:id)[:id]
         format.html { redirect_to trip_trip_join_request_url(id: params[:id]), notice: "Trip join request stage was successfully updated." }
         format.json { render trip_trip_join_request_url(id: params[:id]), status: :created, location: @trip_join_request.trip_id }
       else
