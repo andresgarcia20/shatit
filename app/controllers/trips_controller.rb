@@ -1,4 +1,5 @@
 class TripsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_trip, only: %i[ show edit update destroy ]
   before_action :only => [:edit] do
     redirect_to new_user_session_path unless current_user && current_user.admin?
