@@ -39,7 +39,16 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
+      devise_for :users, controllers: { sessions: "api/v1/users/sessions",
+                                        registrations: "api/v1/users/registrations" },
+                         path_names: { sign_in: :login }
+
+      resource :users, only: [:create, :update, :destroy], controller: "/users"
       resources :trips, only: [:index]
+      resources :trip_join_requests, only: [:index]
+      resources :vehicles, only: [:index]
+      resources :companions, only: [:index]
+      resources :my_requests, only: [:index]
     end
   end
 end
