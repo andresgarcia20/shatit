@@ -1,45 +1,23 @@
 require "rails_helper"
+require "devise/jwt/test_helpers"
 
 RSpec.describe "Api::V1::Trips", type: :request do
   describe "GET /index" do
-    context "when content type is not json" do
-      let(:invalid_header) {
-        {
-          CONTENT_TYPE: "text/plain",
-          authorization: "Basic YWRtaW46YWRtaW4=",
-        }
-      }
-
-      it "returns false if it not returns json" do
-        get api_v1_trips_url, params: {}, headers: invalid_header
-        expect(response).to have_http_status(:not_acceptable)
-      end
-    end
+    let(:user) { create(:user) }
+    let(:headers) { { "Accept" => "application/json", "Content-Type" => "application/json" } }
+    let(:invalid_headers) { { "Accept" => "application/json", "Content-Type" => "text/plain" } }
+    let(:auth_headers) { Devise::JWT::TestHelpers.auth_headers(headers, user) }
 
     context "when response data is correct" do
-      let(:valid_header) {
-        {
-          CONTENT_TYPE: "application/json",
-          authorization: "Basic YWRtaW46YWRtaW4=",
-        }
-      }
-
       it "returns ok status" do
-        get api_v1_trips_url, params: {}, headers: valid_header, as: :json
+        get api_v1_trips_url, params: {}, headers: auth_headers, as: :json
         expect(response.status).to be 200
       end
     end
 
     context "when is not authorized" do
-      let(:invalid_token) {
-        {
-          CONTENT_TYPE: "application/json",
-          authorization: "poldo",
-        }
-      }
-
       it "returns 401" do
-        get api_v1_trips_url, params: {}, headers: invalid_token
+        get api_v1_trips_url, params: {}, headers: invalid_headers
         expect(response).to have_http_status(:unauthorized)
       end
     end
