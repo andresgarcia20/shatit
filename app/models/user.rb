@@ -35,12 +35,4 @@ class User < ApplicationRecord
     bornDate = Time.zone.parse(birthday.to_s)
     ((bornDate.to_date...currentDate.to_date).count - 1) / 365.0
   end
-
-  def jwt_payload
-    {
-      "id" => id,
-      "nickname" => nickname,
-      "email" => email,
-    }
-  end
 end
