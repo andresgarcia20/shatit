@@ -1,5 +1,4 @@
 class CheckoutsController < ApplicationController
-  before_action :authenticate_user!
   before_action :set_trip_join_request, only: %i[ edit update payment_receipt ]
 
   def index

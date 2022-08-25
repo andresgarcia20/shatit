@@ -1,5 +1,4 @@
 class PaymentFailedsController < ApplicationController
-  before_action :authenticate_user!
   before_action :set_payment_faileds_trip_join_request, only: %i[ update ]
 
   def update

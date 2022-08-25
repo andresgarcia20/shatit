@@ -1,5 +1,4 @@
 class TripJoinRequestsController < ApplicationController
-  before_action :authenticate_user!
   before_action :set_trip_join_request, only: %i[ show edit update destroy ]
   before_action :set_trip, only: %i[edit new]
 

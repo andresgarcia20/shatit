@@ -1,5 +1,4 @@
 class CanceledsController < ApplicationController
-  before_action :authenticate_user!
   before_action :set_canceled_trip_join_request, only: %i[ update ]
 
   def update
