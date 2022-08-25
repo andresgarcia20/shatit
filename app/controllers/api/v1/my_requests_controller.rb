@@ -1,11 +1,11 @@
 module Api
   module V1
-    class TripsController < ApplicationController
+    class MyRequestsController < ApplicationController
       before_action :set_headers
 
       def index
-        trips = Trip.all
-        render json: trips.to_json, status: :ok
+        my_requests = TripJoinRequest.where(user_id: current_user.id)
+        render json: my_requests.to_json, status: :ok
       end
 
       private

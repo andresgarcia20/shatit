@@ -1,11 +1,11 @@
 module Api
   module V1
-    class TripsController < ApplicationController
+    class TripJoinRequestsController < ApplicationController
       before_action :set_headers
 
       def index
-        trips = Trip.all
-        render json: trips.to_json, status: :ok
+        trip_join_requests = TripJoinRequest.all
+        render json: trip_join_requests.to_json, status: :ok
       end
 
       private
