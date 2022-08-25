@@ -15,11 +15,10 @@ class Api::V1::Users::RegistrationsController < Devise::RegistrationsController
       birthday: params[:user][:birthday],
     )
 
-    if new_user.valid?
-      new_user.save
+    if new_user.save
       render json: { message: "Sign up sucessfully." }, status: :accepted
     else
-      render json: { message: "Sign up failed." }, status: :accepted
+      render json: { message: "Sign up failed." }, status: :unprocessable_entity
     end
   end
 
