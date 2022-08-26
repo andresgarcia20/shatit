@@ -8,7 +8,7 @@
     phone_number: Faker::Number.number(digits: 9),
     email: Faker::Internet.email,
     birthday: Faker::Date.birthday(min_age: 18, max_age: 100),
-    password: Faker::Internet.password(min_length: 6),
+    password: 123456,
   )
   user.save!
 end
