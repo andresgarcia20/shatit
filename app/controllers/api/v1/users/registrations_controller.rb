@@ -4,25 +4,20 @@ class Api::V1::Users::RegistrationsController < Devise::RegistrationsController
   respond_to :json
 
   def create
-    new_user = User.new(
-      email: params[:user][:email],
-      password: params[:user][:password],
-      password_confirmation: params[:user][:password_confirmation],
-      name: params[:user][:name],
-      surname: params[:user][:surname],
-      nickname: params[:user][:nickname],
-      phone_number: params[:user][:phone_number],
-      birthday: params[:user][:birthday],
-    )
+    new_user = User.new(registration_params)
 
     if new_user.save
-      render json: { message: "Sign up sucessfully." }, status: :accepted
+      render json: { message: "Sign up successfully." }, status: :accepted
     else
       render json: { message: "Sign up failed." }, status: :unprocessable_entity
     end
   end
 
   private
+
+  def registration_params
+    params.require(:user).permit(:email, :password, :password_confirmation, :name, :surname, :nickname, :phone_number, :birthday)
+  end
 
   def respond_with(resource, _opts = {})
     register_success && return if resource.persisted?
@@ -32,7 +27,7 @@ class Api::V1::Users::RegistrationsController < Devise::RegistrationsController
 
   def register_success
     render json: {
-      message: "Signed up sucessfully.",
+      message: "Signed up successfully.",
       user: current_user,
     }, status: :ok
   end
