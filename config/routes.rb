@@ -33,6 +33,7 @@ Rails.application.routes.draw do
     member do
       get "driver", to: "driver#index"
     end
+    resources :driver_requests
     resources :companions
     resources :vehicles
   end

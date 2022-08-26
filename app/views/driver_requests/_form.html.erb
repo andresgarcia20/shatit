@@ -1,0 +1,32 @@
+<%= form_with(model: driver_request) do |form| %>
+  <% if driver_request.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(driver_request.errors.count, "error") %> prohibited this driver_request from being saved:</h2>
+
+      <ul>
+        <% driver_request.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :user_id, style: "display: block" %>
+    <%= form.text_field :user_id %>
+  </div>
+
+  <div>
+    <%= form.label :driver_licence_front, style: "display: block" %>
+    <%= form.text_field :driver_licence_front %>
+  </div>
+
+  <div>
+    <%= form.label :driver_licence_back, style: "display: block" %>
+    <%= form.text_field :driver_licence_back %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

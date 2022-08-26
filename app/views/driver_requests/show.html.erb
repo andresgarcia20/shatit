@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @driver_request %>
+
+<div>
+  <%= link_to "Edit this driver request", edit_driver_request_path(@driver_request) %> |
+  <%= link_to "Back to driver requests", driver_requests_path %>
+
+  <%= button_to "Destroy this driver request", @driver_request, method: :delete %>
+</div>
