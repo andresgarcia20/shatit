@@ -1,4 +1,4 @@
-<%= form_with(model: driver_request) do |form| %>
+<%= form_with(model: [:user, driver_request]) do |form| %>
   <% if driver_request.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(driver_request.errors.count, "error") %> prohibited this driver_request from being saved:</h2>
@@ -12,18 +12,13 @@
   <% end %>
 
   <div>
-    <%= form.label :user_id, style: "display: block" %>
-    <%= form.text_field :user_id %>
+    <%= form.label "Upload front driver licence", style: "display: block" %>
+    <%= form.file_field :driver_licence_front %>
   </div>
 
   <div>
-    <%= form.label :driver_licence_front, style: "display: block" %>
-    <%= form.text_field :driver_licence_front %>
-  </div>
-
-  <div>
-    <%= form.label :driver_licence_back, style: "display: block" %>
-    <%= form.text_field :driver_licence_back %>
+    <%= form.label "Upload back driver licence", style: "display: block" %>
+    <%= form.file_field :driver_licence_back %>
   </div>
 
   <div>

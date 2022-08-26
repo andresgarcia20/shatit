@@ -21,7 +21,10 @@ class DriverRequestsController < ApplicationController
 
   # POST /driver_requests or /driver_requests.json
   def create
-    @driver_request = DriverRequest.new(driver_request_params)
+    @driver_request = DriverRequest.new({ **driver_request_params, user_id: current_user.id })
+    @driver_request.driver_licence_front = params[:file]
+    @driver_request.driver_licence_back = params[:file]
+    # check paraams for files
 
     respond_to do |format|
       if @driver_request.save
@@ -58,13 +61,14 @@ class DriverRequestsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_driver_request
-      @driver_request = DriverRequest.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def driver_request_params
-      params.require(:driver_request).permit(:user_id, :driver_licence_front, :driver_licence_back)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_driver_request
+    @driver_request = DriverRequest.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def driver_request_params
+    params.require(:driver_request).permit(:user_id, :driver_licence_front, :driver_licence_back, :file)
+  end
 end

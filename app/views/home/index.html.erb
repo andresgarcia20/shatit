@@ -8,6 +8,10 @@
  <% if current_user.driver? || current_user.admin? %>
  <%= link_to "My trips", driver_user_path(current_user) %>
  <% end %>
+ <% if current_user.passenger? || current_user.admin? %>
+ <p>Want to become a driver? <%= link_to "Fill this form!", new_user_driver_request_path(current_user) %></p>
+ 
+ <% end %>
  <% if current_user.admin? %>
  <%= link_to "List of users", users_path %>
  <%= link_to "Stats page", stats_path %>

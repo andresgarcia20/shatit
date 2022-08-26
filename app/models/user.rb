@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :trips
   has_many :trip_join_requests
   has_many :companions
+  has_one :driver_requests
 
   validates :name, presence: true, length: { minimum: 3, too_short: "%{count} characters minimum" }, format: { with: /\A[^0-9]+\z/ }
   validates :surname, presence: true, format: { with: /\A[^0-9]+\z/ }
