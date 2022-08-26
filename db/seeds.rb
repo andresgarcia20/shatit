@@ -9,6 +9,7 @@
     email: Faker::Internet.email,
     birthday: Faker::Date.birthday(min_age: 18, max_age: 100),
     password: 123456,
+    confirmed_at: Time.now
   )
   user.save!
 end
