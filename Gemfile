@@ -14,8 +14,6 @@ gem "sqlite3", "~> 1.4"
 
 gem "pg"
 
-gem "devise"
-
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"
 
@@ -58,6 +56,12 @@ gem "carrierwave", "~> 2.0"
 
 gem "sidekiq", "~> 6.5"
 
+gem "devise"
+
+gem "devise-jwt"
+
+gem "rack-cors", :require => "rack/cors"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "rspec-rails", "~> 5.1"
@@ -68,6 +72,7 @@ group :development, :test do
   gem "simplecov"
   gem "rails-controller-testing"
   gem "faker", :git => "https://github.com/faker-ruby/faker.git", :branch => "master"
+  gem "dotenv-rails"
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
 end
 
@@ -88,4 +93,3 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
-
