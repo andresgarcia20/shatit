@@ -13,10 +13,8 @@ class Api::V1::Users::SessionsController < Devise::SessionsController
   def create
     user = User.find_by(email: params[:user][:email])
     if user && user.valid_password?(params[:user][:password])
-      @current_user = user
       render json: {
         message: "You are logged in.",
-        user: current_user,
       }, status: :ok
     else
       render json: { message: "Error, Unauthorized" }, status: :unauthorized
