@@ -10,11 +10,11 @@
  <% end %>
  <% if current_user.passenger? || current_user.admin? %>
  <p>Want to become a driver? <%= link_to "Fill this form!", new_user_driver_request_path(current_user) %></p>
- 
  <% end %>
  <% if current_user.admin? %>
  <%= link_to "List of users", users_path %>
  <%= link_to "Stats page", stats_path %>
+ <%= link_to "Driver requests", driver_requests_path %>
  <% end %>
 <% else %>
 <h3>New user?</h3>

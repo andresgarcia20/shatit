@@ -6,5 +6,8 @@
   <%= link_to "Edit this request", edit_user_driver_request_path(@driver_request) %> |
   <%= link_to "Back to home", root_path %>
 
-  <%= button_to "Destroy this driver request", @driver_request, method: :delete %>
+  <% if current_user.admin? %>
+  | <%= link_to "Back to driver requests list", driver_requests_path %>
+  <%end%>
+  <%= button_to "Destroy this driver request", user_driver_request_path(@driver_request), method: :delete %>
 </div>

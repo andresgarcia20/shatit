@@ -1,17 +1,18 @@
 <div id="<%= dom_id driver_request %>">
   <p>
     <strong>User:</strong>
-    <%= driver_request.user_id %>
+    <%= driver_request.user.name %>
+    <%= driver_request.user.surname %>
   </p>
 
   <p>
-    <strong>Driver licence front:</strong>
-    <%= driver_request.driver_licence_front %>
+    <strong>Driver licence front:</strong><br>
+    <img src=<%= driver_request.driver_licence_front %> alt="driver id front" />
   </p>
 
   <p>
-    <strong>Driver licence back:</strong>
-    <%= driver_request.driver_licence_back %>
+    <strong>Driver licence back:</strong><br>
+    <img src=<%= driver_request.driver_licence_back %> alt="driver id front" />
   </p>
 
 </div>
