@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   get "stats", to: "stats#index"
   get "my_requests", to: "trip_join_requests#show_my_requests"
+  get "driver_requests", to: "driver_requests#index"
 
   resources :trips do
     resource "end_trip", only: :update
@@ -33,7 +34,7 @@ Rails.application.routes.draw do
     member do
       get "driver", to: "driver#index"
     end
-    resources :driver_requests
+    resources :driver_requests, except: :index
     resources :companions
     resources :vehicles
   end
