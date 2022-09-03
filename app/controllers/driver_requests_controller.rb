@@ -1,5 +1,8 @@
 class DriverRequestsController < ApplicationController
   before_action :set_driver_request, only: %i[ show edit update destroy ]
+  before_action :only => [:index] do
+    redirect_to root_path unless current_user.admin?
+  end
 
   # GET /driver_requests or /driver_requests.json
   def index
@@ -22,13 +25,10 @@ class DriverRequestsController < ApplicationController
   # POST /driver_requests or /driver_requests.json
   def create
     @driver_request = DriverRequest.new({ **driver_request_params, user_id: current_user.id })
-    @driver_request.driver_licence_front = params[:file]
-    @driver_request.driver_licence_back = params[:file]
-    # check paraams for files
 
     respond_to do |format|
       if @driver_request.save
-        format.html { redirect_to driver_request_url(@driver_request), notice: "Driver request was successfully created." }
+        format.html { redirect_to root_path, notice: "Driver request was successfully created." }
         format.json { render :show, status: :created, location: @driver_request }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -55,7 +55,7 @@ class DriverRequestsController < ApplicationController
     @driver_request.destroy
 
     respond_to do |format|
-      format.html { redirect_to driver_requests_url, notice: "Driver request was successfully destroyed." }
+      format.html { redirect_to root_path, notice: "Driver request was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -69,6 +69,6 @@ class DriverRequestsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def driver_request_params
-    params.require(:driver_request).permit(:user_id, :driver_licence_front, :driver_licence_back, :file)
+    params.require(:driver_request).permit(:user_id, :driver_licence_front, :driver_licence_back)
   end
 end
