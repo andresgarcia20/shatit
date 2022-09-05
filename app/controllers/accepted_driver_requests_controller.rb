@@ -6,6 +6,8 @@ class AcceptedDriverRequestsController < ApplicationController
     respond_to do |format|
       if @driver_request.accepted!
         @user.driver!
+        NotifyRequesterDriverRequestJob.perform_later params.permit(:driver_request_id)[:driver_request_id]
+        NotifyAdminDriverRequestJob.perform_later params.permit(:driver_request_id)[:driver_request_id]
         format.html { redirect_to user_driver_request_url(id: @driver_request), notice: "Driver request stage was successfully updated." }
         format.json { render user_driver_request_url(id: @driver_request), status: :created, location: @driver_request }
       else
