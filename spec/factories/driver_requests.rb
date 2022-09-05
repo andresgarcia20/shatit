@@ -8,5 +8,13 @@ FactoryBot.define do
     trait :rejection_reason do
       rejection_reason { "Invalid images." }
     end
+
+    trait :stage_accepted do
+      stage { "accepted" }
+    end
+
+    trait :stage_rejected do
+      stage { "rejected" }
+    end
   end
 end
