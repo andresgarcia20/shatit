@@ -9,6 +9,10 @@ class DriverRequestsController < ApplicationController
     @driver_requests = DriverRequest.all
   end
 
+  def my_driver_requests
+    @driver_requests = DriverRequest.where(user_id: params[:user_id])
+  end
+
   # GET /driver_requests/1 or /driver_requests/1.json
   def show
   end

@@ -35,6 +35,7 @@ Rails.application.routes.draw do
       get "driver", to: "driver#index"
     end
     resources :driver_requests, except: :index
+    get "driver_requests", to: "driver_requests#my_driver_requests"
     resources :companions
     resources :vehicles
   end
