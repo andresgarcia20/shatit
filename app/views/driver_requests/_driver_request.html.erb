@@ -10,6 +10,12 @@
       <strong>Stage:</strong>
       <%= driver_request.stage %>
     </p>
+    <% if driver_request.rejected? %>
+      <p>
+        <strong>Rejection reason:</strong>
+        <%= driver_request.rejection_reason %>
+      </p>
+    <% end %>
   <% end %>
 
   <p>

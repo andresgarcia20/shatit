@@ -4,7 +4,7 @@ class RejectedDriverRequestsController < ApplicationController
 
   def update
     respond_to do |format|
-      if @driver_request.rejected!
+      if @driver_request.update({**rejected_driver_request_params, stage: "rejected"})
         format.html { redirect_to user_driver_request_url(id: @driver_request), notice: "Driver request stage was successfully updated." }
         format.json { render user_driver_request_url(id: @driver_request), status: :created, location: @driver_request }
       else
@@ -22,5 +22,9 @@ class RejectedDriverRequestsController < ApplicationController
 
   def set_driver_request
     @driver_request = DriverRequest.find(params[:driver_request_id])
+  end
+
+  def rejected_driver_request_params
+    params.permit(:rejection_reason, :stage)
   end
 end
