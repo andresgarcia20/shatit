@@ -34,7 +34,10 @@ Rails.application.routes.draw do
     member do
       get "driver", to: "driver#index"
     end
-    resources :driver_requests, except: :index
+    resources :driver_requests, except: :index do
+      resource :accepted_driver_request, only: :update
+      resource :rejected_driver_request, only: :update
+    end
     get "driver_requests", to: "driver_requests#my_driver_requests"
     resources :companions
     resources :vehicles

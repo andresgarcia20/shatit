@@ -5,6 +5,13 @@
     <%= driver_request.user.surname %>
   </p>
 
+  <% if current_user.admin? %>
+    <p>
+      <strong>Stage:</strong>
+      <%= driver_request.stage %>
+    </p>
+  <% end %>
+
   <p>
     <strong>Driver licence front:</strong><br>
     <img src=<%= driver_request.driver_licence_front %> alt="driver id front" />

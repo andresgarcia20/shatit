@@ -7,7 +7,7 @@
     <p><%= driver_request.user.name %>
     <%= driver_request.user.surname %></p>
     <p>
-      <%= link_to "Show this driver request", user_driver_request_url(user_id: driver_request, id: driver_request) %>
+      <%= link_to "Show this driver request", user_driver_request_url(user_id: driver_request.user, id: driver_request) %>
     </p>
   <% end %>
 </div>
