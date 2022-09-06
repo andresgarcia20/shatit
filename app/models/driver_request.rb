@@ -8,8 +8,8 @@ class DriverRequest < ApplicationRecord
 
   enum stage: { requested: 0, accepted: 10, rejected: 20 }, _default: 0
 
-  scope :by_user, ->(user) { where("user_id = ?", user) }
-  scope :by_requested, ->() { where("stage = 0") }
-  scope :by_accepted, ->() { where("stage = 10") }
-  scope :by_rejected, ->() { where("stage = 20") }
+  scope :by_user, ->(user_id) { where("user_id = ?", user_id) }
+  scope :by_requested, ->() { where(stage: :requested) }
+  scope :by_accepted, ->() { where(stage: :accepted) }
+  scope :by_rejected, ->() { where(stage: :rejected) }
 end
