@@ -1,6 +1,9 @@
 class TripJoinRequestsController < ApplicationController
   before_action :set_trip_join_request, only: %i[ show edit update destroy ]
   before_action :set_trip, only: %i[edit new]
+  before_action :only => [:edit, :show, :show_my_requests] do
+    redirect_to new_user_session_path unless current_user && current_user.admin?
+  end
 
   def index
     @trip_join_requests = TripJoinRequest.where(trip_id: params[:trip_id])

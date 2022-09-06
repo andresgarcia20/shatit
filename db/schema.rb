@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_23_101454) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_05_132123) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -22,6 +22,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_23_101454) do
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_companions_on_user_id"
+  end
+
+  create_table "driver_requests", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "driver_licence_front"
+    t.string "driver_licence_back"
+    t.integer "stage"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "rejection_reason"
+    t.index ["user_id"], name: "index_driver_requests_on_user_id"
   end
 
   create_table "jwt_denylist", force: :cascade do |t|
@@ -101,6 +112,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_23_101454) do
   end
 
   add_foreign_key "companions", "users"
+  add_foreign_key "driver_requests", "users"
   add_foreign_key "trip_join_requests", "trips"
   add_foreign_key "trip_join_requests", "users"
   add_foreign_key "trips", "users"

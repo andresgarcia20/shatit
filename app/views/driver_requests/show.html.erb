@@ -1,0 +1,27 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @driver_request %>
+
+<div>
+  <%= link_to "Edit this request", edit_user_driver_request_path(@driver_request) %> |
+  <%= link_to "Back to home", root_path %>
+
+  <% if current_user.admin? %>
+    | <%= link_to "Back to driver requests list", driver_requests_path %>
+
+    <% if @driver_request.requested? %>
+
+      <h4>Accept request?</h4>
+
+      <%= form_with url: user_driver_request_accepted_driver_request_path(user_id: params[:user_id], driver_request_id: params[:id]), method: :put do |f| %>
+          <%= f.submit "Accept" %>
+      <% end %>
+      <%= form_with url: user_driver_request_rejected_driver_request_path(user_id: params[:user_id], driver_request_id: params[:id]), method: :put do |f| %>
+        <%= f.label :rejection_reason, style: "display: block" %>
+        <%= f.text_area :rejection_reason %>
+        <%= f.submit "Reject" %>
+      <% end %>
+    <% end %>
+  <% end %>
+  <%= button_to "Destroy this driver request", user_driver_request_path(@driver_request), method: :delete %>
+</div>

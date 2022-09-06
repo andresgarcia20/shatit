@@ -1,0 +1,31 @@
+<div id="<%= dom_id driver_request %>">
+  <p>
+    <strong>User:</strong>
+    <%= driver_request.user.name %>
+    <%= driver_request.user.surname %>
+  </p>
+
+  <% if current_user.admin? %>
+    <p>
+      <strong>Stage:</strong>
+      <%= driver_request.stage %>
+    </p>
+    <% if driver_request.rejected? %>
+      <p>
+        <strong>Rejection reason:</strong>
+        <%= driver_request.rejection_reason %>
+      </p>
+    <% end %>
+  <% end %>
+
+  <p>
+    <strong>Driver licence front:</strong><br>
+    <img src=<%= driver_request.driver_licence_front %> alt="driver id front" />
+  </p>
+
+  <p>
+    <strong>Driver licence back:</strong><br>
+    <img src=<%= driver_request.driver_licence_back %> alt="driver id front" />
+  </p>
+
+</div>

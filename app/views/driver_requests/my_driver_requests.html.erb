@@ -1,0 +1,10 @@
+<% @driver_requests.each do |driver_request| %>
+  <div style="border: 1px solid black; padding: 0 10px;">
+    <p><strong>Requested:</strong> <%= driver_request.created_at %></p>
+    <p><strong>Stage:</strong> <%= driver_request.stage %></p>
+    <p>
+      <%= link_to "Show this driver request", user_driver_request_url(user_id: driver_request.user, id: driver_request) %>
+    </p>
+  </div>
+  <br>
+<% end %>

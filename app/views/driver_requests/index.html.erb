@@ -1,0 +1,15 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Driver requests</h1>
+
+<div id="driver_requests">
+  <% @driver_requests.each do |driver_request| %>
+    <p><%= driver_request.user.name %>
+    <%= driver_request.user.surname %></p>
+    <p>
+      <%= link_to "Show this driver request", user_driver_request_url(user_id: driver_request.user, id: driver_request) %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "Back to home", root_path %>
