@@ -23,7 +23,7 @@
 
   <div>
     <%= form.label :vehicle_type, style: "display: block" %>
-    <%= form.select(:vehicle_type, options_for_select(Vehicle.vehicle_types.map {|k, v| [k.titleize, Vehicle.vehicle_types.key(v)]}, @vehicle.vehicle_type)) %>
+    <%= form.select(:vehicle_type, options_for_select(Vehicle.vehicle_types.map { |k, v| [k.titleize, Vehicle.vehicle_types.key(v)] }, @vehicle.vehicle_type)) %>
   </div>
 
   <div>
@@ -34,6 +34,16 @@
   <div>
     <%= form.label :nickname, style: "display: block" %>
     <%= form.text_field :nickname %>
+  </div>
+
+  <div>
+    <%= form.label :insurance, style: "display: block" %>
+    <%= form.file_field :insurance %>
+  </div>
+
+  <div>
+    <%= form.label :car_revision, style: "display: block" %>
+    <%= form.file_field :car_revision %>
   </div>
 
   <div>
