@@ -57,5 +57,15 @@ describe Vehicle, type: :model do
       @new_vehicle.nickname = "asdasdasd22"
       expect(@new_vehicle).to be_invalid
     end
+
+    it "returns false if insurance is blank" do
+      @new_vehicle.insurance = nil
+      expect(@new_vehicle).to be_invalid
+    end
+
+    it "returns false if car_revision is blank" do
+      @new_vehicle.car_revision = nil
+      expect(@new_vehicle).to be_invalid
+    end
   end
 end
