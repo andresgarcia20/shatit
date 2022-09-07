@@ -1,4 +1,4 @@
-class DriverIdUploader < CarrierWave::Uploader::Base
+class VehicleUploader < CarrierWave::Uploader::Base
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
   # include CarrierWave::MiniMagick

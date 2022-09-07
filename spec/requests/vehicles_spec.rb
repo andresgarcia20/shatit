@@ -57,7 +57,7 @@ RSpec.describe "/vehicles", type: :request do
         sign_in user
         expect {
           post user_vehicles_url(user_id: user.id), params: { vehicle: valid_attributes }
-        }.to change(Vehicle, :count).by(1) # Not working properly, ask why
+        }.to change(Vehicle, :count).by(1)
       end
 
       it "redirects to the created vehicle" do

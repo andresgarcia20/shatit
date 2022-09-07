@@ -2,7 +2,7 @@ class VehiclesController < ApplicationController
   before_action :set_vehicle, only: %i[ show edit update destroy ]
 
   def index
-    @vehicles = Vehicle.all
+    @vehicles = Vehicle.where(user_id: params[:user_id])
   end
 
   def show
@@ -59,6 +59,6 @@ class VehiclesController < ApplicationController
   end
 
   def vehicle_params
-    params.require(:vehicle).permit(:user_id, :model, :air_conditioning, :vehicle_type, :consumption, :nickname)
+    params.require(:vehicle).permit(:user_id, :model, :air_conditioning, :vehicle_type, :consumption, :nickname, :insurance, :car_revision)
   end
 end
