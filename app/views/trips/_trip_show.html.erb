@@ -1,0 +1,36 @@
+<div id="<%= dom_id @trip %>">
+  <div class="trip-show-partial">
+    <h1><%= Time.parse(@trip.departure_date.to_s).strftime("%a, %d %b") %></h1>
+    <div class="trip-show-places">
+      <div class="left-bar"></div>
+      <div>
+        <p><span>O</span> <%= @trip.origin.capitalize %></p>
+        <div>
+          <% @trip.destinations.each do |el| %>
+            <p><span>O</span> <%= el.titleize %></p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="separator"></div>
+    <div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">→ Kids age range: <%= @trip.kids_age_range %></li>
+        <li class="list-group-item">→ Pets: <%= @trip.pets %></li>
+        <li class="list-group-item">→ Lugagge: <%= @trip.luggage %></li>
+        <li class="list-group-item">→ Vehicle type: <%= @trip.vehicle.vehicle_type %></li>
+        <li class="list-group-item">→ Gasoline comission: <%= @trip.gasoline_comission %></li>
+      </ul>
+    </div>
+    <div class="separator"></div>
+    <div class="trip-show-seats">
+      <strong>Seats Available</strong>
+      <p><%= @trip.available_seats %></p>
+    </div>
+    <div class="separator"></div>
+    <div class="trip-show-driver">
+      <p>&#9786;</p>
+      <p> <%= @trip.user.name %> <%= @trip.user.surname %></p>
+    </div>
+  </div>
+</div>

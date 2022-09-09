@@ -14,20 +14,8 @@
  *= require_self
  */
 
-table,
-thead,
-tbody,
-td,
-th {
-  border: 1px solid black;
-}
-
-input {
-  border: 1px solid red;
-}
-
 a {
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 .d-none {
@@ -49,4 +37,154 @@ a {
   background-color: antiquewhite;
   padding: 10px 15px;
   border: 1px solid black
+}
+
+.trip-index {
+  display: flex;
+  width: 95%;
+  margin: 0 auto;
+  justify-content: space-between;
+}
+
+.trip-form {
+  width: 20%;
+}
+
+.trip-list {
+  width: 75%;
+}
+
+/* TRIP SHOW */
+
+.trip-show {
+  width: 40%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.trip-show-partial {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  margin: 0 auto;
+}
+
+.trip-show-partial h1 {
+  text-align: center;
+}
+
+.trip-show-places {
+  display: flex;
+  box-shadow: 0px -3px 10px 0px rgba(0, 0, 0, 0.75);
+  border-radius: 5px;
+  padding: 20px;
+  margin: 2rem 0;
+}
+
+.trip-show-places span {
+  margin-right: 6px;
+}
+
+.trip-show-places p {
+  margin: 0;
+}
+
+.left-bar {
+  height: auto;
+  width: 12px;
+  border: 2px solid #000000;
+  border-radius: 10px;
+  margin-right: -12px;
+}
+
+.separator {
+  width: 100%;
+  height: 10px;
+  background-color: rgb(237, 237, 237);
+}
+
+.trip-show-seats {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+}
+
+.trip-show-seats p {
+  margin: 0;
+  font-size: 18px;
+}
+
+.trip-show-driver {
+  display: flex;
+  align-items: center;
+}
+
+.trip-show-driver p:nth-child(2) {
+  font-size: 20px;
+  margin: 0;
+}
+
+.trip-show-driver p:nth-child(1) {
+  font-size: 50px;
+  margin: 0;
+  padding-bottom: 8px;
+}
+
+.btn-back {
+  margin-left: 2rem;
+  margin-top: 2rem;
+}
+
+/* TRIP JOIN REQUESTS */
+
+.btn-group-inline form {
+  display: inline-block;
+}
+
+/* PAGINATOR */
+
+.pagination {
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.first {
+  color: #0d6efd;
+  border: 1px solid #0d6efd;
+  font-size: 1.2rem;
+  padding: 5px 10px;
+  border-radius: 5px 0 0 5px;
+}
+
+.prev,
+.page,
+.next {
+  color: #0d6efd;
+  border: 1px solid #0d6efd;
+  font-size: 1.2rem;
+  padding: 5px 10px;
+  margin-left: -1px;
+}
+
+.last {
+  color: #0d6efd;
+  border: 1px solid #0d6efd;
+  font-size: 1.2rem;
+  padding: 5px 10px;
+  border-radius: 0 5px 5px 0;
+  margin-left: -1px;
+}
+
+.current {
+  color: black;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+footer {
+  text-align: center;
+  background-color: rgb(248, 249, 250);
+  padding: 1rem 0;
+  margin-top: 1rem;
 }

@@ -13,25 +13,25 @@
 
   <div>
     <%= form.label :companions, style: "display: block" %>
-    <%= form.number_field :companions, min: 0, max: @trip.available_seats - 1 %>
+    <%= form.number_field :companions, min: 0, max: @trip.available_seats - 1, class: "form-control" %><br>
   </div>
 
   <div>
     <%= form.label :pets, style: "display: block" %>
-    <%= form.number_field :pets, min: 0, max: @trip.pets %>
+    <%= form.number_field :pets, min: 0, max: @trip.pets, class: "form-control" %><br>
   </div>
 
   <div>
     <%= form.label :luggage, style: "display: block" %>
-    <%= form.number_field :luggage, min: 0, max: @trip.luggage %>
+    <%= form.number_field :luggage, min: 0, max: @trip.luggage, class: "form-control" %><br>
   </div>
 
   <div>
     <%= form.label :kids, style: "display: block" %>
-    <%= form.select :kids, TripJoinRequest.kids_ranges.map { |k, v| k }, { include_hidden: false }, multiple: true %>
+    <%= form.select :kids, TripJoinRequest.kids_ranges.map { |k, v| k }, { include_hidden: false }, multiple: true, class: "form-select" %><br>
   </div>
 
   <div>
-    <%= form.submit %>
+    <%= form.submit "Create request", class: "btn btn-success" %>
   </div>
 <% end %>

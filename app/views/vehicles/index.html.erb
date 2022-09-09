@@ -1,14 +1,16 @@
 <p style="color: green"><%= notice %></p>
+<div class="container">
 
-<h1>Vehicles</h1>
+  <h1>Vehicles</h1>
 
-<div id="vehicles">
-  <% @vehicles.each do |vehicle| %>
-    <%= render vehicle %>
-    <p>
-      <%= link_to "Show this vehicle", user_vehicle_path(vehicle.user, vehicle) %>
-    </p>
-  <% end %>
-</div>
-
-<%= link_to "New vehicle", new_user_vehicle_path %>
+  <%= link_to "Add new vehicle", new_user_vehicle_path, class: "btn btn-outline-primary" %>
+  <br>
+  <br>
+  <div id="vehicles">
+    <% @vehicles.each do |vehicle| %>
+      <div class="row container">
+        <%= render vehicle %>
+      </div>
+    <% end %>
+  </div>
+<div>
