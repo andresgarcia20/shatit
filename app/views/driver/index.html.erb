@@ -1,19 +1,20 @@
+<div class="trip-index container">
 <%= form_with url: "/users/#{current_user.id}/driver", method: :get do |f| %>
   <%= f.label :start_date, style: "display: block" %>
-  <%= f.date_field :start_date %>
+  <%= f.date_field :start_date, class: "form-control form-control-sm" %><br>
   <%= f.label :end_date, style: "display: block" %>
-  <%= f.date_field :end_date %>
-  <%= f.submit "Search" %>
+  <%= f.date_field :end_date, class: "form-control form-control-sm" %><br>
+  <%= f.submit "Search", :class => "btn btn-outline-secondary" %>
 <% end %>
 
-<% @trips.each do |trip| %>
-  <div style="border: 1px solid red;">
-    <%= render trip %>
-    <p>
-      <%= link_to "Show this trip", trip %>
-    </p>
-  </div>
-<% end %>
+  <div>
+    <% @trips.each do |trip| %>
+      <div>
+        <%= render trip %>
+      </div>
+      <br>
+    <% end %>
 
-<%= link_to "New trip", new_trip_path %>
-
+    <%= link_to "New trip", new_trip_path, class: "btn btn-success" %>
+</div>
+</div>

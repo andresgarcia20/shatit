@@ -13,60 +13,60 @@
     
   <div>
     <%= form.label :origin, style: "display: block" %>
-    <%= form.text_field :origin %>
+    <%= form.text_field :origin, class: "form-control" %><br>
   </div>
 
-  <% if current_page?(:controller => 'trips', :action => 'new') %>
+  <% if current_page?(:controller => "trips", :action => "new") %>
     <div id="destinations" style="margin: 10px 0;">
       <a id="btn_destinations">Añadir destino</a>
       <%= form.label :destinations, style: "display: block" %>
-      <%= form.text_field :destinations, multiple: true %>
+      <%= form.text_field :destinations, multiple: true, class: "form-control" %><br>
     </div>
   <% end %>
 
   <div id="destinations_edit" style="margin: 10px 0;">
     <%= form.label :destinations, style: "display: block" %>
     <% trip.destinations.each do |dest| %>
-      <%= form.text_field :destinations, multiple: true, value: dest %><br>
-    <%end%>
+      <%= form.text_field :destinations, multiple: true, value: dest, class: "form-control" %><br>
+    <% end %>
   </div>
 
   <div>
     <%= form.label :available_seats, style: "display: block" %>
-    <%= form.number_field :available_seats %>
+    <%= form.number_field :available_seats, class: "form-control" %><br>
   </div>
 
   <div>
     <%= form.label :departure_date, style: "display: block" %>
-    <%= form.datetime_field :departure_date %>
+    <%= form.datetime_field :departure_date, class: "form-control" %><br>
   </div>
 
   <div>
     <%= form.label :pets, style: "display: block" %>
-    <%= form.number_field :pets %>
+    <%= form.number_field :pets, class: "form-control" %><br>
   </div>
 
   <div>
     <%= form.label :vehicle_id, style: "display: block" %>
-    <%= form.select(:vehicle_id, options_for_select(current_user.vehicles.map { |e| [e.nickname, e.id] })) %>
+    <%= form.select(:vehicle_id, options_for_select(current_user.vehicles.map { |e| [e.nickname, e.id] }), {}, class: "form-select") %><br>
   </div>
 
   <div>
     <%= form.label :kids_age_range, style: "display: block" %>
-    <%= form.select(:kids_age_range, options_for_select(Trip.kids_age_ranges.map { |k, v| k })) %>
+    <%= form.select(:kids_age_range, options_for_select(Trip.kids_age_ranges.map { |k, v| k }), {}, class: "form-select") %><br>
   </div>
 
   <div>
     <%= form.label :luggage, style: "display: block" %>
-    <%= form.number_field :luggage %>
+    <%= form.number_field :luggage, class: "form-control" %><br>
   </div>
 
   <div>
     <%= form.label :gasoline_comission, style: "display: block" %>
-    <%= form.number_field :gasoline_comission %>
+    <%= form.number_field :gasoline_comission, class: "form-control" %><br>
   </div>
 
   <div>
-    <%= form.submit %>
+    <%= form.submit "Create trip", class: "btn btn-success" %>
   </div>
 <% end %>

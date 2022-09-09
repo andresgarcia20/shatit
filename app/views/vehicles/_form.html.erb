@@ -13,40 +13,40 @@
 
   <div>
     <%= form.label :model, style: "display: block" %>
-    <%= form.text_field :model %>
+    <%= form.text_field :model, class: "form-control" %><br>
   </div>
 
   <div>
     <%= form.label :air_conditioning, style: "display: block" %>
-    <%= form.check_box :air_conditioning %>
+    <%= form.check_box :air_conditioning, class: "form-check-input" %><br>
   </div>
 
   <div>
     <%= form.label :vehicle_type, style: "display: block" %>
-    <%= form.select(:vehicle_type, options_for_select(Vehicle.vehicle_types.map { |k, v| [k.titleize, Vehicle.vehicle_types.key(v)] }, @vehicle.vehicle_type)) %>
+    <%= form.select(:vehicle_type, options_for_select(Vehicle.vehicle_types.map { |k, v| [k.titleize, Vehicle.vehicle_types.key(v)] }, @vehicle.vehicle_type), {}, class: "form-select") %><br>
   </div>
 
   <div>
     <%= form.label :consumption, style: "display: block" %>
-    <%= form.text_field :consumption %>
+    <%= form.text_field :consumption, class: "form-control" %><br>
   </div>
 
   <div>
     <%= form.label :nickname, style: "display: block" %>
-    <%= form.text_field :nickname %>
+    <%= form.text_field :nickname, class: "form-control" %><br>
   </div>
 
   <div>
     <%= form.label :insurance, style: "display: block" %>
-    <%= form.file_field :insurance %>
+    <%= form.file_field :insurance, class: "form-control" %><br>
   </div>
 
   <div>
     <%= form.label :car_revision, style: "display: block" %>
-    <%= form.file_field :car_revision %>
+    <%= form.file_field :car_revision, class: "form-control" %><br>
   </div>
 
   <div>
-    <%= form.submit %>
+    <%= form.submit "Create vehicle", class: "btn btn-success" %>
   </div>
 <% end %>

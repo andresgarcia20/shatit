@@ -1,32 +1,27 @@
 <div id="<%= dom_id vehicle %>">
-  <p>
-    <strong>User:</strong>
-    <%= vehicle.user_id %>
-  </p>
+  <div class="vehicle-partial">
+    <div class="col-sm-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title"><%= vehicle.model %> (<%= vehicle.nickname %>) | <%= vehicle.vehicle_type.capitalize %></h5>
+          <% if current_user.admin? %>
+            <p>
+              <strong>User:</strong>
+              <%= vehicle.user.name %>
+            </p>
+          <% end %>
+          <p>
+            <strong>Air conditioning:</strong>
+            <%= vehicle.air_conditioning %>
+          </p>
+          <p>
+            <strong>Consumption:</strong>
+            <%= vehicle.consumption %>
+          </p>
+          <%= link_to "Show this vehicle", user_vehicle_path(vehicle.user, vehicle), class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
 
-  <p>
-    <strong>Model:</strong>
-    <%= vehicle.model %>
-  </p>
-
-  <p>
-    <strong>Air conditioning:</strong>
-    <%= vehicle.air_conditioning %>
-  </p>
-
-  <p>
-    <strong>Vehicle type:</strong>
-    <%= vehicle.vehicle_type %>
-  </p>
-
-  <p>
-    <strong>Consumption:</strong>
-    <%= vehicle.consumption %>
-  </p>
-
-  <p>
-    <strong>Nickname:</strong>
-    <%= vehicle.nickname %>
-  </p>
-
+  </div>
 </div>

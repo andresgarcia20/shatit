@@ -1,7 +1,7 @@
 class TripJoinRequestsController < ApplicationController
   before_action :set_trip_join_request, only: %i[ show edit update destroy ]
   before_action :set_trip, only: %i[edit new]
-  before_action :only => [:edit, :show, :show_my_requests] do
+  before_action :only => [:edit] do
     redirect_to new_user_session_path unless current_user && current_user.admin?
   end
 

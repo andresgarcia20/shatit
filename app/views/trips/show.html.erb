@@ -1,25 +1,26 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @trip %>
+<%= render :partial => "trip_show", :object => @trip %>
 
-<div>
+<div class="trip-show">
   <% if current_user.passenger? || current_user.admin? && current_user.id != @trip.user.id %>
     <% if (@trip.trip_join_request_ids & current_user.trip_join_request_ids).any? %>
-      <%= link_to "See your join request", my_requests_path %>
+      <%= link_to "See your join request", my_requests_path, class: "btn btn-secondary" %>
     <% else %>
-      <%= link_to "Join this trip", new_trip_trip_join_request_path(@trip) %>
+      <%= link_to "Join this trip", new_trip_trip_join_request_path(@trip), class: "btn btn-success" %>
     <% end %>
   <% end %>
 
   <% if current_user.id == @trip.user.id || current_user.admin? %>
-    <%= form_with url: trip_end_trip_path(@trip), method: :put do |f| %>
-      <%= f.submit "Finalize trip" %>
+    <% if !@trip.finalized? %>
+      <%= form_with url: trip_end_trip_path(@trip), method: :put do |f| %>
+        <%= f.submit "Finalize trip", class: "btn btn-warning" %>
+      <% end %>
     <% end %>
-    <%= link_to "Edit this trip", edit_trip_path(@trip) %>
-    <%= link_to "See trip join requests", trip_trip_join_requests_path(@trip) %>
-    <%= button_to "Destroy this trip", @trip, method: :delete %>
+    <%= link_to "Edit this trip", edit_trip_path(@trip), class: "btn btn-secondary" %>
+    <%= link_to "See trip join requests", trip_trip_join_requests_path(@trip), class: "btn btn-secondary" %>
+    <%= button_to "Destroy this trip", @trip, method: :delete, class: "btn btn-danger" %>
   <% end %>
-
-  <%= link_to "Back to trips", trips_path %>
-
 </div>
+
+<%= link_to "Back to trips", trips_path, class: "btn btn-secondary btn-back" %>

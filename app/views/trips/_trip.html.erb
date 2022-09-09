@@ -1,65 +1,31 @@
 <div id="<%= dom_id trip %>">
-  <p>
-    <strong>User:</strong>
-    <%= trip.user.name %>
-    <%= trip.user.surname %>
-  </p>
 
-  <p>
-    <strong>Origin:</strong>
-    <%= trip.origin %>
-  </p>
-
-  <p>
-    <strong>Destinations:</strong>
-    <%= trip.destinations %>
-  </p>
-
-  <p>
-    <strong>Available seats:</strong>
-    <%= trip.available_seats %>
-  </p>
-
-  <p>
-    <strong>Departure date:</strong>
-    <%= trip.departure_date %>
-  </p>
-
-  <p>
-    <strong>Kids age range:</strong>
-    <%= trip.kids_age_range %>
-  </p>
-
-  <p>
-    <strong>Pets:</strong>
-    <%= trip.pets %>
-  </p>
-
-  <p>
-    <strong>Lugagge:</strong>
-    <%= trip.luggage %>
-  </p>
-
-  <p>
-    <strong>Vehicle type:</strong>
-    <%= trip.vehicle.vehicle_type %>
-  </p>
-
-  <p>
-    <strong>Gasoline comission:</strong>
-    <%= trip.gasoline_comission %>
-  </p>
-
-<% if trip.finalized? %>
-  <p>
-    <strong>List of passengers:</strong>
-    <%= trip.passengers_list %>
-  </p>
-<% end %>
-
-  <p>
-    <strong>Trip status:</strong>
-    <%= trip.trip_status %>
-  </p>
-
+  <div class="card container">
+    <div class="card-header">
+      Driver: 
+      <%= trip.user.name %>
+      <%= trip.user.surname %>
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">Origin: <%= trip.origin.titleize %></h5>
+      <h5 class="card-title">Destinations: <%= trip.destinations.map { |w| w.titleize } %></h5>
+      <p class="card-text">Trip status: <%= trip.trip_status %></p>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">→ Available seats: <%= trip.available_seats %></li>
+        <li class="list-group-item">→ Departure date: <%= trip.departure_date %></li>
+        <li class="list-group-item">→ Kids age range: <%= trip.kids_age_range %></li>
+        <li class="list-group-item">→ Pets: <%= trip.pets %></li>
+        <li class="list-group-item">→ Lugagge: <%= trip.luggage %></li>
+        <li class="list-group-item">→ Vehicle type: <%= trip.vehicle.vehicle_type %></li>
+        <li class="list-group-item">→ Gasoline comission: <%= trip.gasoline_comission %></li>
+        <li class="list-group-item">
+          <% if trip.finalized? %>
+            <strong>List of passengers:</strong>
+            <%= trip.passengers_list %>
+          <% end %>
+        </li>
+      </ul>
+      <%= link_to "Show this trip", trip, class: "btn btn-primary" %>
+    </div>
+  </div>
 </div>

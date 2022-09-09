@@ -1,44 +1,47 @@
 <p style="color: green"><%= notice %></p>
 
-<%= form_with url: "/trips", method: :get do |f| %>
-  <%= f.label :origin, "Origin:", style: "display: block" %>
-  <%= f.text_field :origin %>
+<div class="trip-index">
+  <div class="trip-form">
+    <%= form_with url: "/trips", method: :get do |f| %>
+      <%= f.label :origin, "Origin:", style: "display: block" %>
+      <%= f.text_field :origin, class: "form-control form-control-sm" %><br>
 
-  <%= f.label :destination, "Destination:", style: "display: block" %>
-  <%= f.text_field :destination %>
+      <%= f.label :destination, "Destination:", style: "display: block" %>
+      <%= f.text_field :destination, class: "form-control form-control-sm" %><br>
 
-  <%= f.label :stops, "Stops:", style: "display: block" %>
-  <%= f.number_field :stops %>
+      <%= f.label :stops, "Stops:", style: "display: block" %>
+      <%= f.number_field :stops, class: "form-control form-control-sm" %><br>
 
-  <%= f.label :type, "Type:", style: "display: block" %>
-  <%= f.select(:type, options_for_select(Vehicle.vehicle_types.map { |k, v| [k.titleize, v] }), { :include_blank => "All" }) %>
+      <%= f.label :type, "Type:", style: "display: block" %>
+      <%= f.select(:type, options_for_select(Vehicle.vehicle_types.map { |k, v| [k.titleize, v] }), { :include_blank => "All" }, class: "form-select form-select-sm") %><br>
 
-  <%= f.label :seats, "Seats:", style: "display: block" %>
-  <%= f.number_field :seats %>
+      <%= f.label :seats, "Seats:", style: "display: block" %>
+      <%= f.number_field :seats, class: "form-control form-control-sm" %><br>
 
-  <%= f.label :user_id, "User:", style: "display: block" %>
-  <%= f.number_field :user_id %>
+      <%= f.label :user_id, "User:", style: "display: block" %>
+      <%= f.number_field :user_id, class: "form-control form-control-sm" %><br>
 
-  <%= f.label :start_date, "Start date:", style: "display: block" %>
-  <%= f.date_field :start_date %>
+      <%= f.label :start_date, "Start date:", style: "display: block" %>
+      <%= f.date_field :start_date, class: "form-control form-control-sm" %><br>
 
-  <%= f.label :end_date, "End date:", style: "display: block" %>
-  <%= f.date_field :end_date %>
+      <%= f.label :end_date, "End date:", style: "display: block" %>
+      <%= f.date_field :end_date, class: "form-control form-control-sm" %><br>
 
-  <%= f.submit %>
-<% end %>
+      <%= f.submit "Submit", :class => "btn btn-outline-secondary" %>
+    <% end %>
+  </div>
 
-<h1>Trips</h1>
+  <div class="trip-list">
+    <h1>Trips</h1>
 
-<div id="trips">
-  <% @trips.each do |trip| %>
-    <%= render trip %>
-    <p>
-      <%= link_to "Show this trip", trip %>
-    </p>
-  <% end %>
+    <div id="trips">
+      <% @trips.each do |trip| %>
+        <%= render trip %>
+        <br>
+      <% end %>
+    </div>
+
+    <%= link_to "New trip", new_trip_path, class: "btn btn-success" %>
+    <%= paginate @trips %>
+  </div>
 </div>
-
-<%= link_to "New trip", new_trip_path %>
-<%= paginate @trips %>
-
