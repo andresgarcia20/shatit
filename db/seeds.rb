@@ -9,7 +9,7 @@
     email: Faker::Internet.email,
     birthday: Faker::Date.birthday(min_age: 18, max_age: 100),
     password: 123456,
-    confirmed_at: Time.now
+    confirmed_at: Time.now,
   )
   user.save!
 end
@@ -40,7 +40,7 @@ end
     vehicle_id: Vehicle.all.sample.id,
     pets: Faker::Number.between(from: 0, to: 3),
     luggage: Faker::Number.between(from: 1, to: 4),
-    gasoline_comission: Faker::Number.between(from: 50, to: 200),
+    trip_price: Faker::Number.between(from: 50, to: 200),
   )
   trip.save!
 end
