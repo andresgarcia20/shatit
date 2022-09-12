@@ -13,9 +13,7 @@
 
       <h4>Accept request?</h4>
 
-      <%= form_with url: user_driver_request_accepted_driver_request_path(user_id: params[:user_id], driver_request_id: params[:id]), method: :put do |f| %>
-          <%= f.submit "Accept" %>
-      <% end %>
+      <%= button_to "Accept", user_driver_request_accepted_driver_request_path(user_id: params[:user_id], driver_request_id: params[:id]), method: :put, class: "btn btn-success" %>
       <%= form_with url: user_driver_request_rejected_driver_request_path(user_id: params[:user_id], driver_request_id: params[:id]), method: :put do |f| %>
         <%= f.label :rejection_reason, style: "display: block" %>
         <%= f.text_area :rejection_reason %>

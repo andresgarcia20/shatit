@@ -13,9 +13,7 @@
 
   <% if current_user.id == @trip.user.id || current_user.admin? %>
     <% if !@trip.finalized? %>
-      <%= form_with url: trip_end_trip_path(@trip), method: :put do |f| %>
-        <%= f.submit "Finalize trip", class: "btn btn-warning" %>
-      <% end %>
+      <%= button_to "Finalize trip", trip_end_trip_path(@trip), method: :put, class: "btn btn-warning" %>
     <% end %>
     <%= link_to "Edit this trip", edit_trip_path(@trip), class: "btn btn-secondary" %>
     <%= link_to "See trip join requests", trip_trip_join_requests_path(@trip), class: "btn btn-secondary" %>
