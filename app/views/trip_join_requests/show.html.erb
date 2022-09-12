@@ -5,19 +5,13 @@
 
   <% if current_user.id == @trip_join_request.trip.user.id && @trip_join_request.stage == "requested" %>
     <div class="btn-group-inline">
-      <%= form_with url: trip_accepted_path(trip_id: params[:trip_id], id: params[:id]), method: :put do |f| %>
-        <%= f.submit "Accept", class: "btn btn-success" %>
-      <% end %>
-      <%= form_with url: trip_rejected_path(trip_id: params[:trip_id], id: params[:id]), method: :put do |f| %>
-        <%= f.submit "Reject", class: "btn btn-warning" %>
-      <% end %>
+      <%= button_to "Accept", trip_accepted_path(trip_id: params[:trip_id], id: params[:id]), method: :put, class: "btn btn-sucess" %>
+      <%= button_to "Reject", trip_rejected_path(trip_id: params[:trip_id], id: params[:id]), method: :put, class: "btn btn-warning" %>
     </div>
   <% end %>
 
   <% if current_user.id == @trip_join_request.user.id && @trip_join_request.stage == "accepted" %>
-    <%= form_with url: trip_payment_in_progress_path(trip_id: params[:trip_id], id: params[:id]), method: :put do |f| %>
-      <%= f.submit "Make payment", class: "btn btn-success" %>
-    <% end %>
+    <%= button_to "Make payment", trip_payment_in_progress_path(trip_id: params[:trip_id], id: params[:id]), method: :put, class: "btn btn-success" %>
   <% end %>
 
   <% if @trip_join_request.stage == "payment_in_progress" %>
@@ -37,9 +31,7 @@
   <% if @trip_join_request.stage == "payment_failed" %>
     <% if current_user.id == @trip_join_request.user.id %>
       <p style="color: red;">The payment you provided has not been accepted.</p>
-      <%= form_with url: trip_payment_in_progress_path(trip_id: params[:trip_id], id: params[:id]), method: :put do |f| %>
-        <%= f.submit "Retry payment", class: "btn btn-warning" %>
-      <% end %>
+      <%= button_to "Retry payment", trip_payment_in_progress_path(trip_id: params[:trip_id], id: params[:id]), method: :put, class: "btn btn-warning" %>
     <% end %>
   <% end %>
     

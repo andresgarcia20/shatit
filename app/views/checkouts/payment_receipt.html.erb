@@ -5,10 +5,6 @@
 <h4>Accept payment?</h4>
 
 <div class="btn-group-inline">
-  <%= form_with url: trip_paid_path(trip_id: params[:trip_id], id: params[:trip_join_request_id]), method: :put do |f| %>
-      <%= f.submit "Accept", class: "btn btn-success" %>
-  <% end %>
-  <%= form_with url: trip_payment_failed_path(trip_id: params[:trip_id], id: params[:trip_join_request_id]), method: :put do |f| %>
-    <%= f.submit "Reject", class: "btn btn-danger" %>
-  <% end %>
+  <%= button_to "Accept", trip_paid_path(trip_id: params[:trip_id], id: params[:trip_join_request_id]), class: "btn btn-success" %>
+  <%= button_to "Reject", trip_payment_failed_path(trip_id: params[:trip_id], id: params[:trip_join_request_id]), method: :put, class: "btn btn-danger" %>
 </div>
