@@ -18,7 +18,10 @@ Rails.application.routes.draw do
     resource "end_trip", only: :update
     resources :trip_join_requests do
       resources :checkouts, only: [:index, :update, :new] do
-        get "payment_receipt", on: :collection
+        collection do
+          get "payment_receipt"
+          resource :checkout_cards, only: :create
+        end
       end
       member do
         resource :accepted, only: :update
