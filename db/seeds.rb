@@ -24,6 +24,8 @@ end
     vehicle_type: Vehicle.vehicle_types.keys.sample,
     consumption: 8.00,
     nickname: Faker::Internet.username(specifier: 3..10),
+    insurance: File.open(File.join(Rails.root, "spec/support/test_images/sad_cat_croc.jpg")),
+    car_revision: File.open(File.join(Rails.root, "spec/support/test_images/sad_cat_croc.jpg")),
   )
   vehicle.save!
 end
