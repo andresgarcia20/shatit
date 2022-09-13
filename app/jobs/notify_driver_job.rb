@@ -1,7 +1,7 @@
 class NotifyDriverJob < ApplicationJob
   queue_as :default
 
-  def perform(id)
-    TripJoinRequestMailer.driver_stage_update(id).deliver
+  def perform(obj)
+    TripJoinRequestMailer.driver_stage_update(obj).deliver
   end
 end
