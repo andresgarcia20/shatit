@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe "RejectedDriverRequests", type: :request do
   before { sign_in user }
@@ -18,7 +18,7 @@ RSpec.describe "RejectedDriverRequests", type: :request do
       it "redirects to the driver request updated" do
         patch user_driver_request_rejected_driver_request_path(user_id: user.id, driver_request_id: driver_request.id), params: new_attributes
         driver_request.reload
-        expect(response).to redirect_to(user_driver_request_path( user_id: user.id, id: driver_request.id))
+        expect(response).to redirect_to(user_driver_request_path(user_id: user.id, id: driver_request.id))
       end
     end
 

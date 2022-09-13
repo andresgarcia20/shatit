@@ -25,4 +25,8 @@ class RejectedDriverRequestsController < ApplicationController
   def set_driver_request
     @driver_request = DriverRequest.find(params[:driver_request_id])
   end
+
+  def rejected_driver_request_params
+    params.permit(:rejection_reason, :stage)
+  end
 end
