@@ -1,0 +1,6 @@
+var stripe = Stripe("<%= ENV["STRIPE_PUBLISHABLE_KEY"] %>");
+
+stripe.redirectToCheckout({
+  sessionId: '<%= @session.id %>'
+  }).then(function (result) {
+});
