@@ -1,0 +1,45 @@
+version: '1.0'
+services:
+  db:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - postgres:/var/lib/postgresql/data
+
+  web:
+    platform: linux/x86_64
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    ports:
+      - "5005:5005"
+    depends_on:
+      - db
+      - redis
+  redis:
+    image: redis
+    command: redis-server
+    volumes:
+      - redis:/var/lib/redis/data
+    ports:
+      - '6379:6379'
+    env_file:
+      - .env
+  sidekiq:
+    platform: linux/x86_64
+    build: .
+    depends_on:
+      - redis
+      - db
+    env_file:
+      - .env
+    command: bash -c "mailcatcher && sidekiq"
+volumes:
+  postgres:
+  redis:
