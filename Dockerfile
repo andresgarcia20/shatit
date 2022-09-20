@@ -11,7 +11,6 @@ RUN bundle update
 RUN bundle install
 RUN gem install redis
 RUN gem install mailcatcher
-RUN mailcatcher
 
 EXPOSE 5005
 
