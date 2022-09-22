@@ -3,7 +3,7 @@
 <div class="chk-btn">
   <a class="chk-bank" href=<%= new_trip_trip_join_request_checkout_path %>>Bank transfer / Bizum</a>
 
-  <%= link_to "Pay with card", trip_trip_join_request_checkout_cards_path(trip_join_request_id: params[:trip_join_request_id], trip_id: params[:trip_id]), method: :post, class: "chk-card", remote: true %>
+  <%= button_to "Pay with card", trip_trip_join_request_checkout_cards_path(trip_join_request_id: params[:trip_join_request_id], trip_id: params[:trip_id]), data: { turbo: false }, class: "chk-card" %>
 
   <a class="chk-paypal" href="#">Pay with Paypal</a>
 </div>

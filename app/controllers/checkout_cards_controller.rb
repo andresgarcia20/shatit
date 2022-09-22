@@ -4,10 +4,8 @@ class CheckoutCardsController < ApplicationController
     trip = Trip.find(params[:trip_id])
 
     @session = Stripe::Checkout::Session.create({
-      success_url: trip_trip_join_request_url(trip_id: trip.id, id: product.id),
-      cancel_url: root_url,
       line_items: [{
-        price_data: { unit_amount: trip.trip_price,
+        price_data: { unit_amount: "#{trip.trip_price}00",
                      currency: "eur",
                      product_data: { name: "#{trip.origin} - #{trip.destinations.last}",
                                      metadata: { trip: trip.id } } },
@@ -15,10 +13,10 @@ class CheckoutCardsController < ApplicationController
       }],
       metadata: { trip_request: product.id },
       mode: "payment",
+      success_url: trip_trip_join_request_url(trip_id: trip.id, id: product.id),
+      cancel_url: root_url,
     })
 
-    respond_to do |format|
-      format.js
-    end
+    redirect_to @session.url, allow_other_host: true
   end
 end
