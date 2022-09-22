@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get "stats", to: "stats#index"
   get "my_requests", to: "trip_join_requests#show_my_requests"
   get "driver_requests", to: "driver_requests#index"
+  resource :stripe_webhook, only: [:create]
 
   resources :trips do
     resource "end_trip", only: :update
