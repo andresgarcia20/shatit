@@ -29,12 +29,20 @@ class StripeWebhooksController < ApplicationController
       session = event.data.object
       checkout_session = Stripe::Checkout::Session.list({ limit: 1 }).data[0]
       trip_request_id = checkout_session.metadata.trip_request
-      # trip_id = checkout_session.metadata.trip
-      trip_request = TripJoinRequest.find(trip_request_id)
 
-      TripJoinRequestStageManager.paid!(trip_request)
+      return handle_trip_request(trip_request_id)
     else
       puts "Unhandled event type: #{event.type}"
+    end
+  end
+
+  private
+
+  def handle_trip_request(trip_request_id)
+    trip_request = TripJoinRequest.find(trip_request_id)
+
+    if TripJoinRequestStageManager.paid!(trip_request)
+      TripJoinRequestNotification.notify(trip_request)
     end
   end
 end
