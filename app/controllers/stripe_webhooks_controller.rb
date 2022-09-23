@@ -4,7 +4,7 @@ class StripeWebhooksController < ApplicationController
   @trip_id = ""
 
   def create
-    endpoint_secret = "whsec_e6e299bbf6106d6339ae1490de43865ce7520654b049d0acfbf78db60e3fe7cd"
+    endpoint_secret = ENV["STRIPE_WEBHOOK_TEST"]
     payload = request.body.read
     sig_header = request.env["HTTP_STRIPE_SIGNATURE"]
     event = nil
