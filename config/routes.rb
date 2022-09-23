@@ -13,12 +13,16 @@ Rails.application.routes.draw do
   get "stats", to: "stats#index"
   get "my_requests", to: "trip_join_requests#show_my_requests"
   get "driver_requests", to: "driver_requests#index"
+  resource :stripe_webhook, only: [:create]
 
   resources :trips do
     resource "end_trip", only: :update
     resources :trip_join_requests do
       resources :checkouts, only: [:index, :update, :new] do
-        get "payment_receipt", on: :collection
+        collection do
+          get "payment_receipt"
+          resource :checkout_cards, only: :create
+        end
       end
       member do
         resource :accepted, only: :update

@@ -311,6 +311,7 @@ GEM
     ssrf_filter (1.0.8)
     stimulus-rails (1.1.0)
       railties (>= 6.0.0)
+    stripe (7.1.0)
     strscan (3.0.4)
     thor (1.2.1)
     timeout (0.3.0)
@@ -380,6 +381,7 @@ DEPENDENCIES
   simplecov
   sprockets-rails
   stimulus-rails
+  stripe
   turbo-rails
   tzinfo-data
   web-console

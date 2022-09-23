@@ -9,7 +9,7 @@ class Trip < ApplicationRecord
   validates :departure_date, presence: true
   validates :pets, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :luggage, presence: true, numericality: { only_integer: true, greater_than: 0 }
-  validates :gasoline_comission, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+  validates :trip_price, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   before_create :date_valid?
   before_save :downcase_fields
 

@@ -2,4 +2,3 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 import "./trip"
-import "./trip_join_request"

@@ -6,8 +6,8 @@ class AcceptedDriverRequestsController < ApplicationController
     respond_to do |format|
       if @driver_request.accepted!
         @user.driver!
-        NotifyRequesterDriverRequestJob.perform_later driver_request_params
-        NotifyAdminDriverRequestJob.perform_later driver_request_params
+        NotifyRequesterDriverRequestJob.perform_later @driver_request
+        NotifyAdminDriverRequestJob.perform_later @driver_request
         format.html { redirect_to user_driver_request_url(id: @driver_request), notice: "Driver request stage was successfully updated." }
         format.json { render user_driver_request_url(id: @driver_request), status: :created, location: @driver_request }
       else
@@ -25,9 +25,5 @@ class AcceptedDriverRequestsController < ApplicationController
 
   def set_driver_request
     @driver_request = DriverRequest.find(params[:driver_request_id])
-  end
-
-  def driver_request_params
-    params.permit(:driver_request_id)[:driver_request_id]
   end
 end
