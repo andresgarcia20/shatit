@@ -1,7 +1,6 @@
 class StripeWebhooksController < ApplicationController
   skip_before_action :authenticate_user!
   skip_before_action :verify_authenticity_token
-  @trip_id = ""
 
   def create
     endpoint_secret = ENV["STRIPE_WEBHOOK_TEST"]
